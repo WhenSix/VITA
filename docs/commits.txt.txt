@@ -1,0 +1,9 @@
+feat: nova funcionalidade
+fix: correção de bug
+docs: mudanças na documentação
+style: mudanças de formatação (espaços, indentação)
+refactor: refatoração sem mudança de funcionalidade
+test: adição ou modificação de testes
+chore: tarefas auxiliares (configuração, CI/CD)
+
+ex: git commit -m "tipo: mensagem..."
