@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Login - LeakGas</title>
+  <!-- Importação de ícones do FontAwesome -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+  <!-- Link para o arquivo de estilo CSS -->
+  <link rel="stylesheet" href="css/styleLoginCadastro.css">
+</head>
+<body>
+    <script data-jsd-embedded data-key="8219c5f6-89a3-407b-8d94-9c28d8fd15c8" data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js" ></script>
+<div id="divLogin" style="display: block;">
+        <!-- Link para a página inicial com um logo como botão -->
+        <a href="index.html">
+            <img src="assets/WhenSix.png" alt="Home" class="home-button">
+        </a>
+
+    <!-- Estrutura principal de cadastro/login -->
+    <div class="container" id="container">
+        <!-- Formulário para criação de conta -->
+        <div class="form-container sign-up-container">
+            <form>
+                <h1>Ainda não é cliente?</h1>
+                <span style="display: flex; margin-bottom: 15px;">Cadastre-se agora e  faça parte da inovação!</span>
+                
+                <br>
+                <!-- Botão que chama a função para continuar para a próxima página -->
+                <button style="cursor: pointer; margin-bottom: 67px; display: flex;" type="button" class="btn next-btn1" onclick="goToNextPage()">Continuar</button>
+            </form>
+        </div>
+
+        <!-- Formulário de login -->
+        <div class="form-container sign-in-container">
+            <form>
+                <h1>Entrar</h1>
+                <!-- Contêiner para login via redes sociais -->
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-brands fa-apple"></i></a>
+                </div>
+                <span>Ou use seu email e senha para Login</span>
+                <input type="email" placeholder="e-mail representante" id="email"/>
+                <input type="password" placeholder="senha" id="senha"/>
+                <div id="error-message" style="color: red; font-size: 14px; margin-top: 5px;"></div>
+                <!-- <a href="#">Esqueceu sua senha?</a> -->
+                
+                <button id="loginButton" style="cursor: pointer;">Entrar</button>
+            </form>
+        </div>
+
+        <!-- Estrutura do painel de transição entre login e cadastro -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Já é um cliente WhenSix?</h1>
+                    <p>Clique abaixo e realize o login para entrar em sua conta</p>
+                    <!-- Botão que ativa a transição para a tela de login -->
+                    <button style="cursor: pointer;" class="ghost" id="signIn">Entrar</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Ainda não é cliente?</h1>
+                    <p>Registre sua empresa para se tornar um cliente WhenSix</p>
+                    <!-- Botão que ativa a transição para a tela de cadastro -->
+                    <button style="cursor: pointer;" class="ghost" id="signUp">Cadastre-se</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divCadastro" style="display: none;">
+    <!-- Botão que retorna para a página inicial (index.html), representado por uma logo -->
+    <a href="index.html">
+        <img src="assets/logoAzul.png" alt="Home" class="home-button">
+    </a>
+
+    <!-- Contêiner principal do formulário -->
+     
+    <div class="container">
+       
+        <div class="card">
+            <!-- Seção de navegação entre etapas do formulário -->
+            <div class="steps">
+                <ul>
+                    <li class="active">Corporativo</li> <!-- Primeira etapa ativa -->
+                    <li>Endereço</li>
+                    <li>Pessoal</li>
+                </ul>
+            </div>
+            <!-- Formulário multi-etapas -->
+            <form id="multiStepForm">
+                <!-- Primeira etapa: Informações da empresa -->
+                <div class="form-step active">
+                    <h2>Informações da Empresa</h2>
+                    <div class="input-group">
+                        <input type="text" id="nomeSocial" placeholder="Nome Social da empresa*" required>
+                        <span id="spanSocialNome" style="color: red;"></span>
+                        <input type="text" id="nomeFantasia" placeholder="Nome Fantasia da empresa*" required>
+                        <span id="spanFantasiaNome" style="color: red;"></span>
+                    </div>
+                    <input type="number" id="cnpj" placeholder="CNPJ*" required>
+                    <span id="spanCnpj" style="color: red;"></span>
+                    <input type="text" id="emailCorp" placeholder="Email corporativo*" required>
+                    <span id="spanEmail" style="color: red;"></span>
+                    <input type="text" id="telCorp" placeholder="Telefone corporativo*" required>
+                    <span id="spanTelefone" style="color: red;"></span>
+                    <div class="btns">
+                        <!-- Botão que avança para a próxima etapa -->
+                       <button type="button" class="btn next-btn" onclick="cadastroEmpresa()">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Segunda etapa: Informações do endereço -->
+                <div class="form-step">
+                    <h2>Informações do Endereço da Matriz</h2>
+                    <div class="input-group">
+                        <input type="text" id="logradouro" placeholder="Logradouro*" required>
+                        <span id="spanEndereco" style="color: red;"></span>
+                        <input type="text" id="numero" placeholder="Número*" required>
+                        <span id="spanNumero" style="color: red;"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="complemento" placeholder="Complemento" >
+                        <span id="spanComplemento" style="color: red;"></span>
+                        <input type="text" id="cep" placeholder="CEP*" required>
+                        <span id="spanCEP" style="color: red;"></span>
+                    </div>
+                    <div class="input-group">
+                        <select id="estado" required>
+                            <option value="" disabled selected>Estado*</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                        <span id="spanEstado" style="color: red;"></span>
+                        <input type="text" id="cidade" placeholder="Cidade*" required>
+                        <span id="spanCidade" style="color: red;"></span>
+                    </div>
+                    <div class="btns">
+                        <!-- Botão que retorna para a etapa anterior -->
+                        <button type="button" class="btn prev-btn">Voltar</button>
+                        <!-- Botão que avança para a próxima etapa -->
+                        <button type="button" class="btn next-btn" onclick="etapaDois()">Próximo</button>
+                    </div>
+                </div>
+
+                <!-- Terceira etapa: Informações do responsável -->
+                <div class="form-step">
+                    <h2>Informações do Responsável</h2>
+                    <div class="input-group">
+                        <input type="text" id="nomePessoal" placeholder="Nome*" required>
+                        <span id="spanNomePessoal" style="color: red;"></span>
+                        <input type="text" id="sobrenomePessoal" placeholder="Sobrenome*" required>
+                        <span id="spanSobrenomePessoal" style="color: red;"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" id="telefonePessoal" placeholder="Telefone*" required>
+                        <span id="spanTelefonePessoal" style="color: red;"></span>
+                        <input type="email" id="emailLoginPessoal" placeholder="Email de Login*" required>
+                        <span id="spanEmailLoginPessoal" style="color: red;"></span>
+                    </div>
+                    <div class="input-group">
+                            <input type="text" id="senhaPessoal" oninput="senhaLive()" placeholder="Senha*" required><br>
+                            <div class="box_verificacao" id="divVerificacao" style="flex-direction: column;">
+                            <span id="spanSenhaPessoal" style="color: red;"></span><br  >
+                            <span id="verificaCaracter">* A senha possui 8 caracteres</span><br>
+                            <span id="verificaCaracterEspecial">* A senha possui caracteres especiais</span><br>
+                            <span id="verificaMaiusculo">* A senha possui uma letra maiuscula</span><br>
+                            <span id="verificaMinuscula">* A senha possui uma letra minuscula</span>
+                        </div>
+                        <input type="password" id="confirmaSenhaPessoal" placeholder="Confirme senha*" required>
+                        <span id="spanConfirmaSenhaPessoal" style="color: red;"></span>
+                    </div>
+                    <div style="margin-top: 7vw;" class="btns">
+                        <!-- Botão que retorna para a etapa anterior -->
+                        <button type="button" class="btn prev-btn">Voltar</button>
+                        <!-- Botão que submete o formulário -->
+                        <button id="btnFinalizar" type="submit" class="btn submit-btn">Finalizar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script  src="js/scriptLoginCadastro.js"></script>
