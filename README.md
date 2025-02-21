@@ -11,13 +11,11 @@ Projeto de conclusão do segundo semestre do curso de Analise e desenvolvimento 
 😎 <a href="https://github.com/RomuloCiriaco">Rômulo Cruz</a><br>
 
 
-# 🍃 Visão Geral do Projeto
+# 🍛 Análise dos hábitos alimentares da população brasileira.
 
-O site é composto por três seções principais:
+Nosso site institucional apresenta a WhenSix Prevenções, destacando nossos valores, objetivos e compromisso social. Nossa missão é identificar regiões com baixos índices de nutrição e acesso limitado à alimentação, fornecendo diagnósticos precisos que auxiliam entidades públicas na tomada de decisões e na implementação de ações eficazes para combater e mitigar a insegurança alimentar.
 
-Site Institucional: Apresenta uma introdução da nossa empresa (não tem nome ainda :D), e seus valores, nossa missão é entregar um monitoramento inteligente e constante na umidade do ar em sua fazenda, com foco na não proliferação da ferrugem asiatica na soja.
-
-Dashboard: Um espaço onde o cliente vai conseguir ver os dados capturados pela nossa empresa na sua fazenda, dados como umidade nos talhões, número de avisos e as estatisticas diarias, semanais e mensais.
+Dashboard: Oferecemos uma plataforma interativa onde os usuários podem acessar dados sobre os níveis de nutrição em suas regiões. Nosso sistema de análise utiliza bases de dados públicas e inteligência artificial para identificar padrões alimentares, proporcionando um mapeamento detalhado e insights estratégicos para o enfrentamento da desnutrição.
 
 # 💻Tecnologias Utilizadas
 
@@ -27,11 +25,20 @@ CSS: Design e responsividade, visando uma experiência visual e moderna.
 
 JavaScript: Dinamismo e interatividade, calculos e estatisticas para ajudar nas suas consultas, animações e funcionalidades da dashboard.
 
-Java: Criação de endpoints para acesso de dados
+Java: Criação de endpoints para acesso de dados.
+
+API's: Web-data-viz e uma na linguagem Java.
+
+Banco de dados e nuvem: Usaremos MySQL e a nuvem nos sistemas da AWS Academy.
+
+Planner e Git/GitHub - para versionamento e organização do grupo.
 
 
 # 👩‍💻 Funcionalidades
 
-Fácil visualização: Garantiremos uma fácil visualização nos dados mais importantes para a operação das suas plantações, sempre visando o combate contra a ferrugem asiatica.
+As principais funcionalidades do sistema LeakGas incluem:
 
-Dashboard Personalizada: Acompanhe os dados de diferentes talhões dentro da sua plantação em tempo real e com constantes atualizações.
+Monitoramento em Tempo Real e sempre atualizado: Traremos dados sempre atualizados sobre sua região e tratados com respeito e profissionalismo da nossa empresa, trazendo alertas e dicas para facilitar suas necessidades.
+
+Histórico e Log's: Armazenaremos as informações para ter um histórico abrangente e os ajudar nas tomadas de decisões, além de ter logs diários sobre as funcionalidades do site.
+
