@@ -38,7 +38,7 @@ Planner e Git/GitHub - para versionamento e organização do grupo.
 
 # 👩‍💻 Funcionalidades
 
-As principais funcionalidades do sistema LeakGas incluem:
+As principais funcionalidades que a WhenSix oferece no programa VITA:
 
 Monitoramento em Tempo Real e sempre atualizado: Traremos dados sempre atualizados sobre sua região e tratados com respeito e profissionalismo da nossa empresa, trazendo alertas e dicas para facilitar suas necessidades.
 
