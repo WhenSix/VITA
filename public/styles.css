@@ -379,13 +379,6 @@ header::before {
   overflow: hidden;
 }
 
-.showcase__image img {
-  max-width: 600px;
-  margin-inline: auto;
-  border-radius: 1rem;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-}
-
 .showcase__content h4 {
   margin-bottom: 2rem;
   font-size: 3rem;
@@ -399,15 +392,76 @@ header::before {
 }
 
 .showcase__content .btn {
-  width: 100%;
-  margin-top: 2rem;
-  padding: 1.5rem;
+  width: 60%;
+  justify-content: center;
+  margin-top: 0rem;
+  margin-left: 120px;
+  padding: 0.5rem;
   font-weight: 600;
   color: var(--text-dark);
+  background: transparent;
+  border: 2px solid transparent;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 5px;
+  position: relative; 
+  overflow: hidden; 
+}
+
+.showcase__content .btn::before,
+.showcase__content .btn::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #14edb9, white);
+  transition: width 0.8s;
+}
+.showcase__content .btn::before {
+  top: 0;
+  left: 0;
+}
+
+.showcase__content .btn::after {
+  bottom: 0;
+  right: 0;
+}
+
+.showcase__content .btn span::before,
+.showcase__content .btn span::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, #14edb9, white);
+  transition: height 0.8s;
+}
+
+.showcase__content .btn span::before {
+  top: 0;
+  left: -2px;
+}
+
+.showcase__content .btn span::after {
+  bottom: 0;
+  right: -1px;
+}
+
+.showcase__content .btn:hover {
+  color: var(--text-dark);
+}
+
+.showcase__content .btn:hover::before,
+.showcase__content .btn:hover::after {
+  width: 100%;
+}
+
+.showcase__content .btn:hover span::before,
+.showcase__content .btn:hover span::after {
+  height: 80%;
 }
 
 .banner__container {
