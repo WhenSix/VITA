@@ -236,15 +236,32 @@ header::before {
   background-color: var(--primary-color);
 }
 
+.destination{
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.destination .titulo{
+  font-weight: 700;
+  font-size: 2rem;
+  color: black;
+}
+
 .destination__container :is(.section__header, .section__description) {
   text-align: left;
   margin-inline-start: unset;
+}
+
+.destination__card .ri-restaurant-fill:before{
+  color: #000;
 }
 
 .destination__grid {
   margin-top: 4rem;
   display: grid;
   gap: 2rem 1rem;
+ 
 }
 
 .destination__card img {
@@ -264,7 +281,7 @@ header::before {
   margin-bottom: 5px;
   font-size: 1.2rem;
   font-weight: 600;
-  columns: var(--text-dark);
+  color: #0d2329;
 }
 
 .destination__card__details p {
@@ -275,8 +292,8 @@ header::before {
   padding: 5px 10px;
   font-size: 0.9rem;
   white-space: nowrap;
-  color: var(--white);
-  background-color: var(--primary-color);
+  color: black ;
+  background-color: #3ec3f5;
   border-radius: 1rem;
   transition: 0.3s;
 }
@@ -349,7 +366,7 @@ header::before {
   margin-bottom: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--white);
+  color: #fff;
 }
 
 .journey__card__content p {
@@ -363,8 +380,9 @@ header::before {
 }
 
 .showcase__image img {
-  max-width: 400px;
+  max-width: 600px;
   margin-inline: auto;
+  border-radius: 1rem;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -386,7 +404,6 @@ header::before {
   padding: 1.5rem;
   font-weight: 600;
   color: var(--text-dark);
-  background-image: url("assets/botão.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -552,12 +569,12 @@ footer {
   padding: 7px 10px;
   font-size: 1.25rem;
   color: var(--white);
-  background-color: var(--primary-color);
+  background-color: black;
   border-radius: 100%;
 }
 
 .footer__socials a:hover {
-  background-color: var(--primary-color-dark);
+  background-color: var(--primary-color);
 }
 
 .footer__col h4 {
@@ -607,6 +624,7 @@ footer {
 
 .footer__col .btn {
   border-radius: 5px;
+  background-color: #14edb9;
 }
 
 .footer__bar {
@@ -702,6 +720,7 @@ footer {
 
   .nav__btns button {
     padding: 0.75rem 2rem;
+    font-weight: 700;
     background-color: var(--text-dark);
   }
 
@@ -791,7 +810,6 @@ footer {
 
 #contact .btn {
   color: #fff; 
-  background-color: #000;
 }
 
 @media (width > 1200px) {
