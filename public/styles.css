@@ -11,8 +11,6 @@
   --max-width: 1200px;
 }
 .header__content {
-  background: rgb(51 41 41 / 20%);
-  backdrop-filter: blur(0px);
   border-radius: 2px;
   color: #fffefe;
 }
@@ -173,6 +171,7 @@ header::before {
   position: absolute;
   content: "";
   height: 100%;
+  filter: brightness(57%); 
   width: calc(100% - 2rem);
   top: 50%;
   left: 50%;
@@ -187,10 +186,12 @@ header::before {
 
 .header__container {
   display: grid;
+
 }
 
 .header__content {
   padding: 4rem 1rem;
+
 }
 
 .header__content p {
@@ -219,6 +220,7 @@ header::before {
 
 .header__btns .btn {
   padding: 1rem 2rem;
+  font-weight: 700;
 }
 
 .header__btns a {
