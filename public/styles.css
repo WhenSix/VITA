@@ -107,7 +107,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--primary-color);
+  background-color: #0d2329;
 }
 
 .nav__logo .logo {
