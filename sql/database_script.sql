@@ -40,7 +40,7 @@ CREATE TABLE tb_usuario (
     telefone_usuario CHAR(11),
     dt_nasc_usuario DATE,
     dt_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    login_usuario VARCHAR(45) NOT NULL UNIQUE,
+    login_usuario VARCHAR(45) DEFAULT NULL UNIQUE,
     senha_usuario VARCHAR(255) NOT NULL, -- Armazene o hash da senha aqui
     master_usuario BOOLEAN DEFAULT FALSE,
     fk_empresa INT,
