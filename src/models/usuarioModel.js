@@ -1,26 +1,61 @@
-var database = require("../database/config")
+const database = require("../database/config")
 
-function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
-    var instrucaoSql = `
-        SELECT id, nome, email, fk_empresa as empresaId FROM usuario WHERE email = '${email}' AND senha = '${senha}';
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+const bcrypt = require('bcryptjs');
+
+async function autenticar(email, senha) {
+    console.log("Autentificando usuario: ", email);
+
+    const instrucaoSql = `SELECT * FROM tb_usuario WHERE email_usuario = '${email}'`;
+    try {
+        const resultado = await database.executar(instrucaoSql);
+
+        if (resultado.length === 0) {
+            throw new Error("Usuário não encontrado");
+        }
+
+        const usuario = resultado[0];
+
+        const senhaCerta = await bcrypt.compare(senha, usuario.senha_usuario);
+
+        if (!senhaCerta) {
+            throw new Error("Senha incorreta");
+        }
+
+        delete usuario.senha_usuario;  
+        return usuario;
+
+    } catch (erro) {
+        console.error("Erro ao autenticar usuário: ", erro);
+        throw erro;
+    }
 }
 
-// Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, email, senha, fkEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}');
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+
+
+
+async function cadastrar(nome, email, senha) {
+  console.log("Cadastrando usuario:", nome, email);
+
+  if (!nome || !email || !senha) {
+    throw new Error("Todos os campos são obrigatórios.");
+  }
+
+  const hash = await bcrypt.hash(senha, 10);
+
+  const instrucaoSql = `
+  INSERT INTO tb_usuario (nome_usuario, email_usuario, senha_usuario) 
+  VALUES ('${nome}', '${email}', '${hash}');
+`;
+
+  try {
+    const resultado = await database.executar(instrucaoSql, [nome, email, hash]);
+    return resultado;
+  } catch (erro) {
+    console.error("Erro ao cadastrar usuário:", erro);
+    throw erro;
+  }
 }
+
 
 module.exports = {
     autenticar,
