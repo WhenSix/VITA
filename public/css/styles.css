@@ -237,7 +237,7 @@ header::before {
 }
 
 .destination{
-  background-color: #ffffff;
+  background-color: #ffffffd6;
   padding: 2rem;
   border-radius: 1rem;
 }
@@ -279,7 +279,7 @@ header::before {
 
 .destination__card__details h4 {
   margin-bottom: 5px;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   font-weight: 600;
   color: #0d2329;
 }
