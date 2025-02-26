@@ -109,6 +109,20 @@ form {
     width: 100%;
     height: 48px;
     background: #14edb9;
+    /* background: #0d2329; */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-register {
+    width: 100%;
+    height: 48px;
+    background: #14edb9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
@@ -153,7 +167,8 @@ form {
     left: -250%;
     width: 300%;
     height: 100%;
-    background: #14edb9;
+    /* background: #14edb9; */
+    background: #0d2329;
     /* border: 2px solid red; */
     border-radius: 150px;
     z-index: 2;
@@ -209,6 +224,34 @@ form {
     border: 2px solid #fff;
     box-shadow: none;
 }
+
+.login-btn {
+    background-color: purple; 
+    color: white; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn {
+    background-color: #6a0572;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* .btn:hover {
+    background-color: #14edb9;
+} */
+
+.btn.register-btn:hover {
+    background-color: #14edb9;
+}
+
+.login-btn:hover {
+    background-color: #6a0572; }
 
 @media screen and (max-width: 650px)  {
     .container {
