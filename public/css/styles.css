@@ -237,11 +237,7 @@ header::before {
 }
 
 .destination{
-<<<<<<< HEAD
-  background-color: #ffffff;
-=======
   background-color: #ffffffd6;
->>>>>>> 30f9e659c40f7340654ba8497f8c268ecaeaa778
   padding: 2rem;
   border-radius: 1rem;
 }
@@ -283,11 +279,7 @@ header::before {
 
 .destination__card__details h4 {
   margin-bottom: 5px;
-<<<<<<< HEAD
-  font-size: 1.2rem;
-=======
   font-size: 1.0rem;
->>>>>>> 30f9e659c40f7340654ba8497f8c268ecaeaa778
   font-weight: 600;
   color: #0d2329;
 }
@@ -387,16 +379,6 @@ header::before {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
-=======
-.showcase__image img {
-  max-width: 600px;
-  margin-inline: auto;
-  border-radius: 1rem;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-}
-
->>>>>>> 30f9e659c40f7340654ba8497f8c268ecaeaa778
 .showcase__content h4 {
   margin-bottom: 2rem;
   font-size: 3rem;
@@ -410,7 +392,6 @@ header::before {
 }
 
 .showcase__content .btn {
-<<<<<<< HEAD
   width: 60%;
   justify-content: center;
   margin-top: 0rem;
@@ -420,18 +401,10 @@ header::before {
   color: var(--text-dark);
   background: transparent;
   border: 2px solid transparent;
-=======
-  width: 100%;
-  margin-top: 2rem;
-  padding: 1.5rem;
-  font-weight: 600;
-  color: var(--text-dark);
->>>>>>> 30f9e659c40f7340654ba8497f8c268ecaeaa778
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 5px;
-<<<<<<< HEAD
   position: relative; 
   overflow: hidden; 
 }
@@ -489,8 +462,6 @@ header::before {
 .showcase__content .btn:hover span::before,
 .showcase__content .btn:hover span::after {
   height: 80%;
-=======
->>>>>>> 30f9e659c40f7340654ba8497f8c268ecaeaa778
 }
 
 .banner__container {
