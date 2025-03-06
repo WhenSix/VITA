@@ -20,7 +20,7 @@ body {
 }
 
 * {
-  padding: 0;
+  padding: 2;
   margin: 0;
   box-sizing: border-box;
   color: #3ec3f5;
@@ -723,7 +723,7 @@ footer {
 @media (width > 768px) {
   nav {
     position: static;
-    padding: 2rem 1rem;
+    padding: 0rem 1rem;
     max-width: var(--max-width);
     margin-inline: auto;
     display: flex;
