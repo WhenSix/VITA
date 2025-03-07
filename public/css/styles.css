@@ -20,7 +20,7 @@ body {
 }
 
 * {
-  padding: 2;
+  padding: 0px;
   margin: 0;
   box-sizing: border-box;
   color: #3ec3f5;
@@ -734,7 +734,7 @@ footer {
 
   .nav__header {
     flex: 1;
-    padding: 0;
+    padding: 2;
     background-color: transparent;
   }
 
