@@ -20,7 +20,7 @@ body {
 }
 
 * {
-  padding: 0;
+  padding: 0px;
   margin: 0;
   box-sizing: border-box;
   color: #3ec3f5;
@@ -237,7 +237,7 @@ header::before {
 }
 
 .destination{
-  background-color: #ffffff;
+  background-color: #ffffffd6;
   padding: 2rem;
   border-radius: 1rem;
 }
@@ -279,7 +279,7 @@ header::before {
 
 .destination__card__details h4 {
   margin-bottom: 5px;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   font-weight: 600;
   color: #0d2329;
 }
@@ -723,7 +723,7 @@ footer {
 @media (width > 768px) {
   nav {
     position: static;
-    padding: 2rem 1rem;
+    padding: 0rem 1rem;
     max-width: var(--max-width);
     margin-inline: auto;
     display: flex;
@@ -734,7 +734,7 @@ footer {
 
   .nav__header {
     flex: 1;
-    padding: 0;
+    padding: 2;
     background-color: transparent;
   }
 
