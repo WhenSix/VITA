@@ -498,7 +498,7 @@ header::before {
   text-align: center;
   transition: 0.3s;
   border-radius: 1rem;
-  background-color: #0d2329;
+  background-color: #000000;
 }
 
 .discover__card:hover {
