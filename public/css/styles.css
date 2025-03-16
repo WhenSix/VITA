@@ -537,63 +537,63 @@ header::before {
   min-width: 375px;
 }
 
-.client__card {
+.doctor__card {
   padding: 5px;
   background-color: var(--extra-light);
   border-radius: 1rem;
   transition: 0.3s;
 }
 
-.client__card:hover {
+.doctor__card:hover {
   background-color: var(--primary-color);
 }
 
-.client__content {
+.doctor__content {
   padding: 1rem;
   background-color: var(--white);
   border-radius: calc(1rem - 5px);
 }
 
-.client__rating {
+.doctor__rating {
   margin-bottom: 1rem;
   color: var(--primary-color);
 }
 
-.client__content p {
+.doctor__content p {
   color: var(--text-dark);
 }
 
-.client__details {
+.doctor__details {
   padding: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.client__details img {
+.doctor__details img {
   max-width: 50px;
   border-radius: 100%;
 }
 
-.client__details h4 {
+.doctor__details h4 {
   font-size: 1.1rem;
   font-weight: 600;
   color: black;
   transition: 0.3s;
 }
 
-.client__card:hover h4 {
+.doctor__card:hover h4 {
   color: var(--white);
 }
 
-.client__details h5 {
+.doctor__details h5 {
   font-size: 1rem;
   font-weight: 500;
   color: black;
   transition: 0.3s;
 }
 
-.client__card:hover h5 {
+.doctor__card:hover h5 {
   color: var(--extra-light);
 }
 
