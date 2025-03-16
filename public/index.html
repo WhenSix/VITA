@@ -349,7 +349,19 @@
       <div class="footer__col">
         <h4>Fale Conosco</h4>
 
-        <button class="btn"><a href="Cadastro.html">Deixe a sua mensagem</a></button>
+        <button class="btn" onclick="openModal()"><a href="Cadastro.html">Deixe a sua mensagem</a></button>
+        <div id="contactModal" class="modal">
+          <div class="modal-content">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <h2>Fale Conosco</h2>
+              <form id="contactForm">
+                  <input type="text" id="name" placeholder="Seu Nome" required>
+                  <input type="email" id="email" placeholder="Seu E-mail" required>
+                  <textarea id="message" placeholder="Sua Mensagem" rows="4" required></textarea>
+                  <button type="submit">Enviar</button>
+              </form>
+          </div>
+      </div>
       </div>
 
       <div class="footer__bar">
@@ -361,5 +373,6 @@
   <script src="https://unpkg.com/scrollreveal"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/modal.js"> </script>
 </body>
 </html>
