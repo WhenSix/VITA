@@ -408,6 +408,42 @@ header::before {
   position: relative; 
   overflow: hidden; 
 }
+.showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.showcase__item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.showcase__item:hover {
+  transform: scale(1.05);
+}
+
+.showcase__item span {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.showcase__item h3 {
+  text-align: center;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.showcase__item p {
+  font-size: 14px;
+  color: white;
+  opacity: 0.8;
+}
 
 .showcase__content .btn::before,
 .showcase__content .btn::after {
