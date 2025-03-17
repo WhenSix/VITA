@@ -575,18 +575,18 @@ header::before {
 
 .doctor__card {
   padding: 5px;
-  background-color: var(--extra-light);
+  background-color: white;
   border-radius: 1rem;
   transition: 0.3s;
 }
 
 .doctor__card:hover {
-  background-color: var(--primary-color);
+  background-color: #6a0572;
 }
 
 .doctor__content {
   padding: 1rem;
-  background-color: var(--white);
+  background-color: black;
   border-radius: calc(1rem - 5px);
 }
 
@@ -596,7 +596,7 @@ header::before {
 }
 
 .doctor__content p {
-  color: var(--text-dark);
+  color: white;
 }
 
 .doctor__details {
@@ -619,7 +619,7 @@ header::before {
 }
 
 .doctor__card:hover h4 {
-  color: var(--white);
+  color: white;
 }
 
 .doctor__details h5 {
