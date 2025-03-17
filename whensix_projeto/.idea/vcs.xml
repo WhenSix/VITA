@@ -2,21 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../AirConomics" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../DevHouseAPI" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../base-converter" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../board-tarefas" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../crossword" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../crypto-seek" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../desafio_spacelaxy" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../markdown-viewer" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../megan-ai" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../memory-game" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../my-blog" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../retro-games" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../scrap-bot-model" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../space-invaders" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../sportify" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../todo-node" vcs="Git" />
   </component>
 </project>
