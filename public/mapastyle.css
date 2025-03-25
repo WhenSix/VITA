@@ -17,19 +17,19 @@ body {
     width: 30%;
   }
   .norte {
-    fill: #63ab3f;
+    fill: #ee50b2;
   }
   .nordeste {
-    fill: #f0b541;
+    fill: #41f07b;
   }
   .centro-oeste {
-    fill: #ffae70;
+    fill: #e96c0d;
   }
   .sudeste {
     fill: #4fa4b8;
   }
   .sul {
-    fill: #686f99;
+    fill: #6a0572;
   }
   path {
     fill: #1da1f2;
