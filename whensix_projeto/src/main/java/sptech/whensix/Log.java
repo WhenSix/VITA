@@ -16,7 +16,7 @@ public class Log {
 
         for(int i = 0; i < proccess.length; i++) {
             try {
-                sleepTime = ThreadLocalRandom.current().nextInt(3000, 10000);
+                sleepTime = ThreadLocalRandom.current().nextInt(3000, 5000);
 
                 Thread.sleep(sleepTime);
                 currentDate = LocalDate.now();
