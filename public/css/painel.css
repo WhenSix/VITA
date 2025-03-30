@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html{
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background-image: url("../assets/img/background.png");
+	background-size: cover;
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+	transition: all 3s ease-in-out;
+	display: flex;
+	flex-direction: row;
+}
+
+.lateral {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 15%;
+    height: 100%;
+    background-repeat: repeat-y;
+    background-color:  #0d2329;
+    gap: 20px;
+    position: fixed;
+    
+  }
+  
+  h3{
+    color: #fff;
+  }
+
+  .lateral .logo{
+	width: 80%;
+	margin:0;
+	margin-top: 60px;
+  }
+
+  .lateral a {
+	text-decoration: none;
+    border-radius: 10px;
+    padding: 15px;
+    align-items: center;
+    color: white;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+nav {
+	display: flex;
+	flex-direction: column;
+	padding: 0px;
+	gap: 40px;
+	align-items: center;
+	font-size: 15px;
+	margin-top: 70px;
+
+}
+
+.container-painel{
+	font-family: 'Poppins';
+	margin-left: 15rem;
+	width: 85%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+	border-radius: 10px;
+	justify-content: center;
+
+}
+
+.container-dash{
+	margin-top: 6rem;
+	font-family: 'Poppins';
+	margin-left: 15rem;
+	width: 90%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+	border-radius: 10px;
+	justify-content: center;
+	max-height: 500px;
+   
+}
+
+canvas {
+    width: 100% !important;
+    max-width: 1100px; 
+    max-height: 500px; 
+}

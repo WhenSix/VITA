@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/painel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="lateral">
+
+        <img class="logo" src="../assets/logo.png" alt="Vita Logo">
+        <div class="hello">
+            <h3> Bem vindo! </h3>
+        </div>
+
+        <nav>
+            <a href="./mapa.html"><i class="fas fa-map"></i>Mapa</a>
+            <a href="./dashboard.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
+            <a href=""><i class="fas fa-weight"></i>IMC</a>
+            <a href="../index.html" class="sair" onclick="limparSessao()"><i
+                    class="fa-solid fa-right-from-bracket"></i>Sair</a>
+        </nav>
+    </div>
+    <div class="container-dash">
+
+        <h2>Índice de Obesidade e Sobrepeso por Estado</h2>
+        <canvas id="graficoObesidadeSobrepeso"></canvas>
+    </div>
+
+    <script>
+      
+        const estados = [
+            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", 
+            "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", 
+            "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+        ];
+
+        
+        const obesidadeDados = [
+            22.1, 25.3, 21.8, 23.5, 27.4, 24.6, 26.1, 22.8, 25.9, 24.2, 
+            26.5, 25.1, 24.7, 23.3, 22.9, 27.0, 26.2, 23.8, 25.7, 24.0, 
+            27.8, 22.5, 21.9, 26.4, 25.5, 24.1, 23.6
+        ];
+
+        const sobrepesoDados = [
+            35.2, 38.1, 34.5, 36.8, 40.2, 37.5, 39.0, 35.0, 37.8, 36.2, 
+            39.5, 37.1, 36.9, 35.3, 34.8, 40.0, 39.2, 35.7, 38.5, 36.0, 
+            40.8, 35.5, 34.1, 39.4, 38.2, 36.7, 35.8
+        ];
+
+      
+        const ctx = document.getElementById('graficoObesidadeSobrepeso').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: estados,
+                datasets: [
+                    {
+                        label: 'Índice de Obesidade (%)',
+                        data: obesidadeDados,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)', 
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Índice de Sobrepeso (%)',
+                        data: sobrepesoDados,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)', 
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 50, 
+                        title: {
+                            display: true,
+                            text: 'Porcentagem (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Estados'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    </script>
+    </div>
+</body>
+
+</html>
