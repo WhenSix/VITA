@@ -223,18 +223,18 @@ header::before {
   font-weight: 700;
 }
 
-.header__btns a {
+/* .header__btns a {
   padding: 9px 13px;
   font-size: 1.5rem;
   color: var(--primary-color);
   background-color: var(--white);
-  border-radius: 100%;
-}
+  border-radius :100%;
+} */
 
-.header__btns a:hover {
+/* .header__btns a:hover {
   color: var(--white);
   background-color: var(--primary-color);
-}
+} */
 
 .destination{
   background-color: #ffffffd6;
@@ -887,6 +887,7 @@ button:hover {
   .header__btns {
     justify-content: flex-start;
   }
+  
 
   .header__image {
     grid-column: 4/8;
