@@ -85,18 +85,19 @@ nav {
 }
 
 .container-dash{
-	margin-top: 6rem;
+
 	font-family: 'Poppins';
 	margin-left: 15rem;
-	width: 90%;
+	height: 100%;
+	width: 100%;
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	padding: 5px;
+	padding: 50px;
 	border-radius: 10px;
 	justify-content: center;
 	max-height: 500px;
-   
+	
 }
 
 canvas {
@@ -104,3 +105,28 @@ canvas {
     max-width: 1100px; 
     max-height: 500px; 
 }
+
+.legenda-imc {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	font-family: 'Poppins', sans-serif;
+	flex-direction: row;
+	margin-top: 6rem;
+	font-family: 'Poppins';
+	margin-left: 15rem;
+	width: 100%;
+
+  }
+  
+  .item-legenda {
+	color: white;
+	padding: 1rem;
+	border-radius: 10px;
+	text-align: center;
+	width: 150px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	font-size: 14px;
+	line-height: 1.4;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+  }
