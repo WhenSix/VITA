@@ -1,3 +1,4 @@
+
 .main {
     margin-left: 230px;
     padding: 30px;
@@ -36,7 +37,7 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    height: 360px;
+    height: 500px;
   }
   
   #mapa-brasil {

@@ -114,27 +114,36 @@
     });
 
     Highcharts.chart('grafico-barras', {
-      chart: {
-        type: 'bar'
-      },
-      title: {
-        text: 'Estados com maiores IMCs'
-      },
-      xAxis: {
-        categories: ['SP', 'RJ', 'MG', 'BA', 'RS', 'PI'],
-        title: null
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'IMC'
-        }
-      },
-      series: [{
-        name: 'IMC Médio',
-        data: [28.5, 27.9, 27.5, 26.4, 25.8, 29.1]
-      }]
-    });
+  chart: {
+    type: 'bar'
+  },
+  title: {
+    text: 'Influenciadores Externos da Obesidade'
+  },
+  xAxis: {
+    categories: ['Cigarro', 'Bebida Alcoólica', 'Refrigerante', 'Sedentarismo'],
+    title: {
+      text: null
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Impacto (%)'
+    },
+    labels: {
+      format: '{value}%'
+    }
+  },
+  series: [{
+    name: 'Contribuição para Obesidade',
+    data: [10, 15, 30, 45],
+    color: '#F57C00'
+  }],
+  tooltip: {
+    valueSuffix: '%'
+  }
+});
 
    
 
