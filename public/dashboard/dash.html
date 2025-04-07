@@ -1,0 +1,249 @@
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard VITA</title>
+  <link rel="stylesheet" href="../css/painel.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+  <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="lateral">
+
+        <img class="logo" src="../assets/logo.png" alt="Vita Logo">
+        <div class="hello">
+            <h3> Bem vindo! </h3>
+        </div>
+
+        <nav>
+            <a href="./mapa.html"><i class="fas fa-map"></i>Mapa</a>
+            <a href="./dash.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
+            <a href="./imc.html"><i class="fas fa-weight"></i>IMC</a>
+            <a href="../index.html" class="sair" onclick="limparSessao()"><i
+                    class="fa-solid fa-right-from-bracket"></i>Sair</a>
+        </nav>
+    </div>
+<h1>dash</h1>
+  <section class="main">
+    <div class="kpi-container">
+      <div class="kpi-card">
+        <div>
+          <h3>Maior IMC</h3>
+          <p id="maior-imc">32</p>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div>
+          <h3>Menor IMC</h3>
+          <p id="menor-imc">--</p>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div>
+          <h3>IMC Nacional</h3>
+          <p id="imc-nacional">--</p>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div>
+          <h3>% Obesidade</h3>
+          <p id="obesidade">--</p>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div>
+          <h3>% Sobrepeso</h3>
+          <p id="sobrepeso">--</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="chart-container">
+      <div class="chart-box">
+        <div id="grafico-sexo"></div>
+      </div>
+      <div class="chart-box">
+        <div id="grafico-faixa-etaria"></div>
+      </div>
+      <div class="chart-box">
+        <div id="grafico-barras"></div>
+      </div>
+      <div class="chart-box" id="mapa-box">
+        <div id="mapa-brasil"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    Highcharts.chart('grafico-sexo', {
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: 'Obesidade por Sexo'
+      },
+      series: [{
+        name: 'Percentual',
+        data: [
+          { name: 'Mulheres', y: 55 },
+          { name: 'Homens', y: 45 }
+        ]
+      }]
+    });
+
+    Highcharts.chart('grafico-faixa-etaria', {
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: 'Obesidade por Faixa Etária'
+      },
+      series: [{
+        name: 'Percentual',
+        data: [
+          { name: '18-29', y: 20 },
+          { name: '30-44', y: 35 },
+          { name: '45-59', y: 30 },
+          { name: '60+', y: 15 }
+        ]
+      }]
+    });
+
+    Highcharts.chart('grafico-barras', {
+      chart: {
+        type: 'bar'
+      },
+      title: {
+        text: 'Estados com maiores IMCs'
+      },
+      xAxis: {
+        categories: ['SP', 'RJ', 'MG', 'BA', 'RS', 'PI'],
+        title: null
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'IMC'
+        }
+      },
+      series: [{
+        name: 'IMC Médio',
+        data: [28.5, 27.9, 27.5, 26.4, 25.8, 29.1]
+      }]
+    });
+
+   
+
+    const imcPorEstado = {
+    'br-ac': 27.5,
+    'br-al': 29.0,
+    'br-ap': 25.5,
+    'br-am': 24.0,
+    'br-ba': 30.2,
+    'br-ce': 26.8,
+    'br-df': 28.9,
+    'br-es': 29.5,
+    'br-go': 30.5,
+    'br-ma': 23.8,
+    'br-mt': 27.2,
+    'br-ms': 30.1,
+    'br-mg': 24.5,
+    'br-pa': 26.2,
+    'br-pb': 28.0,
+    'br-pr': 29.3,
+    'br-pe': 25.7,
+    'br-pi': 30.7,
+    'br-rj': 28.3,
+    'br-rn': 26.0,
+    'br-rs': 30.4,
+    'br-ro': 25.0,
+    'br-rr': 24.2,
+    'br-sc': 27.0,
+    'br-sp': 29.8,
+    'br-se': 28.7,
+    'br-to': 26.5
+  };
+
+  function getCor(imc) {
+    if (imc < 25){
+      return '#4CAF50'; 
+    }      
+    else if (imc >= 25 && imc < 30){
+      return '#FBC02D';
+    }  
+    else {
+       return '#F44336'
+    };             
+  }
+
+  
+  const dadosMapa = Object.entries(imcPorEstado).map(([uf, imc]) => ({
+    'hc-key': uf,
+    value: imc,
+    color: getCor(imc)
+  }));
+
+  Highcharts.mapChart('mapa-brasil', {
+  chart: {
+    map: Highcharts.maps['countries/br/br-all']
+  },
+    title: {
+      text: 'IMC Médio por Estado'
+    },
+    tooltip: {
+      pointFormat: '{point.name}: <b>{point.value}</b>'
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'left',
+      verticalAlign: 'bottom',
+      floating: true,
+      backgroundColor: 'white',
+      symbolRadius: 0,
+      symbolHeight: 14,
+      labelFormatter: function () {
+        return this.name;
+      }
+    },
+    colorAxis: {
+      dataClasses: [
+        {
+          from: 0,
+          to: 24.9,
+          color: '#4CAF50',
+          name: 'Normal ou Abaixo do Peso'
+        },
+        {
+          from: 25,
+          to: 29.9,
+          color: '#FBC02D',
+          name: 'Sobrepeso'
+        },
+        {
+          from: 30,
+          color: '#F44336',
+          name: 'Obesidade'
+        }
+      ]
+    },
+    series: [{
+      data: dadosMapa,
+      name: 'IMC Médio',
+      states: {
+        hover: {
+          color: '#BADA55'
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        format: '{point.name}'
+      }
+    }]
+  });
+  </script>
+</body>
+</html>
