@@ -32,6 +32,8 @@
       <div class="item-legenda" style="background-color: #4CAF50;">IMC ≤ 24,9<br><strong>Normal</strong></div>
       <div class="item-legenda" style="background-color:  #FBC02D;">IMC entre 25 e 29,9<br><strong>Sobrepeso</strong></div>
       <div class="item-legenda" style="background-color: #F44336;">IMC ≥ 30<br><strong>Obesidade</strong></div>
+      <div class="item-legenda" style="background-color: #B71C1C;"> IMC ≥ 40<br><strong>Obesidade Mórbida</strong>
+      </div>
     </div>
     
     <div id="container" class="container-dash" style="height: 600px; min-width: 310px"></div>
@@ -56,29 +58,28 @@
     'br-pr': 29.3,
     'br-pe': 25.7,
     'br-pi': 30.7,
-    'br-rj': 28.3,
+    'br-rj': 42.3,
     'br-rn': 26.0,
     'br-rs': 30.4,
     'br-ro': 25.0,
     'br-rr': 24.2,
     'br-sc': 27.0,
-    'br-sp': 29.8,
+    'br-sp': 41.8,
     'br-se': 28.7,
     'br-to': 26.5
   };
 
   function getCor(imc) {
-    if (imc < 25){
-      return '#4CAF50'; 
-    }      
-    else if (imc >= 25 && imc < 30){
-      return '#FBC02D';
-    }  
-    else {
-       return '#F44336'
-    };             
+  if (imc < 25) {
+    return '#4CAF50'; 
+  } else if (imc >= 25 && imc < 30) {
+    return '#FBC02D'; 
+  } else if (imc >= 30 && imc < 40) {
+    return '#F44336'; 
+  } else {
+    return '#B71C1C'; 
   }
-
+}
   
   const dadosMapa = Object.entries(imcPorEstado).map(([uf, imc]) => ({
     'hc-key': uf,
@@ -126,7 +127,12 @@
           from: 30,
           color: '#F44336',
           name: 'Obesidade'
-        }
+        },
+        {
+      from: 40,
+      color: '#B71C1C',
+      name: 'Obesidade Mórbida'
+    }
       ]
     },
     series: [{

@@ -168,26 +168,26 @@
     'br-pi': 30.7,
     'br-rj': 28.3,
     'br-rn': 26.0,
-    'br-rs': 30.4,
+    'br-rs': 40.4,
     'br-ro': 25.0,
     'br-rr': 24.2,
     'br-sc': 27.0,
-    'br-sp': 29.8,
+    'br-sp': 41.8,
     'br-se': 28.7,
     'br-to': 26.5
   };
 
   function getCor(imc) {
-    if (imc < 25){
-      return '#4CAF50'; 
-    }      
-    else if (imc >= 25 && imc < 30){
-      return '#FBC02D';
-    }  
-    else {
-       return '#F44336'
-    };             
+  if (imc < 25) {
+    return '#4CAF50'; 
+  } else if (imc >= 25 && imc < 30) {
+    return '#FBC02D'; 
+  } else if (imc >= 30 && imc < 40) {
+    return '#F44336'; 
+  } else {
+    return '#B71C1C'; 
   }
+}
 
   
   const dadosMapa = Object.entries(imcPorEstado).map(([uf, imc]) => ({
@@ -236,7 +236,12 @@
           from: 30,
           color: '#F44336',
           name: 'Obesidade'
-        }
+        },
+        {
+      from: 40,
+      color: '#B71C1C',
+      name: 'Obesidade Mórbida'
+    },
       ]
     },
     series: [{

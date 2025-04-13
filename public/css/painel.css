@@ -41,6 +41,11 @@ body {
     color: #000;
   }
 
+  .hello h3{
+	color: #fff;
+	margin-top: 2rem;
+  }
+
   .lateral .logo{
 	width: 80%;
 	margin:0;
@@ -137,3 +142,11 @@ canvas {
 	box-shadow: 0 0 10px rgba(0,0,0,0.2);
 	border: 2px solid white;
   }
+
+  nav a:hover{
+	transform: scale(1.05);
+  }
+
+  .nav a {
+	transition: transform 0.3s ease;
+}
