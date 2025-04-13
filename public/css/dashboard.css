@@ -28,7 +28,7 @@
   
   .chart-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: 1fr 1fr; 
     gap: 20px;
   }
   
@@ -38,6 +38,10 @@
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     height: 500px;
+  }
+  
+  .chart-box:nth-child(3) {
+    grid-column: span 2; 
   }
   
   #mapa-brasil {

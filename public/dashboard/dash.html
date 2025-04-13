@@ -20,9 +20,8 @@
         </div>
 
         <nav>
-            <a href="./mapa.html"><i class="fas fa-map"></i>Mapa</a>
+            <a href="./imc.html"><i class="fas fa-map"></i>Mapa IMC</a>
             <a href="./dash.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
-            <a href="./imc.html"><i class="fas fa-weight"></i>IMC</a>
             <a href="../index.html" class="sair" onclick="limparSessao()"><i
                     class="fa-solid fa-right-from-bracket"></i>Sair</a>
         </nav>
@@ -62,6 +61,7 @@
       </div>
     </div>
   
+  
     <div class="chart-container">
       <div class="chart-box">
         <div id="grafico-sexo"></div>
@@ -71,9 +71,6 @@
       </div>
       <div class="chart-box">
         <div id="grafico-barras"></div>
-      </div>
-      <div class="chart-box" id="mapa-box">
-        <div id="mapa-brasil"></div>
       </div>
     </div>
   </section>
@@ -146,118 +143,6 @@
 });
 
    
-
-    const imcPorEstado = {
-    'br-ac': 27.5,
-    'br-al': 29.0,
-    'br-ap': 25.5,
-    'br-am': 24.0,
-    'br-ba': 30.2,
-    'br-ce': 26.8,
-    'br-df': 28.9,
-    'br-es': 29.5,
-    'br-go': 30.5,
-    'br-ma': 23.8,
-    'br-mt': 27.2,
-    'br-ms': 30.1,
-    'br-mg': 24.5,
-    'br-pa': 26.2,
-    'br-pb': 28.0,
-    'br-pr': 29.3,
-    'br-pe': 25.7,
-    'br-pi': 30.7,
-    'br-rj': 28.3,
-    'br-rn': 26.0,
-    'br-rs': 40.4,
-    'br-ro': 25.0,
-    'br-rr': 24.2,
-    'br-sc': 27.0,
-    'br-sp': 41.8,
-    'br-se': 28.7,
-    'br-to': 26.5
-  };
-
-  function getCor(imc) {
-  if (imc < 25) {
-    return '#4CAF50'; 
-  } else if (imc >= 25 && imc < 30) {
-    return '#FBC02D'; 
-  } else if (imc >= 30 && imc < 40) {
-    return '#F44336'; 
-  } else {
-    return '#B71C1C'; 
-  }
-}
-
-  
-  const dadosMapa = Object.entries(imcPorEstado).map(([uf, imc]) => ({
-    'hc-key': uf,
-    value: imc,
-    color: getCor(imc)
-  }));
-
-  Highcharts.mapChart('mapa-brasil', {
-  chart: {
-    map: Highcharts.maps['countries/br/br-all']
-  },
-    title: {
-      text: 'IMC Médio por Estado'
-    },
-    tooltip: {
-      pointFormat: '{point.name}: <b>{point.value}</b>'
-    },
-    legend: {
-      layout: 'vertical',
-      align: 'left',
-      verticalAlign: 'bottom',
-      floating: true,
-      backgroundColor: 'white',
-      symbolRadius: 0,
-      symbolHeight: 14,
-      labelFormatter: function () {
-        return this.name;
-      }
-    },
-    colorAxis: {
-      dataClasses: [
-        {
-          from: 0,
-          to: 24.9,
-          color: '#4CAF50',
-          name: 'Normal ou Abaixo do Peso'
-        },
-        {
-          from: 25,
-          to: 29.9,
-          color: '#FBC02D',
-          name: 'Sobrepeso'
-        },
-        {
-          from: 30,
-          color: '#F44336',
-          name: 'Obesidade'
-        },
-        {
-      from: 40,
-      color: '#B71C1C',
-      name: 'Obesidade Mórbida'
-    },
-      ]
-    },
-    series: [{
-      data: dadosMapa,
-      name: 'IMC Médio',
-      states: {
-        hover: {
-          color: '#BADA55'
-        }
-      },
-      dataLabels: {
-        enabled: true,
-        format: '{point.name}'
-      }
-    }]
-  });
   </script>
 </body>
 </html>
