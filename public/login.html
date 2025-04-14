@@ -40,38 +40,47 @@
             </form>
         </div>
         <div class="form-box register">
-            <form action="">
+            <form id="registerForm">
+              <div class="step step-1">
                 <h1>Cadastro</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Nome do usuário"
-                    required>
-                    <i class='bx bxs-user'></i>
+                  <input type="text" id="userName" placeholder="Nome do usuário" required />
+                  <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="email" placeholder="Email"
-                    required>
-                    <i class='bx bxs-envelope'></i>
+                  <input type="email" id="userEmail" placeholder="Email" required />
+                  <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Senha"
-                    required>
-                    <i class='bx bxs-lock-alt' ></i>
+                  <input type="password" id="userPassword" placeholder="Senha" required />
+                  <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Confirmar Senha"
-                    required>
-                    <i class='bx bxs-lock-alt' ></i>
+                  <input type="password" id="confirmPassword" placeholder="Confirmar Senha" required />
+                  <i class='bx bxs-lock-alt'></i>
                 </div>
-                <button type="submit" class="btn-register">Cadastre-se</button>
-                <!-- <p> ou se cadastre com suas redes</p> -->
-                <!-- <div class="social-icons">
-                    <a href="#"><i class='bx bxl-google'></i></a>
-                    <a href="#"><i class='bx bxl-facebook'></i></a>
-                    <a href="#"><i class='bx bxl-github' ></i></a>
-                    <a href="#"><i class='bx bxl-linkedin'></i></a>
-                </div> -->
+                <button type="button" class="btn-register" onclick="goToStep2()">Próxima etapa</button>
+              </div>
+          
+              <div class="step step-2" style="display: none;">
+                <h1>Dados da Empresa</h1>
+                <div class="input-box">
+                  <input type="text" id="companyName" placeholder="Nome da empresa" required />
+                  <i class='bx bxs-business'></i>
+                </div>
+                <div class="input-box">
+                  <input type="text" id="companyCnpj" placeholder="CNPJ" required />
+                  <i class='bx bxs-id-card'></i>
+                </div>
+                <div class="input-box">
+                  <input type="text" id="companyAddress" placeholder="Endereço da empresa" required />
+                  <i class='bx bxs-map'></i>
+                </div>
+                <button type="submit" class="btn-register">Finalizar Cadastro</button>
+              </div>
             </form>
-        </div>
+          </div>
+        
         <div class="toggle-box">
             <div class="toggle-panel toggle-left">
                 <h1>Bem vindo de volta!</h1>
