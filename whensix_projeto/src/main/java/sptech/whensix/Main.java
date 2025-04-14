@@ -21,8 +21,7 @@ public class Main {
 
             String nomeArquivoS3 = "Vigitel-2023-peso-rake.xlsx"; // nome no bucket
             String caminhoLocal = "Documentos/Vigitel-2023-peso-rake.xlsx"; // salvar localmente
-            //S3Downloader.baixarArquivo(nomeArquivoS3, caminhoLocal);
-            File arquivo = new File("C:/Users/caina/Documents/dados_pi/Vigitel-2023-peso-rake-Copia.xlsx");
+            File arquivo = S3Downloader.baixarArquivo(nomeArquivoS3, caminhoLocal);
             System.out.println("Arquivo baixado: " + arquivo.getAbsolutePath());
 
             resultado = ExcelLeitor.processar(arquivo);
