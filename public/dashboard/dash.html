@@ -94,7 +94,7 @@
 
     Highcharts.chart('grafico-faixa-etaria', {
       chart: {
-        type: 'pie'
+        type: 'bar'
       },
       title: {
         text: 'Obesidade por Faixa Etária'
@@ -112,7 +112,7 @@
 
     Highcharts.chart('grafico-barras', {
   chart: {
-    type: 'bar'
+    type: 'line'
   },
   title: {
     text: 'Influenciadores Externos da Obesidade'
@@ -134,7 +134,7 @@
   },
   series: [{
     name: 'Contribuição para Obesidade',
-    data: [10, 15, 30, 45],
+    data: [{name: 14, y: 10}, {name: 10, y: 15}, {name:20 , y: 30}, {name: 20, y: 45}],
     color: '#F57C00'
   }],
   tooltip: {
