@@ -3,7 +3,9 @@ USE whensix;
 CREATE TABLE tb_log (
     id_log INT PRIMARY KEY AUTO_INCREMENT,
     msg_log VARCHAR(45),
-    dt_log DATETIME DEFAULT CURRENT_TIMESTAMP
+    dt_log DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modulo_log VARCHAR(100),
+    categoria_log VARCHAR(100)
 );
 
 CREATE TABLE tb_endereco (
@@ -46,3 +48,22 @@ CREATE TABLE tb_usuario (
     fk_empresa INT,
     FOREIGN KEY (fk_empresa) REFERENCES tb_empresa(id_empresa)
 );
+
+
+CREATE TABLE tb_dado(
+    id_dado INT PRIMARY KEY AUTO_INCREMENT,
+    cdg_cidade INT,
+    sexo CHAR(1),
+    peso FLOAT(5,2),
+    altura INT,
+    frequencia_refri CHAR(1),
+    tipo_refri CHAR(1),
+    qtd_refri CHAR(1),
+    alcoolismo BOOLEAN,
+    freq_alcool CHAR(1),
+    exercicio_fisico CHAR(1),
+    tipo_exercicio_fisico CHAR(1),
+    freq_exercicio_fisico CHAR(1),
+    fumante BOOLEAN,
+    qtd_cigarros_dia INT,
+)
