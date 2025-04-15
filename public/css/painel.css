@@ -152,3 +152,95 @@ canvas {
   .nav a {
 	transition: transform 0.3s ease;
 }
+
+.item-legenda.ativo {
+	border: 2px solid #000;
+	transform: scale(1.05);
+	transition: all 0.2s ease;
+  }
+ 
+.item-legenda {
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 8px;
+	transition: transform 0.2s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  
+.item-legenda:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  
+.item-legenda.ativo {
+	border: 2px solid #000;
+	transform: scale(1.1);
+	box-shadow: 0 0 12px rgba(0,0,0,0.3);
+	opacity: 1 !important;
+  }
+  
+  .card-estados {
+	position: absolute;
+	right: 20px;
+	top: 100px;
+	width: 250px;
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	padding: 16px;
+	z-index: 10;
+	max-height: 80vh;
+	overflow-y: auto;
+  }
+  
+  .card-estados h3 {
+	margin-top: 0;
+	font-size: 18px;
+	text-align: center;
+  }
+  
+  .card-estados ul {
+	list-style: none;
+	padding: 0;
+  }
+  
+  .card-estados li {
+	margin: 10px 0;
+	padding: 8px;
+	border-radius: 8px;
+	background-color: #f5f5f5;
+	font-size: 14px;
+  }
+
+  .card-estados {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    width: 280px;
+    background: white;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  .card-estados h3 {
+    margin-top: 0;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .card-estados ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .card-estados li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    background-color: #f3f3f3;
+    padding: 6px 10px;
+    border-radius: 6px;
+  }
+
+  
