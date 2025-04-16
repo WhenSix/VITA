@@ -84,29 +84,51 @@
       series: [{
         name: 'Percentual',
         data: [
-          { name: 'Mulheres', y: 55 },
-          { name: 'Homens', y: 45 }
+          { name: 'Mulheres', y: 55},
+          { name: 'Homens', y: 42},
+          { name: 'Transsexuais', y: 2},
+          { name: 'outros', y: 1}
         ]
       }]
     });
 
     Highcharts.chart('grafico-faixa-etaria', {
-      chart: {
-        type: 'pie'
-      },
-      title: {
-        text: 'Obesidade por Faixa Etária'
-      },
-      series: [{
-        name: 'Percentual',
-        data: [
-          { name: '18-29', y: 20 },
-          { name: '30-44', y: 35 },
-          { name: '45-59', y: 30 },
-          { name: '60+', y: 15 }
-        ]
-      }]
-    });
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Obesidade por Faixa Etária'
+  },
+  xAxis: {
+    categories: ['18-29', '30-44', '45-59', '60+'],
+    title: {
+      text: 'Faixa Etária'
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Percentual de Obesidade (%)'
+    },
+    labels: {
+      format: '{value}%'
+    }
+  },
+  tooltip: {
+    pointFormat: '<b>{point.y}%</b>'
+  },
+  plotOptions: {
+    column: {
+      colorByPoint: true
+    }
+  },
+  series: [{
+    name: 'Percentual',
+    data: [20, 35, 30, 15],
+    colors: ['#FF6F61', '#6A5ACD', '#26C6DA', '#FFB74D']
+  }]
+});
+
 
     Highcharts.chart('grafico-barras', {
   chart: {
