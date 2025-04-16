@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +11,11 @@
     <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
 </head>
 <body">
-
     <div class="lateral">
-
         <img class="logo" src="../assets/logo.png" alt="Vita Logo">
         <div class="hello">
             <h3> Bem vindo! </h3>
         </div>
-
         <nav>
           <a href="./imc.html"><i class="fas fa-map"></i>Mapa IMC</a>
           <a href="./dash.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
@@ -41,16 +37,11 @@
         IMC ≥ 40<br><strong>Obesidade Mórbida</strong>
       </div>
     </div>
-    
-    
     <div id="container" class="container-dash" style="height: 600px; min-width: 310px"></div> 
     <div class="card-estados" id="card-estados" style="display: none;">
       <h3>Estados Selecionados</h3>
       <ul id="lista-estados"></ul>
     </div>
-    
-    
-  
     <script>
        const imcPorEstado = {
     'br-ac': 27.5,
@@ -111,7 +102,6 @@
   'br-se': 'Sergipe',
   'br-to': 'Tocantins'
 };
-
 
   function getCor(imc) {
   if (imc < 25) {
@@ -331,7 +321,5 @@ function ocultarCardEstados() {
     }]
   });
     </script>
-
     </body>
-
 </html>
