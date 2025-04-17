@@ -86,8 +86,7 @@
         data: [
           { name: 'Mulheres', y: 55},
           { name: 'Homens', y: 42},
-          { name: 'Transsexuais', y: 2},
-          { name: 'outros', y: 1}
+          { name: 'Transsexuais', y: 3}
         ]
       }]
     });
@@ -161,6 +160,67 @@
     valueSuffix: '%'
   }
 });
+
+const dadosSexo = {
+  AC: [60, 35, 4, 1],
+  AL: [58, 38, 3, 1],
+  AP: [55, 40, 4, 1],
+  AM: [59, 36, 3, 2],
+  BA: [63, 33, 3, 1],
+  CE: [62, 34, 3, 1],
+  DF: [56, 39, 3, 2],
+  ES: [58, 37, 3, 2],
+  GO: [59, 36, 4, 1],
+  MA: [61, 34, 3, 2],
+  MT: [60, 35, 3, 2],
+  MS: [58, 37, 3, 2],
+  MG: [59, 36, 3, 2],
+  PA: [62, 33, 3, 2],
+  PB: [60, 35, 4, 1],
+  PR: [57, 38, 3, 2],
+  PE: [61, 34, 3, 2],
+  PI: [59, 36, 3, 2],
+  RJ: [56, 39, 3, 2],
+  RN: [60, 35, 3, 2],
+  RS: [57, 38, 3, 2],
+  RO: [59, 36, 3, 2],
+  RR: [55, 40, 3, 2],
+  SC: [58, 37, 3, 2],
+  SE: [60, 35, 3, 2],
+  SP: [59, 36, 3, 2],
+  TO: [58, 37, 3, 2]
+};
+
+const dadosFaixaEtaria = {
+  AC: [15, 35, 30, 20],
+  AL: [17, 34, 29, 20],
+  AP: [14, 32, 30, 24],
+  AM: [16, 34, 31, 19],
+  BA: [20, 36, 28, 16],
+  CE: [19, 35, 30, 16],
+  DF: [15, 33, 31, 21],
+  ES: [17, 34, 29, 20],
+  GO: [18, 34, 30, 18],
+  MA: [20, 36, 28, 16],
+  MT: [18, 35, 30, 17],
+  MS: [17, 34, 30, 19],
+  MG: [16, 33, 30, 21],
+  PA: [19, 35, 30, 16],
+  PB: [17, 34, 29, 20],
+  PR: [18, 34, 30, 18],
+  PE: [19, 35, 29, 17],
+  PI: [17, 34, 30, 19],
+  RJ: [16, 33, 31, 20],
+  RN: [17, 34, 30, 19],
+  RS: [18, 35, 29, 18],
+  RO: [17, 34, 30, 19],
+  RR: [16, 33, 30, 21],
+  SC: [18, 34, 30, 18],
+  SE: [17, 34, 30, 19],
+  SP: [18, 35, 30, 17],
+  TO: [17, 34, 30, 19]
+};
+
 
 const dadosEstados = {
   AC: [12, 14, 22, 35, 28, 40],
@@ -251,12 +311,53 @@ const dadosEstados = {
     if (!estado) return;
 
     const dados = usandoCategoriasAlternativas ? dadosAlternativos[estado] : dadosEstados[estado];
-    chart.series[0].setData(dados);
-
-    if (multiplasSeriesAtivas) {
-      atualizarMultiplasSeries(estado);
+  chart.series[0].setData(dados);
+  if (multiplasSeriesAtivas) {
+    atualizarMultiplasSeries(estado);
     }
-  }
+
+    const dadosSexoEstado = dadosSexo[estado];
+  Highcharts.chart('grafico-sexo', {
+    chart: { type: 'pie' },
+    title: { text: 'Obesidade por Sexo' },
+    series: [{
+      name: 'Percentual',
+      data: [
+        { name: 'Mulheres', y: dadosSexoEstado[0] },
+        { name: 'Homens', y: dadosSexoEstado[1] },
+        { name: 'Transsexuais', y: dadosSexoEstado[2] }
+      ]
+    }]
+  });
+  
+  const dadosFaixa = dadosFaixaEtaria[estado];
+  Highcharts.chart('grafico-faixa-etaria', {
+    chart: { type: 'column' },
+    title: { text: 'Obesidade por Faixa Etária' },
+    xAxis: {
+      categories: ['18-29', '30-44', '45-59', '60+'],
+      title: { text: 'Faixa Etária' }
+    },
+    yAxis: {
+      min: 0,
+      title: { text: 'Percentual de Obesidade (%)' },
+      labels: { format: '{value}%' }
+    },
+    tooltip: {
+      pointFormat: '<b>{point.y}%</b>'
+    },
+    plotOptions: {
+      column: {
+        colorByPoint: true
+      }
+    },
+    series: [{
+      name: 'Percentual',
+      data: dadosFaixa,
+      colors: ['#FF6F61', '#6A5ACD', '#26C6DA', '#FFB74D']
+    }]
+  });
+}
 
   function mostrarAgravantesCombinados() {
   multiplasSeriesAtivas = true;
