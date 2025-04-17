@@ -397,10 +397,18 @@ const dadosEstados = {
   });
 }
 
+function alternarCategorias() {
+  usandoCategoriasAlternativas = !usandoCategoriasAlternativas;
+  const estado = document.getElementById('select-estado').value;
+  const dados = usandoCategoriasAlternativas ? dadosAlternativos[estado] || [0,0,0,0,0,0] : dadosEstados[estado] || [0,0,0,0,0,0];
+  chart.series[0].setData(dados);
+  chart.xAxis[0].setCategories(usandoCategoriasAlternativas ? categoriasAlternativas : categoriasOriginais);
+}
+
   function alternarCategorias() {
     usandoCategoriasAlternativas = !usandoCategoriasAlternativas;
 
-    chart.xAxis[0].setCategories(usandoCategoriasAlternativas ? categoriasAlternativas : categoriasOriginais);
+    chart.xAxis[0].setCategories(usandoCategoriasAlternativas ? categoriasOriginais : categoriasAlternativas);
     const estado = document.getElementById('select-estado').value || 'SP';
 
     const novosDados = usandoCategoriasAlternativas ? dadosAlternativos[estado] : dadosEstados[estado];
