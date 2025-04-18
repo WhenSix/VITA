@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +11,11 @@
     <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
 </head>
 <body">
-
     <div class="lateral">
-
         <img class="logo" src="../assets/logo.png" alt="Vita Logo">
         <div class="hello">
             <h3> Bem vindo! </h3>
         </div>
-
         <nav>
           <a href="./imc.html"><i class="fas fa-map"></i>Mapa IMC</a>
           <a href="./dash.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
@@ -28,15 +24,24 @@
         </nav>
     </div>
     <div class="legenda-imc">
-      <div class="item-legenda" style="background-color: #4CAF50;">IMC ≤ 24,9<br><strong>Normal</strong></div>
-      <div class="item-legenda" style="background-color:  #FBC02D;">IMC entre 25 e 29,9<br><strong>Sobrepeso</strong></div>
-      <div class="item-legenda" style="background-color: #F44336;">IMC ≥ 30<br><strong>Obesidade</strong></div>
-      <div class="item-legenda" style="background-color: #B71C1C;"> IMC ≥ 40<br><strong>Obesidade Mórbida</strong>
+      <div class="item-legenda" data-imc="normal" title="IMC até 24,9 é considerado normal" style="background-color: #4CAF50;">
+        IMC ≤ 24,9<br><strong>Normal</strong>
+      </div>
+      <div class="item-legenda" data-imc="sobrepeso" title="IMC entre 25 e 29,9 indica sobrepeso" style="background-color: #FBC02D;">
+        IMC entre 25 e 29,9<br><strong>Sobrepeso</strong>
+      </div>
+      <div class="item-legenda" data-imc="obesidade" title="IMC entre 30 e 39,9 indica obesidade" style="background-color: #F44336;">
+        IMC ≥ 30<br><strong>Obesidade</strong>
+      </div>
+      <div class="item-legenda" data-imc="obesidade-morbida" title="IMC a partir de 40 é considerado obesidade mórbida" style="background-color: #B71C1C;">
+        IMC ≥ 40<br><strong>Obesidade Mórbida</strong>
       </div>
     </div>
-    
-    <div id="container" class="container-dash" style="height: 600px; min-width: 310px"></div>
-  
+    <div id="container" class="container-dash" style="height: 600px; min-width: 310px"></div> 
+    <div class="card-estados" id="card-estados" style="display: none;">
+      <h3>Estados Selecionados</h3>
+      <ul id="lista-estados"></ul>
+    </div>
     <script>
        const imcPorEstado = {
     'br-ac': 27.5,
@@ -67,6 +72,36 @@
     'br-se': 28.7,
     'br-to': 26.5
   };
+
+  const nomesEstados = {
+  'br-ac': 'Acre',
+  'br-al': 'Alagoas',
+  'br-ap': 'Amapá',
+  'br-am': 'Amazonas',
+  'br-ba': 'Bahia',
+  'br-ce': 'Ceará',
+  'br-df': 'Distrito Federal',
+  'br-es': 'Espírito Santo',
+  'br-go': 'Goiás',
+  'br-ma': 'Maranhão',
+  'br-mt': 'Mato Grosso',
+  'br-ms': 'Mato Grosso do Sul',
+  'br-mg': 'Minas Gerais',
+  'br-pa': 'Pará',
+  'br-pb': 'Paraíba',
+  'br-pr': 'Paraná',
+  'br-pe': 'Pernambuco',
+  'br-pi': 'Piauí',
+  'br-rj': 'Rio de Janeiro',
+  'br-rn': 'Rio Grande do Norte',
+  'br-rs': 'Rio Grande do Sul',
+  'br-ro': 'Rondônia',
+  'br-rr': 'Roraima',
+  'br-sc': 'Santa Catarina',
+  'br-sp': 'São Paulo',
+  'br-se': 'Sergipe',
+  'br-to': 'Tocantins'
+};
 
   function getCor(imc) {
   if (imc < 25) {
@@ -148,8 +183,143 @@
       }
     }]
   });
+
+  const legendaItems = document.querySelectorAll('.item-legenda');
+  let chartRef = null;
+
+  function classificarIMC(imc) {
+    if (imc < 25) return 'normal';
+    else if (imc >= 25 && imc < 30) return 'sobrepeso';
+    else if (imc >= 30 && imc < 40) return 'obesidade';
+    else return 'obesidade-morbida';
+  }
+
+  function atualizarMapaPorCategoria(categoriaSelecionada) {
+    chartRef.series[0].data.forEach(point => {
+      const categoria = classificarIMC(point.value);
+      if (categoria === categoriaSelecionada) {
+        point.update({ color: point.options.color, opacity: 1 }, false);
+      } else {
+        point.update({ color: point.options.color, opacity: 0.2 }, false);
+      }
+    });
+    chartRef.redraw();
+  }
+
+  function resetarMapa() {
+    chartRef.series[0].data.forEach(point => {
+      point.update({ color: point.options.color, opacity: 1 }, false);
+    });
+    chartRef.redraw();
+  }
+
+  legendaItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const ativo = item.classList.contains('ativo');
+      legendaItems.forEach(i => i.classList.remove('ativo'));
+
+      if (!ativo) {
+    item.classList.add('ativo');
+    atualizarMapaPorCategoria(item.dataset.imc);
+    mostrarEstadosFiltrados(item.dataset.imc); 
+   } else {
+    resetarMapa();
+    ocultarCardEstados(); 
+   }
+
+      legendaItems.forEach(i => {
+        if (i === item && !ativo) {
+          i.style.opacity = '1';
+        } else {
+          i.style.opacity = ativo ? '1' : '0.4';
+        }
+      });
+    });
+  });
+  function classificarIMC(imc) {
+  if (imc < 25) return 'normal';
+  if (imc >= 25 && imc < 30) return 'sobrepeso';
+  if (imc >= 30 && imc < 40) return 'obesidade';
+  return 'obesidade-morbida';
+}
+
+function mostrarEstadosFiltrados(categoria) {
+  const card = document.getElementById('card-estados');
+  const lista = document.getElementById('lista-estados');
+  lista.innerHTML = '';
+
+  const estadosFiltrados = Object.entries(imcPorEstado).filter(([_, imc]) => {
+    return classificarIMC(imc) === categoria;
+  });
+
+  estadosFiltrados.forEach(([uf, imc]) => {
+    const li = document.createElement('li');
+    const nomeCompleto = nomesEstados[uf] || uf.toUpperCase();
+    li.textContent = `📍 ${nomeCompleto} - IMC Médio: ${imc}`;
+    lista.appendChild(li);
+  });
+
+  card.style.display = estadosFiltrados.length ? 'block' : 'none';
+}
+
+
+function ocultarCardEstados() {
+  document.getElementById('card-estados').style.display = 'none';
+  document.getElementById('lista-estados').innerHTML = '';
+}
+
+
+  chartRef = Highcharts.mapChart('container', {
+    chart: {
+      map: 'countries/br/br-all'
+    },
+    title: {
+      text: 'IMC Médio por Estado'
+    },
+    tooltip: {
+      pointFormat: '{point.name}: <b>{point.value}</b>'
+    },
+    colorAxis: {
+      dataClasses: [
+        {
+          from: 0,
+          to: 24.9,
+          color: '#4CAF50',
+          name: 'Normal ou Abaixo do Peso'
+        },
+        {
+          from: 25,
+          to: 29.9,
+          color: '#FBC02D',
+          name: 'Sobrepeso'
+        },
+        {
+          from: 30,
+          to: 39.9,
+          color: '#F44336',
+          name: 'Obesidade'
+        },
+        {
+          from: 40,
+          color: '#B71C1C',
+          name: 'Obesidade Mórbida'
+        }
+      ]
+    },
+    series: [{
+      data: dadosMapa,
+      name: 'IMC Médio',
+      states: {
+        hover: {
+          color: '#BADA55'
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        format: '{point.name.toUpperCase()}'
+      }
+    }]
+  });
     </script>
-
     </body>
-
 </html>

@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="../css/painel.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="shortcut icon" type="image/png" href="../logos/coracao-logo.png"> 
   <script src="https://code.highcharts.com/maps/highmaps.js"></script>
   <script src="https://code.highcharts.com/maps/modules/map.js"></script>
   <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
@@ -13,67 +14,72 @@
 </head>
 <body>
     <div class="lateral">
-
         <img class="logo" src="../assets/logo.png" alt="Vita Logo">
         <div class="hello">
             <h3> Bem vindo! </h3>
         </div>
-
         <nav>
             <a href="./imc.html"><i class="fas fa-map"></i>Mapa IMC</a>
             <a href="./dash.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
-            <a href="../index.html" class="sair" onclick="limparSessao()"><i
-                    class="fa-solid fa-right-from-bracket"></i>Sair</a>
+            <a href="../index.html" class="sair" onclick="limparSessao()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
         </nav>
     </div>
+<section class="main">
+  <div class="kpi-container">
+    <div class="kpi-card"><div><h3>Maior IMC</h3><p id="maior-imc">32</p></div></div>
+    <div class="kpi-card"><div><h3>Maior Fator</h3><p id="menor-imc">Depressão</p></div></div>
+    <div class="kpi-card"><div><h3>IMC Nacional</h3><p id="imc-nacional">35</p></div></div>
+    <div class="kpi-card"><div><h3>% Obesidade</h3><p id="obesidade">55</p></div></div>
+    <div class="kpi-card"><div><h3>% Sobrepeso</h3><p id="sobrepeso">60</p></div></div>
+  </div>
 
-  <section class="main">
-    <div class="kpi-container">
-      <div class="kpi-card">
-        <div>
-          <h3>Maior IMC</h3>
-          <p id="maior-imc">32</p>
-        </div>
-      </div>
-      <div class="kpi-card">
-        <div>
-          <h3>Maior Fator</h3>
-          <p id="menor-imc">Depressão</p>
-        </div>
-      </div>
-      <div class="kpi-card">
-        <div>
-          <h3>IMC Nacional</h3>
-          <p id="imc-nacional">35</p>
-        </div>
-      </div>
-      <div class="kpi-card">
-        <div>
-          <h3>% Obesidade</h3>
-          <p id="obesidade">55</p>
-        </div>
-      </div>
-      <div class="kpi-card">
-        <div>
-          <h3>% Sobrepeso</h3>
-          <p id="sobrepeso">60</p>
-        </div>
+  <div class="chart-container">
+    <div class="chart-box">
+      <div id="grafico-sexo"></div>
+    </div>
+    <div class="chart-box">
+      <div id="grafico-faixa-etaria"></div>
+    </div>
+    <div class="chart-box" id="barra">
+      <div id="grafico-barras"></div>
+      <div class="botoes-barra">
+        <select id="select-estado">
+          <option value="" disabled selected>Selecione um Estado</option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+        </select>          
+        <button onclick="filtrarPorEstado()">Filtrar Estado</button>
+        <button onclick="alternarCategorias()">Alternar Categorias</button>
+        <button onclick="mostrarAgravantesCombinados()">Vários Agravantes</button>
       </div>
     </div>
-  
-  
-    <div class="chart-container">
-      <div class="chart-box">
-        <div id="grafico-sexo"></div>
-      </div>
-      <div class="chart-box">
-        <div id="grafico-faixa-etaria"></div>
-      </div>
-      <div class="chart-box" id="barra">
-        <div id="grafico-barras"></div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
   <script>
     Highcharts.chart('grafico-sexo', {
@@ -86,29 +92,50 @@
       series: [{
         name: 'Percentual',
         data: [
-          { name: 'Mulheres', y: 55 },
-          { name: 'Homens', y: 45 }
+          { name: 'Mulheres', y: 55},
+          { name: 'Homens', y: 42},
+          { name: 'Transsexuais', y: 3}
         ]
       }]
     });
 
     Highcharts.chart('grafico-faixa-etaria', {
-      chart: {
-        type: 'pie'
-      },
-      title: {
-        text: 'Obesidade por Faixa Etária'
-      },
-      series: [{
-        name: 'Percentual',
-        data: [
-          { name: '18-29', y: 20 },
-          { name: '30-44', y: 35 },
-          { name: '45-59', y: 30 },
-          { name: '60+', y: 15 }
-        ]
-      }]
-    });
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Obesidade por Faixa Etária'
+  },
+  xAxis: {
+    categories: ['18-29', '30-44', '45-59', '60+'],
+    title: {
+      text: 'Faixa Etária'
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Percentual de Obesidade (%)'
+    },
+    labels: {
+      format: '{value}%'
+    }
+  },
+  tooltip: {
+    pointFormat: '<b>{point.y}%</b>'
+  },
+  plotOptions: {
+    column: {
+      colorByPoint: true
+    }
+  },
+  series: [{
+    name: 'Percentual',
+    data: [20, 35, 30, 15],
+    colors: ['#FF6F61', '#6A5ACD', '#26C6DA', '#FFB74D']
+  }]
+});
+
 
     Highcharts.chart('grafico-barras', {
   chart: {
@@ -142,7 +169,299 @@
   }
 });
 
-   
+const dadosSexo = {
+  AC: [60, 35, 4, 1],
+  AL: [58, 38, 3, 1],
+  AP: [55, 40, 4, 1],
+  AM: [59, 36, 3, 2],
+  BA: [63, 33, 3, 1],
+  CE: [62, 34, 3, 1],
+  DF: [56, 39, 3, 2],
+  ES: [58, 37, 3, 2],
+  GO: [59, 36, 4, 1],
+  MA: [61, 34, 3, 2],
+  MT: [60, 35, 3, 2],
+  MS: [58, 37, 3, 2],
+  MG: [59, 36, 3, 2],
+  PA: [62, 33, 3, 2],
+  PB: [60, 35, 4, 1],
+  PR: [57, 38, 3, 2],
+  PE: [61, 34, 3, 2],
+  PI: [59, 36, 3, 2],
+  RJ: [56, 39, 3, 2],
+  RN: [60, 35, 3, 2],
+  RS: [57, 38, 3, 2],
+  RO: [59, 36, 3, 2],
+  RR: [55, 40, 3, 2],
+  SC: [58, 37, 3, 2],
+  SE: [60, 35, 3, 2],
+  SP: [59, 36, 3, 2],
+  TO: [58, 37, 3, 2]
+};
+
+const dadosFaixaEtaria = {
+  AC: [15, 35, 30, 20],
+  AL: [17, 34, 29, 20],
+  AP: [14, 32, 30, 24],
+  AM: [16, 34, 31, 19],
+  BA: [20, 36, 28, 16],
+  CE: [19, 35, 30, 16],
+  DF: [15, 33, 31, 21],
+  ES: [17, 34, 29, 20],
+  GO: [18, 34, 30, 18],
+  MA: [20, 36, 28, 16],
+  MT: [18, 35, 30, 17],
+  MS: [17, 34, 30, 19],
+  MG: [16, 33, 30, 21],
+  PA: [19, 35, 30, 16],
+  PB: [17, 34, 29, 20],
+  PR: [18, 34, 30, 18],
+  PE: [19, 35, 29, 17],
+  PI: [17, 34, 30, 19],
+  RJ: [16, 33, 31, 20],
+  RN: [17, 34, 30, 19],
+  RS: [18, 35, 29, 18],
+  RO: [17, 34, 30, 19],
+  RR: [16, 33, 30, 21],
+  SC: [18, 34, 30, 18],
+  SE: [17, 34, 30, 19],
+  SP: [18, 35, 30, 17],
+  TO: [17, 34, 30, 19]
+};
+
+
+const dadosEstados = {
+  AC: [12, 14, 22, 35, 28, 40],
+  AL: [13, 16, 24, 37, 29, 42],
+  AP: [10, 12, 20, 32, 25, 38],
+  AM: [14, 15, 26, 38, 30, 44],
+  BA: [18, 20, 30, 50, 35, 55],
+  CE: [16, 18, 28, 45, 33, 50],
+  DF: [11, 13, 23, 36, 27, 41],
+  ES: [13, 15, 25, 39, 31, 43],
+  GO: [14, 16, 27, 40, 32, 45],
+  MA: [17, 19, 29, 46, 34, 51],
+  MT: [15, 17, 28, 42, 33, 47],
+  MS: [14, 16, 26, 41, 30, 46],
+  MG: [12, 15, 25, 35, 28, 40],
+  PA: [16, 18, 30, 44, 34, 49],
+  PB: [13, 14, 24, 38, 29, 42],
+  PR: [14, 17, 26, 40, 31, 44],
+  PE: [15, 18, 29, 43, 32, 48],
+  PI: [13, 15, 25, 37, 30, 43],
+  RJ: [10, 12, 28, 40, 32, 45],
+  RN: [12, 14, 26, 39, 30, 44],
+  RO: [13, 15, 27, 41, 31, 45],
+  RR: [11, 13, 24, 36, 28, 40],
+  RS: [14, 16, 32, 46, 31, 48],
+  SC: [15, 17, 29, 43, 33, 47],
+  SE: [12, 14, 25, 38, 29, 42],
+  SP: [15, 18, 35, 48, 30, 50],
+  TO: [13, 15, 26, 39, 30, 44]
+};
+
+  const categoriasAlternativas = ['Estresse', 'Alimentação Processada', 'Horas de Sono', 'Trabalho Sedentário', 'Ansiedade', 'Genética'];
+  const dadosAlternativos = {
+  AC: [36, 31, 27, 26, 30, 22],
+  AL: [38, 33, 29, 27, 31, 24],
+  AP: [34, 30, 26, 24, 29, 21],
+  AM: [37, 32, 28, 26, 30, 23],
+  BA: [45, 39, 35, 33, 36, 30],
+  CE: [42, 36, 32, 31, 34, 27],
+  DF: [35, 31, 27, 25, 29, 22],
+  ES: [37, 33, 28, 27, 31, 24],
+  GO: [38, 34, 30, 29, 32, 25],
+  MA: [43, 38, 33, 31, 35, 28],
+  MT: [39, 35, 31, 30, 33, 26],
+  MS: [38, 34, 30, 28, 32, 25],
+  MG: [38, 34, 29, 27, 29, 24],
+  PA: [41, 36, 32, 30, 34, 27],
+  PB: [36, 32, 28, 26, 30, 23],
+  PR: [37, 33, 29, 28, 31, 25],
+  PE: [39, 35, 30, 29, 33, 26],
+  PI: [36, 32, 27, 26, 30, 24],
+  RJ: [35, 30, 28, 25, 30, 22],
+  RN: [36, 31, 28, 27, 29, 23],
+  RO: [37, 32, 29, 28, 30, 24],
+  RR: [34, 30, 26, 25, 28, 21],
+  RS: [42, 36, 32, 30, 34, 28],
+  SC: [39, 35, 31, 29, 33, 26],
+  SE: [36, 32, 28, 27, 30, 23],
+  SP: [40, 35, 30, 28, 32, 25],
+  TO: [36, 32, 29, 27, 31, 24]
+};
+  
+  const categoriasOriginais = ['Cigarro', 'Bebida Alcoólica', 'Refrigerante', 'Depressão', 'Diabetes', 'Sedentarismo'];
+  let usandoCategoriasAlternativas = false;
+  let multiplasSeriesAtivas = false;
+
+  const chart = Highcharts.chart('grafico-barras', {
+    chart: { type: 'line' },
+    title: { text: 'Influenciadores Externos da Obesidade' },
+    xAxis: {
+      categories: categoriasOriginais
+    },
+    yAxis: {
+      min: 0,
+      title: { text: 'Impacto (%)' },
+      labels: { format: '{value}%' }
+    },
+    tooltip: { valueSuffix: '%' },
+    series: [{
+      name: 'Contribuição para Obesidade',
+      data: [10, 15, 30, 45, 30, 45],
+      color: '#F57C00'
+    }]
+  });
+
+  function filtrarPorEstado() {
+    const estado = document.getElementById('select-estado').value;
+    if (!estado) return;
+
+    const dados = usandoCategoriasAlternativas ? dadosAlternativos[estado] : dadosEstados[estado];
+  chart.series[0].setData(dados);
+  if (multiplasSeriesAtivas) {
+    atualizarMultiplasSeries(estado);
+    }
+
+    const dadosSexoEstado = dadosSexo[estado];
+  Highcharts.chart('grafico-sexo', {
+    chart: { type: 'pie' },
+    title: { text: 'Obesidade por Sexo' },
+    series: [{
+      name: 'Percentual',
+      data: [
+        { name: 'Mulheres', y: dadosSexoEstado[0] },
+        { name: 'Homens', y: dadosSexoEstado[1] },
+        { name: 'Transsexuais', y: dadosSexoEstado[2] }
+      ]
+    }]
+  });
+  
+  const dadosFaixa = dadosFaixaEtaria[estado];
+  Highcharts.chart('grafico-faixa-etaria', {
+    chart: { type: 'column' },
+    title: { text: 'Obesidade por Faixa Etária' },
+    xAxis: {
+      categories: ['18-29', '30-44', '45-59', '60+'],
+      title: { text: 'Faixa Etária' }
+    },
+    yAxis: {
+      min: 0,
+      title: { text: 'Percentual de Obesidade (%)' },
+      labels: { format: '{value}%' }
+    },
+    tooltip: {
+      pointFormat: '<b>{point.y}%</b>'
+    },
+    plotOptions: {
+      column: {
+        colorByPoint: true
+      }
+    },
+    series: [{
+      name: 'Percentual',
+      data: dadosFaixa,
+      colors: ['#FF6F61', '#6A5ACD', '#26C6DA', '#FFB74D']
+    }]
+  });
+}
+
+  function mostrarAgravantesCombinados() {
+  multiplasSeriesAtivas = true;
+  const estado = document.getElementById('select-estado').value || 'SP';
+  atualizarMultiplasSeries(estado);
+}
+
+  function atualizarMultiplasSeries(estado) {
+  const dadosBase = usandoCategoriasAlternativas ? dadosAlternativos[estado] : dadosEstados[estado];
+
+  const combinacao1 = dadosBase.map((valor, index) => {
+    if (index === 0 || index === 5) return valor;
+    return dadosBase[0] + dadosBase[5]; 
+  });
+
+  const combinacao2 = dadosBase.map((valor, index) => {
+    if (index === 1 || index === 3) return valor;
+    return dadosBase[1] + dadosBase[3]; 
+  });
+
+  while (chart.series.length > 1) {
+    chart.series[chart.series.length - 1].remove();
+  }
+
+  chart.addSeries({
+    name: 'Cigarro + Sedentarismo',
+    data: combinacao1,
+    type: 'line',
+    color: '#4CAF50'
+  });
+
+  chart.addSeries({
+    name: 'Álcool + Depressão',
+    data: combinacao2,
+    type: 'line',
+    color: '#E91E63'
+  });
+}
+
+function alternarCategorias() {
+  usandoCategoriasAlternativas = !usandoCategoriasAlternativas;
+  const estado = document.getElementById('select-estado').value;
+  const dados = usandoCategoriasAlternativas ? dadosAlternativos[estado] || [0,0,0,0,0,0] : dadosEstados[estado] || [0,0,0,0,0,0];
+  chart.series[0].setData(dados);
+  chart.xAxis[0].setCategories(usandoCategoriasAlternativas ? categoriasAlternativas : categoriasOriginais);
+}
+
+  function alternarCategorias() {
+    usandoCategoriasAlternativas = !usandoCategoriasAlternativas;
+
+    chart.xAxis[0].setCategories(usandoCategoriasAlternativas ? categoriasOriginais : categoriasAlternativas);
+    const estado = document.getElementById('select-estado').value || 'SP';
+
+    const novosDados = usandoCategoriasAlternativas ? dadosAlternativos[estado] : dadosEstados[estado];
+    chart.series[0].setData(novosDados);
+
+    if (multiplasSeriesAtivas) {
+      atualizarMultiplasSeries(estado);
+    }
+  }
+
+  function mostrarVariosAgravantes() {
+    multiplasSeriesAtivas = true;
+    const estado = document.getElementById('select-estado').value || 'SP';
+    atualizarMultiplasSeries(estado);
+  }
+
+  function atualizarMultiplasSeries(estado) {
+    const dadosBase = usandoCategoriasAlternativas ? dadosAlternativos[estado] : dadosEstados[estado];
+
+    const combinacao1 = dadosBase.map((valor, index) => {
+      if (index === 0 || index === 5) return valor;
+      return (dadosBase[0] + dadosBase[5]) / 2; 
+    });
+
+    const combinacao2 = dadosBase.map((valor, index) => {
+      if (index === 1 || index === 3) return valor;
+      return (dadosBase[1] + dadosBase[3]) / 2; 
+    });
+
+    while (chart.series.length > 1) {
+      chart.series[chart.series.length - 1].remove();
+    }
+
+    chart.addSeries({
+      name: 'Fumante & Sedentário',
+      data: combinacao1,
+      color: '#1976D2'
+    });
+
+    chart.addSeries({
+      name: 'Álcool & Depressão',
+      data: combinacao2,
+      color: '#C2185B'
+    });
+  }
   </script>
 </body>
 </html>
