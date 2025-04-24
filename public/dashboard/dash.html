@@ -26,8 +26,8 @@
     </div>
 <section class="main">
   <div class="kpi-container">
-    <div class="kpi-card"><div><h3>Maior IMC</h3><p id="maior-imc">32</p></div></div>
-    <div class="kpi-card"><div><h3>Maior Fator</h3><p id="menor-imc">Depressão</p></div></div>
+    <div class="kpi-card"><div><h3>Maior IMC</h3><p id="maior-imc">45</p></div></div>
+    <div class="kpi-card"><div><h3>Maior Fator</h3><p id="menor-imc">Sedentarismo</p></div></div>
     <div class="kpi-card"><div><h3>IMC Nacional</h3><p id="imc-nacional">35</p></div></div>
     <div class="kpi-card"><div><h3>% Obesidade</h3><p id="obesidade">55</p></div></div>
     <div class="kpi-card"><div><h3>% Sobrepeso</h3><p id="sobrepeso">60</p></div></div>
@@ -74,7 +74,7 @@
           <option value="TO">Tocantins</option>
         </select>          
         <button onclick="filtrarPorEstado()">Filtrar Estado</button>
-        <button onclick="alternarCategorias()">Alternar Categorias</button>
+        <!-- <button onclick="alternarCategorias()">Alternar Categorias</button> -->
         <button onclick="mostrarAgravantesCombinados()">Vários Agravantes</button>
       </div>
     </div>
@@ -260,7 +260,6 @@ const dadosEstados = {
   TO: [13, 15, 26, 39, 30, 44]
 };
 
-  const categoriasAlternativas = ['Estresse', 'Alimentação Processada', 'Horas de Sono', 'Trabalho Sedentário', 'Ansiedade', 'Genética'];
   const dadosAlternativos = {
   AC: [36, 31, 27, 26, 30, 22],
   AL: [38, 33, 29, 27, 31, 24],
