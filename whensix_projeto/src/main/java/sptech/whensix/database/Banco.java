@@ -1,13 +1,14 @@
 package sptech.whensix.database;
-/*
-import sptech.whensix.config.Config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import org.apache.commons.dbcp2.BasicDataSource;
+import sptech.whensix.config.Config;
+import javax.sql.DataSource;
 
 public class Banco {
-    public static Connection conectar() throws SQLException {
+
+    private static BasicDataSource dataSource;
+
+    static {
         String host = Config.get("DB_HOST");
         String port = Config.get("DB_PORT");
         String dbName = Config.get("DB_NAME");
@@ -15,35 +16,18 @@ public class Banco {
         String password = Config.get("DB_PASSWORD");
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useSSL=false&serverTimezone=UTC";
-        return DriverManager.getConnection(url, user, password);
+
+        dataSource = new BasicDataSource();
+        dataSource.setUrl(url);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        dataSource.setMinIdle(5);
+        dataSource.setMaxIdle(10);
+        dataSource.setMaxOpenPreparedStatements(100);
     }
+
+    public static DataSource getDataSource() {
+        return dataSource;
+    }
+
 }
- */
-
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import java.sql.SQLException;
-
-public class Banco {
-
-    private final JdbcTemplate jdbcTemplate;
-    private final BasicDataSource basicDataSource;
-
-    public Banco() {
-        this.basicDataSource = new BasicDataSource();
-        this.basicDataSource.setUrl("jdbc:mysql://localhost:3306/whensix?useSSL=false&serverTimezone=UTC");
-        this.basicDataSource.setUsername("root");
-        this.basicDataSource.setPassword("Manobabidi00");
-
-        this.jdbcTemplate = new JdbcTemplate(this.basicDataSource);
-    }
-
-    public BasicDataSource getBasicDataSource() {
-        return basicDataSource;
-    }
-
-    public JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
-}
-

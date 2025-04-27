@@ -1,5 +1,6 @@
 package sptech.whensix.importacao;
 
+import sptech.whensix.database.LoadLogs;
 import sptech.whensix.excel.ExcelLeitor;
 import sptech.whensix.model.Dado;
 import sptech.whensix.repository.DadoRepository;
@@ -12,7 +13,7 @@ public class Importador {
     public static void main(String[] args)  throws IOException  {
         try {
             File arquivo = new File("/home/fly/test/base_dados_pi.xlsx");
-            List<Dado> dados = ExcelLeitor.processar(arquivo);
+            List<Dado> dados = ExcelLeitor.processar(arquivo, null);
             DadoRepository repo = new DadoRepository();
 
             for (Dado dado : dados) {

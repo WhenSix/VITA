@@ -8,7 +8,7 @@ public class CreateLog {
     private String mensagem;
     private String dtHora;
     private Integer linha;
-    private Integer coluna;
+    private Integer errosNaLinha;
 
     public CreateLog(NivelLog nivel, TipoLog tipo) {
         this.nivel = nivel;
@@ -17,19 +17,12 @@ public class CreateLog {
         this.dtHora = getDateTime();
     }
 
-    public CreateLog(NivelLog nivel, TipoLog tipo, String mensagem) {
+    public CreateLog(NivelLog nivel, TipoLog tipo, int linha, int errosNaLinha) {
         this.nivel = nivel;
         this.tipo = tipo;
-        this.mensagem = mensagem;
-        this.dtHora = getDateTime();
-    }
-
-    public CreateLog(NivelLog nivel, TipoLog tipo, String mensagem, int linha, int coluna) {
-        this.nivel = nivel;
-        this.tipo = tipo;
-        this.mensagem = mensagem;
+        this.mensagem = tipo.getMensagem();
         this.linha = linha;
-        this.coluna = coluna;
+        this.errosNaLinha = errosNaLinha;
         this.dtHora = getDateTime();
     }
 
@@ -57,8 +50,8 @@ public class CreateLog {
         return linha;
     }
 
-    public Integer getColuna() {
-        return coluna;
+    public Integer getErrosNaLinha() {
+        return errosNaLinha;
     }
 
     public static CreateLog log(NivelLog nivel, TipoLog tipo) {
@@ -70,7 +63,7 @@ public class CreateLog {
     }
 
     public static CreateLog logCustom(NivelLog nivel, TipoLog tipo, int sucesso, int erro) {
-        CreateLog logCustom = new CreateLog(nivel, tipo, tipo.getMensagem());
+        CreateLog logCustom = new CreateLog(nivel, tipo);
 
         System.out.printf("[%s] [%s] - %s | Sucesso: %d | Erros: %d%n",
                 logCustom.dtHora, nivel, tipo.getMensagem(), sucesso, erro);
@@ -78,16 +71,12 @@ public class CreateLog {
         return logCustom;
     }
 
-    public static CreateLog logCellError(NivelLog nivel, TipoLog tipo, int linha, int coluna) {
-        CreateLog logCellError = new CreateLog(nivel, tipo, tipo.getMensagem(), linha, coluna);
+    public static CreateLog logLineError(NivelLog nivel, TipoLog tipo, int linha, int errosNaLinha) {
+        CreateLog logLineError = new CreateLog(nivel, tipo, linha, errosNaLinha);
 
-        System.out.printf("[%s] [%s] - %s: [linha %d, coluna %d]%n",
-                logCellError.dtHora, nivel, tipo.getMensagem(), linha, coluna);
+        System.out.printf("[%s] [%s] - %s: [linha %d, Erros: %d]%n",
+                logLineError.dtHora, nivel, tipo.getMensagem(), linha, errosNaLinha);
 
-        return logCellError;
-    }
-
-    public boolean confirmCellLog() {
-        return this.linha != null && this.coluna != null;
+        return logLineError;
     }
 }
