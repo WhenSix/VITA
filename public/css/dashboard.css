@@ -3,33 +3,33 @@ body{
 }
 
 .main {
-    margin-left: 230px;
-    padding: 30px;
-    flex-grow: 1;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-right: 30px;
-    margin-bottom: 30px;
+  margin-left: 220px;
+  padding: 20px;
+  flex-grow: 1;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px; 
+  margin-right: 30px;
+  margin-bottom: 30px;
 }
 
 .kpi-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    gap: 15px;
 }
 
 .kpi-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
 }
 
 .chart-container {
@@ -39,7 +39,8 @@ body{
 }
 
 .chart-box {
-    background-color: white;
+    background-color: #eeeeee;
+    height: 200px;
     padding: 20px;
     width: 95%;
     border-radius: 12px;
@@ -48,8 +49,19 @@ body{
     overflow: hidden;
 }
 
+.chart-box-doughnut {
+  background-color: #eeeeee;
+  height: 200px;
+  padding: 20px;
+  width: 65%;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  overflow: hidden;
+}
+
 #grafico-barras{
-    padding: 50px;
+    padding: 60px;
 }
 
 .chart-box:nth-child(3) {
@@ -102,6 +114,52 @@ body {
     gap: 20px;
     position: fixed;
     z-index: 1;
+}
+
+.menu-toggle {
+  display: block;
+  background-color: #0d2329;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  border-radius: 6px;
+}
+
+.lateral {
+  display: none; 
+}
+
+.lateral.active {
+  display: flex;
+}
+/* 
+body.menu-open {
+  padding-left: 230px; 
+}
+
+@media (max-width: 768px) {
+  body.menu-open {
+    padding-left: 0;
+  }
+} */
+
+.menu-toggle {
+  display: block;
+}
+
+.lateral nav {
+  display: none;
+}
+
+.lateral.active nav {
+  display: flex;
 }
 
 h3{
@@ -174,7 +232,7 @@ nav {
 canvas {
     width: 100% !important;
     max-width: 100% !important;
-    max-height: 400px !important;
+    max-height: 185px !important;
 	z-index: -10;
 }
 

@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="../logos/coracao-logo.png"> 
     <title>Vita - Dashboard</title>
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
     <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
 </head>
 <body">
@@ -19,8 +20,8 @@
         <nav>
           <a href="./imc.html"><i class="fas fa-map"></i>Mapa IMC</a>
           <a href="./dash.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
-            <a href="../index.html" class="sair" onclick="limparSessao()"><i
-                    class="fa-solid fa-right-from-bracket"></i>Sair</a>
+          <a href="../index.html" class="sair" onclick="limparSessao()"><i
+           class="fa-solid fa-right-from-bracket"></i>Sair</a>
         </nav>
     </div>
     <div class="legenda-imc">
@@ -236,6 +237,7 @@
       });
     });
   });
+
   function classificarIMC(imc) {
   if (imc < 25) return 'normal';
   if (imc >= 25 && imc < 30) return 'sobrepeso';
