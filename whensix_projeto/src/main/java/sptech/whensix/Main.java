@@ -1,31 +1,58 @@
 package sptech.whensix;
 
-import sptech.whensix.database.Banco;
-import sptech.whensix.database.LoadLogs;
+import sptech.whensix.config.Banco;
+import sptech.whensix.config.Config;
 import sptech.whensix.excel.ExcelLeitor;
+import sptech.whensix.model.Dado;
+import sptech.whensix.repository.DadoRepository;
 import sptech.whensix.s3.S3Downloader;
+import sptech.whensix.service.LoadLogs;
+import sptech.whensix.utils.CreateLog;
+import sptech.whensix.utils.NivelLog;
+import sptech.whensix.utils.TipoLog;
+
 import java.io.File;
-import sptech.whensix.utils.*;
-import sptech.whensix.excel.ResultadoLeitura;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         LoadLogs loadLogs = new LoadLogs(Banco.getDataSource());
+        DadoRepository dadoRepository = new DadoRepository();
 
         try {
-            String nomeArquivoS3 = "Vigitel-2023-peso-rake.xlsx"; // nome no bucket
-            String caminhoLocal = "Documentos/Vigitel-2023-peso-rake.xlsx"; // salvar localmente
-            File arquivoTesteLocal = new File("C:/Users/caina/Documents/dados_pi/base_dados_pi.xlsx");
-            //File arquivo = S3Downloader.baixarArquivo(nomeArquivoS3, caminhoLocal);
-            //System.out.println("Arquivo baixado: " + arquivo.getAbsolutePath());
+            // 1. Configurações do S3
+            String s3FilePath = Config.get("S3_FILE_PATH");
+            String caminhoLocal = "/home/fly/tmp/base_dados_pi.xlsx";
 
-            ExcelLeitor.processar(arquivoTesteLocal, loadLogs);
+            // 2. Baixar arquivo do S3
+            File arquivo = S3Downloader.baixarArquivo(s3FilePath, caminhoLocal);
+
+            if (arquivo == null) {
+                CreateLog.log(NivelLog.ERROR, TipoLog.READ_ERROR);
+                System.err.println("Falha ao baixar o arquivo do S3.");
+                return;
+            }
+
+            // 3. Processar e salvar no banco
+            CreateLog.log(NivelLog.INFO, TipoLog.READ_START);
+            List<Dado> dados = ExcelLeitor.processar(arquivo, loadLogs);
+
+            CreateLog.log(NivelLog.INFO, TipoLog.LOAD_START);
+            for (Dado dado : dados) {
+                try {
+                    dadoRepository.salvar(dado);
+                } catch (Exception e) {
+                    System.err.println("Erro ao salvar dado: " + e.getMessage());
+                }
+            }
+
+            CreateLog.log(NivelLog.INFO, TipoLog.LOAD_SUCESS);
+            System.out.println("Dados importados com sucesso! Total: " + dados.size());
 
         } catch (Exception e) {
-            CreateLog logCustom = CreateLog.log(NivelLog.ERROR,TipoLog.READ_ERROR);
-
+            CreateLog.log(NivelLog.ERROR, TipoLog.LOAD_ERROR);
+            System.err.println("Erro fatal: " + e.getMessage());
             e.printStackTrace();
         }
     }
-
 }

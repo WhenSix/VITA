@@ -56,27 +56,21 @@ public class CreateLog {
 
     public static CreateLog log(NivelLog nivel, TipoLog tipo) {
         CreateLog log = new CreateLog(nivel, tipo);
-
         System.out.printf("[%s] [%s] - %s%n", log.dtHora, nivel, tipo.getMensagem());
-
         return log;
     }
 
     public static CreateLog logCustom(NivelLog nivel, TipoLog tipo, int sucesso, int erro) {
         CreateLog logCustom = new CreateLog(nivel, tipo);
-
         System.out.printf("[%s] [%s] - %s | Sucesso: %d | Erros: %d%n",
                 logCustom.dtHora, nivel, tipo.getMensagem(), sucesso, erro);
-
         return logCustom;
     }
 
     public static CreateLog logLineError(NivelLog nivel, TipoLog tipo, int linha, int errosNaLinha) {
         CreateLog logLineError = new CreateLog(nivel, tipo, linha, errosNaLinha);
-
         System.out.printf("[%s] [%s] - %s: [linha %d, Erros: %d]%n",
                 logLineError.dtHora, nivel, tipo.getMensagem(), linha, errosNaLinha);
-
         return logLineError;
     }
 }

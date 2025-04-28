@@ -1,11 +1,9 @@
-package sptech.whensix.database;
+package sptech.whensix.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import sptech.whensix.config.Config;
 import javax.sql.DataSource;
 
 public class Banco {
-
     private static BasicDataSource dataSource;
 
     static {
@@ -29,5 +27,4 @@ public class Banco {
     public static DataSource getDataSource() {
         return dataSource;
     }
-
 }

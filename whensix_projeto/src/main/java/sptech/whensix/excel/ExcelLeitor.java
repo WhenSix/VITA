@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sptech.whensix.model.Dado;
 import sptech.whensix.utils.*;
-import sptech.whensix.database.LoadLogs;
+import sptech.whensix.service.LoadLogs;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,99 +38,27 @@ public class ExcelLeitor {
                 Dado dado = new Dado();
                 int errosNaLinha = 0;
 
-
-                if (linha.getRowNum() < planilha.getPhysicalNumberOfRows()) {
-
-                    try {
-                        dado.setCdgCidade(getInt(linha, 0));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setSexo(getInt(linha, 1));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setPeso(getFloat(linha, 2));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setAltura(getInt(linha, 3));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setFrequenciaRefri(getInt(linha, 4));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setQtdRefri(getInt(linha, 5));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setAlcoolismo(getBooleanFromValue(linha, 6, 1));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setFreqAlcool(getInt(linha, 7));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setExercicioFisico(getBooleanFromValue(linha, 8, 1));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setTipoExercicioFisico(getInt(linha, 9));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setFreqExercicioFisico(getInt(linha, 10));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setFumante(getBooleanFromValues(linha, 11, new int[]{1, 2}));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setQtdCigarrosDia(getInt(linha, 12));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setPesoRake(getDouble(linha, 13));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setImc(getFloat(linha, 14));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setExcPeso(getBooleanFromValue(linha, 15, 1));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setObesidade(getBooleanFromValue(linha, 16, 1));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
-                    try {
-                        dado.setDepressao(getBooleanFromValue(linha, 17, 1));
-                    } catch (Exception e) {
-                        errosNaLinha++;
-                    }
+                try {
+                    dado.setCdgCidade(getInt(linha, 0));
+                    dado.setSexo(getInt(linha, 1));
+                    dado.setPeso(getFloat(linha, 2));
+                    dado.setAltura(getInt(linha, 3));
+                    dado.setFrequenciaRefri(getInt(linha, 4));
+                    dado.setQtdRefri(getInt(linha, 5));
+                    dado.setAlcoolismo(getBooleanFromValue(linha, 6, 1));
+                    dado.setFreqAlcool(getInt(linha, 7));
+                    dado.setExercicioFisico(getBooleanFromValue(linha, 8, 1));
+                    dado.setTipoExercicioFisico(getInt(linha, 9));
+                    dado.setFreqExercicioFisico(getInt(linha, 10));
+                    dado.setFumante(getBooleanFromValues(linha, 11, new int[]{1, 2}));
+                    dado.setQtdCigarrosDia(getInt(linha, 12));
+                    dado.setPesoRake(getDouble(linha, 13));
+                    dado.setImc(getFloat(linha, 14));
+                    dado.setExcPeso(getBooleanFromValue(linha, 15, 1));
+                    dado.setObesidade(getBooleanFromValue(linha, 16, 1));
+                    dado.setDepressao(getBooleanFromValue(linha, 17, 1));
+                } catch (Exception e) {
+                    errosNaLinha++;
                 }
 
                 if (errosNaLinha > 0) {
@@ -141,7 +69,6 @@ public class ExcelLeitor {
                             linha.getRowNum() + 1,
                             errosNaLinha
                     ));
-                    System.out.println(linha.getRowNum());
                 } else {
                     dados.add(dado);
                     sucessos++;
@@ -149,15 +76,17 @@ public class ExcelLeitor {
             }
         }
 
-       logs.add(CreateLog.logCustom(
-               NivelLog.INFO,
-               TipoLog.READ_SUCESS,
-               sucessos,
-               erros
-       ));
-        System.out.println("Total de logs na lista: " + logs.size());
+        logs.add(CreateLog.logCustom(
+                NivelLog.INFO,
+                TipoLog.READ_SUCESS,
+                sucessos,
+                erros
+        ));
 
-        loadLog.saveLogsBatch(logs);
+        if (loadLog != null) {
+            loadLog.saveLogsBatch(logs);
+        }
+
         return dados;
     }
 
@@ -206,5 +135,4 @@ public class ExcelLeitor {
         }
         throw new IllegalArgumentException("Célula inválida ou tipo incorreto para índice " + index);
     }
-
 }
