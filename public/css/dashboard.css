@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(200, 241, 241);
+  background-color: #6a0572;
 }
 
 .main {
@@ -22,9 +22,10 @@ body{
 
 .kpi-card {
     background-color: #eeeeee;
-    padding: 10px;
+    padding: 2px;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 2px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,36 +33,71 @@ body{
     font-size: 1.0rem;
 }
 
+.kpi-up {
+  color: green;
+  font-weight: bold;
+}
+
+.kpi-down {
+  color: red;
+  font-weight: bold;
+}
+
+.kpi-right {
+  color: orange; 
+  font-weight: bold;
+}
+
 .chart-container {
     display: grid;
     grid-template-columns: 1fr 1fr; 
-    gap: 20px;
+    gap: 30px;
+}
+
+.chart-box-line {
+  background-color: #eeeeee;
+  height: 200px;
+  padding: 10px;
+  width: 300px;
+  height: 85%;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 2px solid black;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .chart-box {
     background-color: #eeeeee;
     height: 200px;
-    padding: 20px;
+    padding: 18px;
+    margin-top: 10px;
     width: 95%;
+    height: 85%;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 2px solid black;
     max-width: 100%;
     overflow: hidden;
+    margin-left: 14px;
 }
 
 .chart-box-doughnut {
   background-color: #eeeeee;
   height: 200px;
-  padding: 20px;
-  width: 65%;
+  padding: 15px;
+  margin-top: 10px;
+  height: 86%;
+  width: 90%;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 2px solid black;
   max-width: 100%;
   overflow: hidden;
 }
 
 #grafico-barras{
-    padding: 60px;
+    padding: 80px;
 }
 
 .chart-box:nth-child(3) {
@@ -74,7 +110,7 @@ body{
 }
 
 #barra{
-    width: 98%;
+    width: 100%;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
@@ -232,8 +268,8 @@ nav {
 canvas {
     width: 100% !important;
     max-width: 100% !important;
-    max-height: 185px !important;
-	z-index: -10;
+    max-height: 215px !important;
+	  z-index: -10;
 }
 
 .legenda-imc {
@@ -321,8 +357,9 @@ nav a:hover{
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
-	margin-top: 20px;
+	margin-top: 10px;
 	flex-wrap: wrap;
+  margin-right: 45px;
 }
 
 .botoes-barra button,
@@ -339,8 +376,11 @@ nav a:hover{
 }
 
 .botoes-barra button:hover {
-	background-color: #6a0572;
+  background-color: #eeeeee; 
+  border: solid black; 
+  color: black;  
 }
+
 
 @media (max-width: 768px) {
   html, body {

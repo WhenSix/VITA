@@ -205,6 +205,7 @@ header::before {
 .header__content h1 {
   margin-bottom: 2rem;
   font-size: 4.5rem;
+  margin-left: -15px;
   font-weight: 600;
   color: var(--text-dark);
   line-height: 5.5rem;

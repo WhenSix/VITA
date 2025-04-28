@@ -25,11 +25,11 @@
     <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
 <section class="main">
   <div class="kpi-container">
-    <div class="kpi-card"><div><h3>Maior IMC</h3><p id="maior-imc">45</p></div></div>
-    <div class="kpi-card"><div><h3>Maior Fator</h3><p id="menor-imc">Sedentarismo</p></div></div>
-    <div class="kpi-card"><div><h3>IMC Nacional</h3><p id="imc-nacional">28</p></div></div>
-    <div class="kpi-card"><div><h3>% Obesidade</h3><p id="obesidade">25</p></div></div>
-    <div class="kpi-card"><div><h3>% Sobrepeso</h3><p id="sobrepeso">38</p></div></div>
+    <div class="kpi-card"><div><h3>Maior IMC registrado</h3><p class="kpi-up" id="maior-imc">▲45</p></div></div>
+    <div class="kpi-card"><div><h3>Maior fator agravante</h3><p class="kpi-right" id="menor-imc">▶Sedentarismo</p></div></div>
+    <div class="kpi-card"><div><h3>IMC médio Nacional</h3><p class="kpi-up" id="imc-nacional">▲28</p></div></div>
+    <div class="kpi-card"><div><h3>Maior % de obesidade</h3><p class="kpi-down" id="obesidade">▼25%</p></div></div>
+    <div class="kpi-card"><div><h3>Maior % de sobrepeso</h3><p class="kpi-down" id="sobrepeso">▼38%</p></div></div>
   </div>
   <div class="botoes-barra">
     <select id="select-estado">
@@ -64,23 +64,22 @@
     </select>          
     <button onclick="filtrarPorEstado()">Filtrar Estado</button>
     <!-- <button onclick="alternarCategorias()">Alternar Categorias</button> -->
-    <button onclick="mostrarAgravantesCombinados()">Vários Agravantes</button>
+    <button onclick="toggleAgravantesCombinados()">Vários Agravantes</button>
+  </div>
+
+  <div class="chart-box-line" id="barra">
+    <canvas id="grafico-influenciadores"></canvas>
   </div>
 
   <div class="chart-container">
     <div class="chart-box-doughnut">
       <canvas id="grafico-sexo"></canvas>
-    </div>
+  </div>
 
     <div class="chart-box">
       <canvas id="grafico-faixa-etaria"></canvas>
-    </div>
-
-    <div class="chart-box" id="barra">
-      <canvas id="grafico-influenciadores"></canvas>
-    </div>
-    
-</section>
+    </div> 
+  </section>
   <script>
   function toggleMenu() {
     const sidebar = document.querySelector('.lateral');
@@ -93,10 +92,10 @@
    const graficoSexo = new Chart(ctxSexo, {
    type: 'doughnut',
     data: {
-    labels: ['Mulheres', 'Homens', 'transexuais', 'Outros'],
+    labels: ['Mulheres', 'Homens', 'transsexuais', 'Outros gêneros'],
       datasets: [{
         data: [55, 42, 2, 1],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#00FA9A']
+        backgroundColor: ['#DA70D6', '#0000FF', '#DC143C', '#00FA9A']
       }]
     },
     options: {
@@ -107,7 +106,7 @@
           text: 'Obesidade por Sexo',
            color: '#2e2e2e',
                 font: {
-                    size: 24
+                    size: 20
          }
        }
      }
@@ -126,7 +125,7 @@
                     size: 20
                 },
         data: [10, 25, 40, 30],
-        backgroundColor: ['#4BC0C0', '#FF9F40', '#9966FF', '#FF6384']
+        backgroundColor: ['#0000FF', '#00FF00', '#DA70D6', '#DC143C']
     }]
   },
     options: {
@@ -162,33 +161,26 @@
   }
 });
 
-  const ctxInfluenciadores = document.getElementById('grafico-influenciadores').getContext('2d');
-  const graficoInfluenciadores = new Chart(ctxInfluenciadores, {
+const ctxInfluenciadores = document.getElementById('grafico-influenciadores').getContext('2d');
+const gradient = ctxInfluenciadores.createLinearGradient(0, 0, 0, 400);
+// gradient.addColorStop(0, 'rgba(220, 20, 60, 0.5)'); 
+// gradient.addColorStop(1, 'rgba(220, 20, 60, 0)');   
+
+const graficoInfluenciadores = new Chart(ctxInfluenciadores, {
   type: 'line',
   data: {
-    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+    labels: ['Cigarro', 'Bebida alcoólica', 'Refrigerante', 'Depressão', 'Diabetes', 'Sedentarismo'],
     datasets: [
       {
-        label: 'Sedentarismo',
-        data: [30, 32, 35, 38, 37, 40],
-        borderColor: '#FF6384',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        tension: 0.4
+        label: 'Agravantes',
+        data: [30, 25, 30, 40, 50, 45],
+        borderColor: '#DC143C',
+        backgroundColor: gradient, 
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#DC143C',
+        pointBorderColor: '#DC143C'
       },
-      {
-        label: 'Alimentação Inadequada',
-        data: [25, 27, 28, 29, 30, 33],
-        borderColor: '#36A2EB',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        tension: 0.4
-      },
-      {
-        label: 'Estresse',
-        data: [15, 18, 22, 25, 24, 26],
-        borderColor: '#FFCE56',
-        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-        tension: 0.4
-      }
     ]
   },
   options: {
@@ -196,19 +188,17 @@
     plugins: {
       title: {
         display: true,
-        text: 'Influenciadores Externos da Obesidade',
+        text: 'Influenciadores Externos na Obesidade',
         color: '#2e2e2e',
-                font: {
-                    size: 20
-                },
-      },
-      legend: {
-        position: 'top'
+        font: {
+          size: 20
+        }
       }
     },
     scales: {
       y: {
         beginAtZero: true,
+        max: 100,
         title: {
           display: true,
           text: 'Porcentagem (%)'
@@ -216,13 +206,40 @@
       },
       x: {
         title: {
-          display: true,
-          text: 'Ano'
+          display: false
         }
       }
+    },
+    animation: {
+      duration: 1000,
+      easing: 'easeOutQuart'
     }
   }
 });
+
+const linhasExtras = [
+    {
+        label: 'Depressão e Bebida Alcoólica',
+        data: [5, 15, 25, 35],
+        borderColor: 'green',
+        backgroundColor: 'green',
+        tension: 0.4
+    },
+    {
+        label: 'Sedentarismo e Cigarro',
+        data: [8, 18, 28, 38],
+        borderColor: 'blue',
+        backgroundColor: 'blue',
+        tension: 0.4
+    },
+    {
+        label: 'Refrigerante e Diabetes',
+        data: [12, 22, 32, 42],
+        borderColor: 'pink',
+        backgroundColor: 'pink',
+        tension: 0.4
+    }
+];
 
 const dadosSexo = {
   AC: [60, 35, 4, 1],
@@ -345,38 +362,100 @@ const dadosEstados = {
 };
 
 function filtrarPorEstado() {
-    const estadoSelecionado = document.getElementById('select-estado').value;
-    if (estadoSelecionado) {
-        // Atualizar gráfico de sexo
-        const novoSexo = dadosSexo[estadoSelecionado];
-        graficoSexo.data.datasets[0].data = novoSexo;
-        graficoSexo.update();
+  const estadoSelecionado = document.getElementById('select-estado').value;
 
-        // Atualizar gráfico de faixa etária
-        const novaFaixa = dadosFaixaEtaria[estadoSelecionado];
-        graficoIdade.data.datasets[0].data = novaFaixa;
-        graficoIdade.update();
+  if (!estadoSelecionado) return;
 
-        // Atualizar gráfico de influenciadores
-        const novosInfluenciadores = dadosEstados[estadoSelecionado];
-        graficoInfluenciadores.data.datasets[0].data = [novosInfluenciadores[0], novosInfluenciadores[1]]; // Exemplo de dados para o primeiro dataset
-        graficoInfluenciadores.data.datasets[1].data = [novosInfluenciadores[2], novosInfluenciadores[3]]; // Exemplo de dados para o segundo dataset
-        graficoInfluenciadores.data.datasets[2].data = [novosInfluenciadores[4], novosInfluenciadores[5]]; // Exemplo de dados para o terceiro dataset
-        graficoInfluenciadores.update();
-    }
+  if (dadosSexo[estadoSelecionado]) {
+    graficoSexo.data.datasets[0].data = dadosSexo[estadoSelecionado];
+    graficoSexo.update();
+  }
+  if (dadosFaixaEtaria[estadoSelecionado]) {
+    graficoIdade.data.datasets[0].data = dadosFaixaEtaria[estadoSelecionado];
+    graficoIdade.update();
+  }
+
+  if (dadosEstados[estadoSelecionado]) {
+    graficoInfluenciadores.data.datasets[0].data = dadosEstados[estadoSelecionado];
+  }
+
+  graficoInfluenciadores.update();
 }
 
-function mostrarAgravantesCombinados() {
+  function mostrarAgravantesCombinados() {
     const estadoSelecionado = document.getElementById('select-estado').value;
     if (estadoSelecionado) {
         const novosDados = dadosAlternativos[estadoSelecionado];
-        graficoInfluenciadores.data.datasets[0].data = [novosDados[0], novosDados[1]];
-        graficoInfluenciadores.data.datasets[1].data = [novosDados[2], novosDados[3]];
-        graficoInfluenciadores.data.datasets[2].data = [novosDados[4], novosDados[5]];
+
+        graficoInfluenciadores.data.datasets[1].data = novosDados; 
+        graficoInfluenciadores.data.datasets[2].data = novosDados; 
+        graficoInfluenciadores.data.datasets[3].data = novosDados; 
+
+        atualizarLimiteY(graficoInfluenciadores);
         graficoInfluenciadores.update();
     }
 }
 
+
+  function atualizarLimiteY(grafico) {
+    const todosValores = grafico.data.datasets.flatMap(dataset => dataset.data);
+    const maxValue = Math.max(...todosValores);
+    const suggestedMax = Math.ceil(maxValue * 1.2); 
+    grafico.options.scales.y.suggestedMax = suggestedMax;
+}
+
+let mostrarAgravantes = false;
+
+function toggleAgravantesCombinados() {
+  mostrarAgravantes = !mostrarAgravantes; 
+  if (mostrarAgravantes) {
+    graficoInfluenciadores.data.datasets.push({
+        label: 'Depressão e Bebida Alcoólica',
+        data: [20, 50, 25, 50, 45, 55],
+        borderColor: 'green',
+        backgroundColor: 'green',
+        tension: 0.4,
+        fill: false
+      },
+      {
+        label: 'Sedentarismo e Cigarro',
+        data: [50, 18, 28, 45, 48, 58],
+        borderColor: 'blue',
+        backgroundColor: 'blue',
+        tension: 0.4,
+        fill: false
+      },
+      {
+        label: 'Refrigerante e Diabetes',
+        data: [12, 22, 50, 42, 52, 62],
+        borderColor: 'pink',
+        backgroundColor: 'pink',
+        tension: 0.4,
+        fill: false
+      }
+    );
+
+  } else {
+    graficoInfluenciadores.data.datasets = graficoInfluenciadores.data.datasets.filter(dataset => 
+      !['Depressão e Bebida Alcoólica', 'Sedentarismo e Cigarro', 'Refrigerante e Diabetes'].includes(dataset.label)
+    );
+  }
+
+  graficoInfluenciadores.update(); 
+}
+
+function atualizarDadosDoEstado(novoDadoPrincipal, novosDadosExtras) {
+    dadosPrincipais.data = novoDadoPrincipal;
+    linhasExtras[0].data = novosDadosExtras[0];
+    linhasExtras[1].data = novosDadosExtras[1];
+    linhasExtras[2].data = novosDadosExtras[2];
+
+    meuGrafico.data.datasets = linhasAtivas
+        ? [dadosPrincipais, ...linhasExtras]
+        : [dadosPrincipais];
+
+    meuGrafico.update();
+}
   </script>
 </body>
 </html>
