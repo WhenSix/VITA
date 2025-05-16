@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: whensix-mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: whensix
+      MYSQL_DATABASE: whensix
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  nodejs-app:
+    build: ./whensix-node
+    container_name: whensix-node-container
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: whensix
+      DB_USER: root
+      DB_PASSWORD: urubu100
+      DB_NAME: whensix
+
+  java-app:
+    build: ./whensix-projeto
+    container_name: whensix-java-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: whensix
+      DB_USER: root
+      DB_PASSWORD: urubu100
+      DB_NAME: whensix
+
+volumes:
+  mysql_data:
