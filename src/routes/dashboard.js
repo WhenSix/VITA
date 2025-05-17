@@ -9,5 +9,10 @@ router.get("/coletarMaiorIMC", (req, res) => {
   dashboardController.coletarMaiorIMC(req, res);
 });
 
+router.get("/coletarMaiorFator", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarMaiorFator(req, res);
+});
 
 module.exports = router;

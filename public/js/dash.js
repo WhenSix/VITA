@@ -7,6 +7,7 @@ function toggleMenu() {
 
   function carregarDashboard(){
     coletarMaiorIMC()
+    coletarMaiorFator()
   }
 
   function coletarMaiorIMC() {
@@ -18,11 +19,43 @@ function toggleMenu() {
         if (resposta.ok) {
             resposta.json().then(json => {
 
-                // Recupera a melhor posição corretamente
+                
                 if (json.resultado) {
                     console.log(json.resultado)
 
                     document.getElementById('maior_imc').innerHTML = json.resultado[0].maior_imc;
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+}
+
+function coletarMaiorFator() {
+    fetch('/dashboard/coletarMaiorFator', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO coletarMaiorFator()!")
+        console.log('teste', resposta)
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    document.getElementById('fator').innerHTML = json.resultado[0].fator;
                 } else {
                     console.warn("Nenhum resultado encontrado no array 'resultado'.");
                 }

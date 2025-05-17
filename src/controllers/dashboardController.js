@@ -18,6 +18,25 @@ function coletarMaiorIMC(req, res) {
     )
 }
 
+function coletarMaiorFator(req, res) {
+
+    dashboardModel.coletarMaiorFator().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
 module.exports = {
-  coletarMaiorIMC
+  coletarMaiorIMC,
+  coletarMaiorFator
 }
