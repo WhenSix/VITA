@@ -22,7 +22,7 @@ public class Main {
         try {
             // 1. Configurações do S3
             String s3FilePath = Config.get("S3_FILE_PATH");
-            String caminhoLocal = "/home/fly/tmp/base_dados_pi.xlsx";
+            String caminhoLocal = "C://Users/silve/Documents/basedados/base_dados_pi.xlsx";
 
             // 2. Baixar arquivo do S3
             File arquivo = S3Downloader.baixarArquivo(s3FilePath, caminhoLocal);

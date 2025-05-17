@@ -5,6 +5,42 @@ function toggleMenu() {
     body.classList.toggle('menu-open');
   }
 
+  function carregarDashboard(){
+    coletarMaiorIMC()
+  }
+
+  function coletarMaiorIMC() {
+    fetch('/dashboard/coletarMaiorIMC', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO coletarMaiorIMC()!")
+        console.log('teste', resposta)
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                // Recupera a melhor posição corretamente
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    document.getElementById('maior_imc').innerHTML = json.resultado[0].maior_imc;
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+}
+
    const ctxSexo = document.getElementById('grafico-sexo').getContext('2d');
    const graficoSexo = new Chart(ctxSexo, {
    type: 'doughnut',
