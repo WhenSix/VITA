@@ -8,6 +8,7 @@ function toggleMenu() {
   function carregarDashboard(){
     coletarMaiorIMC()
     coletarMaiorFator()
+    coletarMediaIMC()
   }
 
   function coletarMaiorIMC() {
@@ -74,30 +75,77 @@ function coletarMaiorFator() {
 
 }
 
+function coletarMediaIMC() {
+    fetch('/dashboard/coletarMediaIMC', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO coletarMediaIMC()!")
+        console.log('teste', resposta)
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    document.getElementById('imc_nacional').innerHTML = json.resultado[0].media_imc;
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+}
+
    const ctxSexo = document.getElementById('grafico-sexo').getContext('2d');
-   const graficoSexo = new Chart(ctxSexo, {
-   type: 'doughnut',
-    data: {
-    labels: ['Mulheres', 'Homens', 'transsexuais', 'Outros gêneros'],
-      datasets: [{
-        data: [55, 42, 2, 1],
-        backgroundColor: ['#DA70D6', '#0000FF', '#DC143C', '#00FA9A']
-      }]
+
+const graficoSexo = new Chart(ctxSexo, {
+  type: 'bar',
+  data: {
+    labels: ['Mulheres', 'Homens', 'Outros'],
+    datasets: [
+      {
+        label: 'Total',
+        data: [50, 40, 5], 
+        backgroundColor: 'rgba(30, 144, 255, 0.6)' 
+      },
+      {
+        label: 'Obesos',
+        data: [20, 10, 2], 
+        backgroundColor: 'rgba(255, 99, 132, 0.6)' 
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Obesidade por Sexo',
+        font: {
+          size: 20
+        },
+        color: '#333'
+      }
     },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-         display: true,
-          text: 'Obesidade por Sexo',
-           color: '#2e2e2e',
-                font: {
-                    size: 20
-         }
-       }
-     }
+    scales: {
+      y: {
+        beginAtZero: true
+      }
     }
-  });
+  }
+});
+
 
    const ctxIdade = document.getElementById('grafico-faixa-etaria').getContext('2d');
     const graficoIdade = new Chart(ctxIdade, {

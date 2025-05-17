@@ -15,4 +15,10 @@ router.get("/coletarMaiorFator", (req, res) => {
   dashboardController.coletarMaiorFator(req, res);
 });
 
+router.get("/coletarMediaIMC", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarMediaIMC(req, res);
+});
+
 module.exports = router;
