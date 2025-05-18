@@ -2,17 +2,17 @@ package sptech.whensix.s3;
 
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 import sptech.whensix.config.Config;
 
-import java.io.File;
-import java.nio.file.Paths;
+import java.io.InputStream;
 
 public class S3Downloader {
 
-    public static File baixarArquivo(String nomeArquivoS3, String destinoLocal) {
+    public static InputStream baixarArquivo(String nomeArquivoS3) {
         AwsSessionCredentials credentials = AwsSessionCredentials.create(
                 Config.get("AWS_ACCESS_KEY_ID"),
                 Config.get("AWS_SECRET_ACCESS_KEY"),
@@ -36,12 +36,10 @@ public class S3Downloader {
                 .key(nomeArquivoS3)
                 .build();
 
-        File arquivoLocal = Paths.get(destinoLocal).toFile();
-
         try {
-            s3.getObject(request, Paths.get(destinoLocal));
-            System.out.println("Arquivo baixado com sucesso!");
-            return arquivoLocal;
+            ResponseInputStream<GetObjectResponse> stream = s3.getObject(request);
+            System.out.println("Arquivo obtido com sucesso do S3!");
+            return stream;
         } catch (NoSuchKeyException e) {
             System.err.println("Erro: O arquivo não foi encontrado no S3.");
         } catch (S3Exception e) {

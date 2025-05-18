@@ -11,7 +11,8 @@ import sptech.whensix.utils.CreateLog;
 import sptech.whensix.utils.NivelLog;
 import sptech.whensix.utils.TipoLog;
 
-import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -20,33 +21,47 @@ public class Main {
         DadoRepository dadoRepository = new DadoRepository();
 
         try {
-            // 1. Configurações do S3
             String s3FilePath = Config.get("S3_FILE_PATH");
-            String caminhoLocal = "C://Users/silve/Documents/basedados/base_dados_pi.xlsx";
 
-            // 2. Baixar arquivo do S3
-            File arquivo = S3Downloader.baixarArquivo(s3FilePath, caminhoLocal);
+            InputStream arquivoStream = S3Downloader.baixarArquivo(s3FilePath);
 
-            if (arquivo == null) {
+            if (arquivoStream == null) {
                 CreateLog.log(NivelLog.ERROR, TipoLog.READ_ERROR);
-                System.err.println("Falha ao baixar o arquivo do S3.");
+                System.err.println("Falha ao obter o arquivo do S3.");
                 return;
             }
 
-            // 3. Processar e salvar no banco
             CreateLog.log(NivelLog.INFO, TipoLog.READ_START);
-            List<Dado> dados = ExcelLeitor.processar(arquivo, loadLogs);
+            List<Dado> dados = ExcelLeitor.processar(arquivoStream, loadLogs);
 
             CreateLog.log(NivelLog.INFO, TipoLog.LOAD_START);
-            for (Dado dado : dados) {
-                try {
-                    dadoRepository.salvar(dado);
-                } catch (Exception e) {
-                    System.err.println("Erro ao salvar dado: " + e.getMessage());
-                }
-            }
 
+            // --- 1) SALVAR INDIVIDUALMENTE (um por um) ---
+
+//            int sucesso = 0, erro = 0;
+//            for (Dado dado : dados) {
+//                try {
+//                    dadoRepository.salvar(dado);
+//                    sucesso++;
+//                } catch (Exception e) {
+//                    erro++;
+//                    System.err.println("Erro ao salvar dado: " + e.getMessage());
+//                }
+//            }
+//            CreateLog.logCustom(NivelLog.INFO, TipoLog.LOAD_SUCESS, sucesso, erro);
+
+
+            // --- 2) SALVAR POR LOTE (tamanho lote definido, chama salvar individualmente dentro do lote) ---
+
+//            int tamanhoLote = 5000; // ajuste conforme desejado
+//            dadoRepository.salvarPorLote(dados, tamanhoLote);
+//            CreateLog.log(NivelLog.INFO, TipoLog.LOAD_SUCESS);
+
+
+            // --- 3) SALVAR COM BATCH UPDATE (todos juntos em batch) ---
+            dadoRepository.salvarComBatch(dados);
             CreateLog.log(NivelLog.INFO, TipoLog.LOAD_SUCESS);
+
             System.out.println("Dados importados com sucesso! Total: " + dados.size());
 
         } catch (Exception e) {
