@@ -3,6 +3,12 @@ var router = express.Router();
 
 var dashboardController = require("../controllers/dashboardController");
 
+router.get("/obterGraficoFatores", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.obterGraficoFatores(req, res);
+});
+
 router.get("/coletarMaiorIMC", (req, res) => {
   console.log("oi estou no router")
 

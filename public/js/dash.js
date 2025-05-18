@@ -6,10 +6,115 @@ function toggleMenu() {
   }
 
   function carregarDashboard(){
+    obterGraficoFatores()
     coletarMaiorIMC()
     coletarMaiorFator()
     coletarMediaIMC()
   }
+
+  function obterGraficoFatores() {
+    fetch('/dashboard/obterGraficoFatores', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO obterGraficoFatores()!")
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    plotarGraficoFatores(json.resultado)
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+function plotarGraficoFatores(resultado) {
+  const ctxInfluenciadores = document.getElementById('grafico-influenciadores').getContext('2d');
+  const gradient = ctxInfluenciadores.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, 'rgba(220, 20, 60, 0.5)');
+  gradient.addColorStop(1, 'rgba(220, 20, 60, 0)');
+
+  const labels = ['Sedentarismo', 'Alcoolismo', 'Fumo', 'Refrigerante'];
+
+  console.log('Iniciando plotagem do gráfico de fatores...');
+  console.log('Resultado recebido estou na funcao de :', resultado);
+console.log('Resultado completo:', resultado);
+
+  const dadosPrincipais = labels.map(label => {
+    const item = resultado.find(dado => dado.fator === label);
+console.log('Fatores recebidos:', resultado.map(dado => dado.fator));
+    return item ? parseFloat(item.percentual_obesos) : 0;
+  });
+
+  console.log('Dados principais processados:', dadosPrincipais);
+
+  const config = {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Agravantes',
+          data: dadosPrincipais,
+          borderColor: '#DC143C',
+          backgroundColor: gradient,
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: '#DC143C',
+          pointBorderColor: '#DC143C'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Influenciadores Externos na Obesidade',
+          color: '#2e2e2e',
+          font: {
+            size: 20
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          title: {
+            display: true,
+            text: 'Porcentagem (%)'
+          }
+        },
+        x: {
+          title: {
+            display: false
+          }
+        }
+      },
+      animation: {
+        duration: 1000,
+        easing: 'easeOutQuart'
+      }
+    }
+  };
+
+  new Chart(ctxInfluenciadores, config);
+}
 
   function coletarMaiorIMC() {
     fetch('/dashboard/coletarMaiorIMC', {
@@ -107,6 +212,8 @@ function coletarMediaIMC() {
 
 }
 
+
+
    const ctxSexo = document.getElementById('grafico-sexo').getContext('2d');
 
 const graficoSexo = new Chart(ctxSexo, {
@@ -195,85 +302,8 @@ const graficoSexo = new Chart(ctxSexo, {
   }
 });
 
-const ctxInfluenciadores = document.getElementById('grafico-influenciadores').getContext('2d');
-const gradient = ctxInfluenciadores.createLinearGradient(0, 0, 0, 400);
-// gradient.addColorStop(0, 'rgba(220, 20, 60, 0.5)'); 
-// gradient.addColorStop(1, 'rgba(220, 20, 60, 0)');   
 
-const graficoInfluenciadores = new Chart(ctxInfluenciadores, {
-  type: 'line',
-  data: {
-    labels: ['Cigarro', 'Bebida alcoólica', 'Refrigerante', 'Depressão', 'Diabetes', 'Sedentarismo'],
-    datasets: [
-      {
-        label: 'Agravantes',
-        data: [30, 25, 30, 40, 50, 45],
-        borderColor: '#DC143C',
-        backgroundColor: gradient, 
-        fill: true,
-        tension: 0.4,
-        pointBackgroundColor: '#DC143C',
-        pointBorderColor: '#DC143C'
-      },
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Influenciadores Externos na Obesidade',
-        color: '#2e2e2e',
-        font: {
-          size: 20
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        title: {
-          display: true,
-          text: 'Porcentagem (%)'
-        }
-      },
-      x: {
-        title: {
-          display: false
-        }
-      }
-    },
-    animation: {
-      duration: 1000,
-      easing: 'easeOutQuart'
-    }
-  }
-});
 
-const linhasExtras = [
-    {
-        label: 'Depressão e Bebida Alcoólica',
-        data: [5, 15, 25, 35],
-        borderColor: 'green',
-        backgroundColor: 'green',
-        tension: 0.4
-    },
-    {
-        label: 'Sedentarismo e Cigarro',
-        data: [8, 18, 28, 38],
-        borderColor: 'blue',
-        backgroundColor: 'blue',
-        tension: 0.4
-    },
-    {
-        label: 'Refrigerante e Diabetes',
-        data: [12, 22, 32, 42],
-        borderColor: 'pink',
-        backgroundColor: 'pink',
-        tension: 0.4
-    }
-];
 
 const dadosSexo = {
   AC: [60, 35, 4, 1],
