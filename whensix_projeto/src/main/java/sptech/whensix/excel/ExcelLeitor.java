@@ -6,15 +6,13 @@ import sptech.whensix.model.Dado;
 import sptech.whensix.utils.*;
 import sptech.whensix.service.LoadLogs;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelLeitor {
 
-    public static List<Dado> processar(File arquivo, LoadLogs loadLog) throws IOException {
+    public static List<Dado> processar(InputStream inputStream, LoadLogs loadLog) throws Exception {
         List<Dado> dados = new ArrayList<>();
         List<CreateLog> logs = new ArrayList<>();
 
@@ -23,9 +21,7 @@ public class ExcelLeitor {
 
         logs.add(CreateLog.log(NivelLog.INFO, TipoLog.READ_START));
 
-        try (FileInputStream fis = new FileInputStream(arquivo);
-             Workbook workbook = new XSSFWorkbook(fis)) {
-
+        try (Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet planilha = workbook.getSheetAt(0);
             boolean primeiraLinha = true;
 
@@ -40,23 +36,24 @@ public class ExcelLeitor {
 
                 try {
                     dado.setCdgCidade(getInt(linha, 0));
-                    dado.setSexo(getInt(linha, 1));
-                    dado.setPeso(getFloat(linha, 2));
-                    dado.setAltura(getInt(linha, 3));
-                    dado.setFrequenciaRefri(getInt(linha, 4));
-                    dado.setQtdRefri(getInt(linha, 5));
-                    dado.setAlcoolismo(getBooleanFromValue(linha, 6, 1));
-                    dado.setFreqAlcool(getInt(linha, 7));
-                    dado.setExercicioFisico(getBooleanFromValue(linha, 8, 1));
-                    dado.setTipoExercicioFisico(getInt(linha, 9));
-                    dado.setFreqExercicioFisico(getInt(linha, 10));
-                    dado.setFumante(getBooleanFromValues(linha, 11, new int[]{1, 2}));
-                    dado.setQtdCigarrosDia(getInt(linha, 12));
-                    dado.setPesoRake(getDouble(linha, 13));
-                    dado.setImc(getFloat(linha, 14));
-                    dado.setExcPeso(getBooleanFromValue(linha, 15, 1));
-                    dado.setObesidade(getBooleanFromValue(linha, 16, 1));
-                    dado.setDepressao(getBooleanFromValue(linha, 17, 1));
+                    dado.setIdade(getInt(linha, 1));
+                    dado.setSexo(getInt(linha, 2));
+                    dado.setPeso(getFloat(linha, 3));
+                    dado.setAltura(getInt(linha, 4));
+                    dado.setFrequenciaRefri(getInt(linha, 5));
+                    dado.setTipoRefri(getInt(linha, 6));
+                    dado.setQtdRefri(getInt(linha, 7));
+                    dado.setAlcoolismo(getBooleanFromValue(linha, 8, 1));
+                    dado.setFreqAlcool(getInt(linha, 9));
+                    dado.setExercicioFisico(getBooleanFromValue(linha, 10, 1));
+                    dado.setTipoExercicioFisico(getInt(linha, 11));
+                    dado.setFreqExercicioFisico(getInt(linha, 12));
+                    dado.setFumante(getBooleanFromValues(linha, 13, new int[]{1, 2}));
+                    dado.setPesoRake(getDouble(linha, 14));
+                    dado.setImc(getFloat(linha, 15));
+                    dado.setExcPeso(getBooleanFromValue(linha, 16, 1));
+                    dado.setObesidade(getBooleanFromValue(linha, 17, 1));
+                    dado.setDepressao(getBooleanFromValue(linha, 18, 1));
                 } catch (Exception e) {
                     errosNaLinha++;
                 }
@@ -89,6 +86,7 @@ public class ExcelLeitor {
 
         return dados;
     }
+
 
     private static int getInt(Row row, int index) {
         Cell cell = row.getCell(index);
