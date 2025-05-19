@@ -1,3 +1,5 @@
+
+
 function toggleMenu() {
     const sidebar = document.querySelector('.lateral');
     const body = document.body;
@@ -12,6 +14,41 @@ function toggleMenu() {
     coletarMediaIMC()
   }
 
+  async function obterGraficoFatoresEstado(){
+    var capital = select_estado.value
+    console.log(capital)
+    var numeroCapital
+    switch (capital){
+      case 'SP': numeroCapital = 18
+    } console.log(numeroCapital)
+  await fetch(`/dashboard/obterGraficoFatoresEstado/${numeroCapital}`, {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO obterGraficoFatores()!")
+        if (resposta.ok) {
+            resposta.json().then(async json => {
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+                   await chart.destroy()
+                    plotarGraficoFatores(json.resultado)
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
   function obterGraficoFatores() {
     fetch('/dashboard/obterGraficoFatores', {
         cache: 'no-store'
@@ -19,7 +56,6 @@ function toggleMenu() {
         console.log("ESTOU NO THEN DO obterGraficoFatores()!")
         if (resposta.ok) {
             resposta.json().then(json => {
-
                 
                 if (json.resultado) {
                     console.log(json.resultado)
@@ -41,9 +77,12 @@ function toggleMenu() {
         console.log(erro);
     })
 }
-
+var chart 
 function plotarGraficoFatores(resultado) {
+
   const ctxInfluenciadores = document.getElementById('grafico-influenciadores').getContext('2d');
+
+
   const gradient = ctxInfluenciadores.createLinearGradient(0, 0, 0, 400);
   gradient.addColorStop(0, 'rgba(220, 20, 60, 0.5)');
   gradient.addColorStop(1, 'rgba(220, 20, 60, 0)');
@@ -113,7 +152,7 @@ console.log('Fatores recebidos:', resultado.map(dado => dado.fator));
     }
   };
 
-  new Chart(ctxInfluenciadores, config);
+  chart = new Chart(ctxInfluenciadores, config);
 }
 
   function coletarMaiorIMC() {

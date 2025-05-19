@@ -27,4 +27,10 @@ router.get("/coletarMediaIMC", (req, res) => {
   dashboardController.coletarMediaIMC(req, res);
 });
 
+
+router.get("/obterGraficoFatoresEstado/:capital", (req, res) => {
+  console.log("oi estou no router do fatores")
+
+  dashboardController.obterGraficoFatoresEstado(req, res);
+});
 module.exports = router;
