@@ -19,7 +19,7 @@ public class LoadLogs {
         this.jdbcTemplate = new JdbcTemplate(conexao);
     }
 
-    public void saveLogsBatch(List<CreateLog> logs) {
+    public void saveLogsBatch(List<String> logs) {
         String sql = """
             INSERT INTO tb_log(msg_log, dt_log, nivel_log, categoria_log, linha_log, erros_na_linha)
             VALUES (?, ?, ?, ?, ?, ?)
@@ -28,7 +28,7 @@ public class LoadLogs {
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
-                CreateLog log = logs.get(i);
+                String log = logs.get(i);
                 ps.setString(1, log.getMensagem());
                 ps.setTimestamp(2, Timestamp.valueOf(log.getDtHora()));
                 ps.setString(3, log.getNivel().toString());
