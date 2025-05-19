@@ -12,15 +12,43 @@ function toggleMenu() {
     coletarMaiorIMC()
     coletarMaiorFator()
     coletarMediaIMC()
+    coletarPercentualObesidade()
+    coletarPercentualSobrepeso()
   }
 
   async function obterGraficoFatoresEstado(){
     var capital = select_estado.value
     console.log(capital)
-    var numeroCapital
+    var numeroCapital 
     switch (capital){
-      case 'SP': numeroCapital = 18
-    } console.log(numeroCapital)
+      case 'AC': numeroCapital = 20; break;
+      case 'AL': numeroCapital = 13; break;
+      case 'AP': numeroCapital = 12; break;
+      case 'AM': numeroCapital = 14; break;
+      case 'BA': numeroCapital = 22; break;
+      case 'CE': numeroCapital = 9; break;
+      case 'DF': numeroCapital = 27; break;
+      case 'ES': numeroCapital = 26; break;
+      case 'GO': numeroCapital = 10; break;
+      case 'MA': numeroCapital = 23; break;
+      case 'MT': numeroCapital = 6; break;
+      case 'MS': numeroCapital = 5; break;
+      case 'MG': numeroCapital = 3; break;
+      case 'PA': numeroCapital = 2; break;
+      case 'PB': numeroCapital = 11; break;
+      case 'PR': numeroCapital = 7; break;
+      case 'PE': numeroCapital = 19; break;
+      case 'PI': numeroCapital = 25; break;
+      case 'RJ': numeroCapital = 21; break;
+      case 'RN': numeroCapital = 15; break;
+      case 'RS': numeroCapital = 17; break;
+      case 'RO': numeroCapital = 18; break;
+      case 'RR': numeroCapital = 4; break;
+      case 'SC': numeroCapital = 8; break;
+      case 'SP': numeroCapital = 24; break;
+      case 'SE': numeroCapital = 1; break;
+      case 'TO': numeroCapital = 16; break;
+    } console.log('numero', numeroCapital)
   await fetch(`/dashboard/obterGraficoFatoresEstado/${numeroCapital}`, {
         cache: 'no-store'
     }).then(function (resposta) {
@@ -154,6 +182,75 @@ console.log('Fatores recebidos:', resultado.map(dado => dado.fator));
 
   chart = new Chart(ctxInfluenciadores, config);
 }
+
+
+
+function coletarPercentualObesidade() {
+    fetch('/dashboard/coletarPercentualObesidade', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO coletarPercentualObesidade()!")
+        console.log('teste', resposta)
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    document.getElementById('obesidade').innerHTML = json.resultado[0].percentual_obesidade;
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+}
+
+function coletarPercentualSobrepeso() {
+    fetch('/dashboard/coletarPercentualObesidade', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO coletarPercentualObesidade()!")
+        console.log('teste', resposta)
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    document.getElementById('sobrepeso').innerHTML = json.resultado[0].percentual_sobrepeso;
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+}
+
+
+
 
   function coletarMaiorIMC() {
     fetch('/dashboard/coletarMaiorIMC', {

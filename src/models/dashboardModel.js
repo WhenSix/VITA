@@ -29,7 +29,7 @@ FROM (
     FROM tb_dado
     WHERE peso NOT IN (888, 777) AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND (exercicio_fisico = 0 OR freq_exercicio_fisico = 0)
+      AND (freq_exercicio_fisico = 1 OR freq_exercicio_fisico = 0)
 
     UNION ALL
 
@@ -37,7 +37,7 @@ FROM (
     FROM tb_dado
     WHERE peso NOT IN (888, 777) AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND alcoolismo = 1
+      AND freq_alcool < 6
 
     UNION ALL
 
@@ -45,7 +45,7 @@ FROM (
     FROM tb_dado
     WHERE peso NOT IN (888, 777) AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND qtd_cigarros_dia > 0
+      AND fumante = 1 OR fumante = 2
 
     UNION ALL
 
@@ -75,6 +75,27 @@ WHERE peso NOT IN (888, 777)
     return database.executar(instrucaoSql);
 }
 
+function coletarPercentualObesidade(){
+       console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucaoSql = `
+SELECT
+  ROUND(100.0 * SUM(CASE 
+                     WHEN (peso / (altura * altura)) * 10000 > 30 THEN 1 
+                     ELSE 0 
+                   END) / COUNT(*), 2) AS percentual_obesidade,
+                      ROUND(100.0 * SUM(CASE 
+                     WHEN (peso / (altura * altura)) * 10000 > 25 
+                          AND (peso / (altura * altura)) * 10000 <= 30 THEN 1 
+                     ELSE 0 
+                   END) / COUNT(*), 2) AS percentual_sobrepeso
+FROM tb_dado
+WHERE peso NOT IN (888, 777) 
+  AND altura NOT IN (888, 777);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function obterGraficoFatores(){
        console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
@@ -91,7 +112,7 @@ FROM (
     FROM tb_dado
     WHERE peso NOT IN (888, 777) AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND (exercicio_fisico = 0 OR freq_exercicio_fisico = 0)
+      AND (freq_exercicio_fisico = 1 OR freq_exercicio_fisico = 0)
 
     UNION ALL
 
@@ -99,7 +120,7 @@ FROM (
     FROM tb_dado
     WHERE peso NOT IN (888, 777) AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND alcoolismo = 1
+      AND freq_alcool < 6
 
     UNION ALL
 
@@ -107,7 +128,7 @@ FROM (
     FROM tb_dado
     WHERE peso NOT IN (888, 777) AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND qtd_cigarros_dia > 0
+      AND fumante = 1 OR fumante = 2
 
     UNION ALL
 
@@ -143,7 +164,7 @@ FROM (
       AND peso NOT IN (888, 777) 
       AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND (exercicio_fisico = 0 OR freq_exercicio_fisico = 0)
+      AND ( freq_exercicio_fisico = 1 OR freq_exercicio_fisico = 0)
 
     UNION ALL
 
@@ -153,7 +174,8 @@ FROM (
       AND peso NOT IN (888, 777) 
       AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND alcoolismo = 1
+      AND freq_alcool < 6
+
 
     UNION ALL
 
@@ -163,7 +185,7 @@ FROM (
       AND peso NOT IN (888, 777) 
       AND altura NOT IN (888, 777)
       AND (peso / (altura * altura)) * 10000 > 30
-      AND qtd_cigarros_dia > 0
+      AND fumante = 1 OR fumante = 2
 
     UNION ALL
 
@@ -187,5 +209,6 @@ module.exports = {
     coletarMaiorFator,
     coletarMediaIMC,
     obterGraficoFatores,
-    obterGraficoFatoresEstado
+    obterGraficoFatoresEstado,
+    coletarPercentualObesidade
 }

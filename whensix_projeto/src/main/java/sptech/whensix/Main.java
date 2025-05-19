@@ -38,17 +38,17 @@ public class Main {
 
             // --- 1) SALVAR INDIVIDUALMENTE (um por um) ---
 
-//            int sucesso = 0, erro = 0;
-//            for (Dado dado : dados) {
-//                try {
-//                    dadoRepository.salvar(dado);
-//                    sucesso++;
-//                } catch (Exception e) {
-//                    erro++;
-//                    System.err.println("Erro ao salvar dado: " + e.getMessage());
-//                }
-//            }
-//            CreateLog.logCustom(NivelLog.INFO, TipoLog.LOAD_SUCESS, sucesso, erro);
+            int sucesso = 0, erro = 0;
+            for (Dado dado : dados) {
+                try {
+                    dadoRepository.salvar(dado);
+                    sucesso++;
+                } catch (Exception e) {
+                    erro++;
+                    System.err.println("Erro ao salvar dado: " + e.getMessage());
+                }
+            }
+            CreateLog.logCustom(NivelLog.INFO, TipoLog.LOAD_SUCESS, sucesso, erro);
 
 
             // --- 2) SALVAR POR LOTE (tamanho lote definido, chama salvar individualmente dentro do lote) ---
@@ -59,8 +59,8 @@ public class Main {
 
 
             // --- 3) SALVAR COM BATCH UPDATE (todos juntos em batch) ---
-            dadoRepository.salvarComBatch(dados);
-            CreateLog.log(NivelLog.INFO, TipoLog.LOAD_SUCESS);
+//            dadoRepository.salvarComBatch(dados);
+//            CreateLog.log(NivelLog.INFO, TipoLog.LOAD_SUCESS);
 
             System.out.println("Dados importados com sucesso! Total: " + dados.size());
 

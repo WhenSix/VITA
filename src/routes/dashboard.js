@@ -33,4 +33,11 @@ router.get("/obterGraficoFatoresEstado/:capital", (req, res) => {
 
   dashboardController.obterGraficoFatoresEstado(req, res);
 });
+
+router.get("/coletarPercentualObesidade", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarPercentualObesidade(req, res);
+});
+
 module.exports = router;
