@@ -1,10 +1,10 @@
 var usuarioModel = require("../models/usuarioModel");
 
 async function autenticar(req, res) {
-    var email = req.body.emailServer;
+    var nome = req.body.nomeServer;
     var senha = req.body.senhaServer;
 
-    if (email == undefined) {
+    if (nome == undefined) {
         return res.status(400).send("Seu email está undefined!");
     } 
     if (senha == undefined) {
@@ -12,11 +12,11 @@ async function autenticar(req, res) {
     }
 
     try {
-        const resultadoAutenticar = await usuarioModel.autenticar(email, senha);
+        const resultadoAutenticar = await usuarioModel.autenticar(nome, senha);
         if (resultadoAutenticar) {
             res.json(resultadoAutenticar);
         } else {
-            res.status(403).send("Email e/ou senha inválido(s)");
+            res.status(403).send("Nome e/ou senha inválido(s)");
         }
     } catch (erro) {
         console.error("Erro ao autenticar usuário: ", erro);

@@ -16,7 +16,7 @@ public class Selects {
         String sql = "SELECT AVG(peso / (altura * altura)) AS media_imc FROM tb_dado";
         return jdbcTemplate.queryForObject(sql, Double.class);
     }
-
+    
     public List<Dado> findMediaIMCPorCidade() {
         String sql = "SELECT cdg_cidade, AVG(peso / (altura * altura)) AS imcCalculado " +
                 "FROM tb_dado GROUP BY cdg_cidade";

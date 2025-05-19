@@ -2,10 +2,10 @@ const database = require("../database/config")
 
 const bcrypt = require('bcryptjs');
 
-async function autenticar(email, senha) {
-    console.log("Autentificando usuario: ", email);
+async function autenticar(nome, senha) {
+    console.log("Autentificando usuario: ", nome);
 
-    const instrucaoSql = `SELECT * FROM tb_usuario WHERE email_usuario = '${email}'`;
+    const instrucaoSql = `SELECT * FROM tb_usuario WHERE nome_usuario = '${nome}'`;
     try {
         const resultado = await database.executar(instrucaoSql);
 
