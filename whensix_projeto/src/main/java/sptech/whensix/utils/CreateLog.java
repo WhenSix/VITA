@@ -3,26 +3,15 @@ package sptech.whensix.utils;
 import java.time.format.DateTimeFormatter;
 
 public class CreateLog {
-    private NivelLog nivel;
-    private TipoLog tipo;
-    private String mensagem;
-    private String dtHora;
-    private Integer linha;
-    private Integer errosNaLinha;
+    private final NivelLog nivel;
+    private final TipoLog tipo;
+    private final String mensagem;
+    private final String dtHora;
 
     public CreateLog(NivelLog nivel, TipoLog tipo) {
         this.nivel = nivel;
         this.tipo = tipo;
         this.mensagem = tipo.getMensagem();
-        this.dtHora = getDateTime();
-    }
-
-    public CreateLog(NivelLog nivel, TipoLog tipo, int linha, int errosNaLinha) {
-        this.nivel = nivel;
-        this.tipo = tipo;
-        this.mensagem = tipo.getMensagem();
-        this.linha = linha;
-        this.errosNaLinha = errosNaLinha;
         this.dtHora = getDateTime();
     }
 
@@ -54,23 +43,9 @@ public class CreateLog {
         return errosNaLinha;
     }
 
-    public static CreateLog log(NivelLog nivel, TipoLog tipo) {
+    public CreateLog log(NivelLog nivel, TipoLog tipo) {
         CreateLog log = new CreateLog(nivel, tipo);
         System.out.printf("[%s] [%s] - %s%n", log.dtHora, nivel, tipo.getMensagem());
         return log;
-    }
-
-    public static CreateLog logCustom(NivelLog nivel, TipoLog tipo, int sucesso, int erro) {
-        CreateLog logCustom = new CreateLog(nivel, tipo);
-        System.out.printf("[%s] [%s] - %s | Sucesso: %d | Erros: %d%n",
-                logCustom.dtHora, nivel, tipo.getMensagem(), sucesso, erro);
-        return logCustom;
-    }
-
-    public static CreateLog logLineError(NivelLog nivel, TipoLog tipo, int linha, int errosNaLinha) {
-        CreateLog logLineError = new CreateLog(nivel, tipo, linha, errosNaLinha);
-        System.out.printf("[%s] [%s] - %s: [linha %d, Erros: %d]%n",
-                logLineError.dtHora, nivel, tipo.getMensagem(), linha, errosNaLinha);
-        return logLineError;
     }
 }

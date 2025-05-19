@@ -7,7 +7,8 @@ public enum TipoLog {
     READ_ERROR("Falha na leitura de arquivo"),
     LOAD_START("Inserindo dados no banco..."),
     LOAD_SUCESS("Inserção de dados feita com sucesso"),
-    LOAD_ERROR("Falha na inserção de dados...");
+    LOAD_ERROR("Falha na inserção de dados..."),
+    RESULT("Resultado da leitura...");
 
     private final String mensagem;
 
