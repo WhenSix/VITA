@@ -40,4 +40,12 @@ router.get("/coletarPercentualObesidade", (req, res) => {
   dashboardController.coletarPercentualObesidade(req, res);
 });
 
+router.get("/coletarObesidadePorSexo", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarObesidadePorSexo(req, res);
+});
+
+
+
 module.exports = router;

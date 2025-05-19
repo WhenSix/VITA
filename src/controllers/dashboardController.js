@@ -91,6 +91,22 @@ var capital = req.params.capital
     )
 }
 
+function coletarObesidadePorSexo(req, res) {
+    dashboardModel.coletarObesidadePorSexo().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
 
 function coletarPercentualObesidade(req, res) {
 
@@ -116,6 +132,7 @@ module.exports = {
   coletarMediaIMC,
   obterGraficoFatores,
   obterGraficoFatoresEstado,
-  coletarPercentualObesidade
+  coletarPercentualObesidade,
+  coletarObesidadePorSexo
 
 }
