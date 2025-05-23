@@ -2,7 +2,7 @@
 echo "Iniciando a configuração do ambiente para o projeto VITA da empresa WhenSix." 
 
 # Atualizar os pacotes 
-sudo apt update 
+sudo apt update > /dev/null
 
 echo "Verificando instação do Node..."
 node --version
@@ -22,7 +22,7 @@ if [ $? = 0 ]; then
    echo "Git instalado"
 else
    echo "Instalando git..."
-   sudo apt install git
+   sudo apt install git > /dev/null
 fi
 
 # Verificar se o Java já está instalado 
@@ -37,7 +37,7 @@ else
    read get 
    if [ "$get" == "s" ]; then 
       echo "Instalando Java..." 
-      sudo apt install openjdk-21-jdk -y
+      sudo apt install openjdk-21-jdk -y > /dev/null
 
    else 
       echo "Instalação do Java foi cancelada. Encerrando o script." 
@@ -57,7 +57,7 @@ if [ $? = 0 ]; then
 else 
    echo "Docker não está instalado." 
    echo "Instalando Docker..." 
-   sudo apt install docker.io -y 
+   sudo apt install docker.io -y > /dev/null
    sudo systemctl start docker 
    sudo systemctl enable docker 
    echo "Docker instalado com sucesso!" 
@@ -75,5 +75,5 @@ fi
 # Entrar no diretório do projeto 
 cd VITA
 echo "Instalando dependencias do projeto..."
-npm install
+npm install > /dev/null
 echo "Configuração concluída com sucesso!"
