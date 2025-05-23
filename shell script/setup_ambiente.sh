@@ -4,6 +4,7 @@ echo "Iniciando a configuração do ambiente para o projeto VITA da empresa When
 # Atualizar os pacotes 
 sudo apt update 
 
+echo "Verificando instação do Node..."
 node --version
 if [ $? = 0 ]; then
    echo "Node instalado"
@@ -15,6 +16,7 @@ else
    sudo apt install -y nodejs
 fi
 
+echo "Verificando instação do Git..."
 git --version
 if [ $? = 0 ]; then
    echo "Git instalado"
@@ -24,6 +26,7 @@ else
 fi
 
 # Verificar se o Java já está instalado 
+echo "Verificando instação do Java..."
 java -version 
 
 if [ $? = 0 ]; then 
@@ -47,6 +50,7 @@ java -version
 javac -version 
 
 # Verificar se o Docker já está instalado 
+echo "Verificando instação do Docker..."
 docker --version 
 if [ $? = 0 ]; then 
    echo "Docker já está instalado!" 
@@ -61,9 +65,8 @@ fi
 
 # Verificar se o diretório do projeto já existe 
 if [ -d "VITA" ]; then 
-   cho "Repositório já clonado. Pulando a etapa de clonagem." 
+   echo "Repositório já clonado. Pulando a etapa de clonagem." 
 else 
-
 # Clonar o repositório do projeto 
    echo "Clonando o repositório do projeto VITA..." 
    git clone https://github.com/WhenSix/VITA.git 
@@ -71,5 +74,6 @@ fi
 
 # Entrar no diretório do projeto 
 cd VITA
+echo "Instalando dependencias do projeto..."
 npm install
 echo "Configuração concluída com sucesso!"
