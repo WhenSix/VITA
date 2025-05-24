@@ -34,6 +34,12 @@ router.get("/obterGraficoFatoresEstado/:capital", (req, res) => {
   dashboardController.obterGraficoFatoresEstado(req, res);
 });
 
+router.get("/obterGraficoSexoEstado/:capital", (req, res) => {
+  console.log("oi estou no router do fatores")
+
+  dashboardController.obterGraficoSexoEstado(req, res);
+});
+
 router.get("/coletarPercentualObesidade", (req, res) => {
   console.log("oi estou no router")
 
@@ -45,6 +51,9 @@ router.get("/coletarObesidadePorSexo", (req, res) => {
 
   dashboardController.coletarObesidadePorSexo(req, res);
 });
+
+
+
 
 
 

@@ -100,6 +100,7 @@ function coletarObesidadePorSexo(){
        console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
 SELECT 
+  sexo,
   CASE 
     WHEN sexo = 1 THEN 'Masculino'
     WHEN sexo = 2 THEN 'Feminino'
@@ -113,11 +114,13 @@ SELECT
 FROM tb_dado
 WHERE peso NOT IN (888, 777) 
   AND altura NOT IN (888, 777)
-GROUP BY genero;
+GROUP BY sexo;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+
 
 function obterGraficoFatores(){
        console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
@@ -226,6 +229,28 @@ GROUP BY fator;
     return database.executar(instrucaoSql);
 }
 
+function obterGraficoSexoEstado(capital){
+       console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n ");
+    var instrucaoSql = `
+SELECT 
+  CASE 
+    WHEN sexo = 1 THEN 'Masculino'
+    WHEN sexo = 2 THEN 'Feminino'
+    ELSE 'Outros'
+  END AS genero,
+  COUNT(*) AS total,
+  SUM(CASE 
+        WHEN (peso / (altura * altura)) * 10000 > 30 THEN 1 
+        ELSE 0 
+      END) AS obesos
+FROM tb_dado
+WHERE peso NOT IN (888, 777) 
+  AND altura NOT IN (888, 777) AND cdg_cidade = ${capital}
+GROUP BY genero;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     coletarMaiorIMC,
@@ -234,5 +259,6 @@ module.exports = {
     obterGraficoFatores,
     obterGraficoFatoresEstado,
     coletarPercentualObesidade,
-    coletarObesidadePorSexo
+    coletarObesidadePorSexo,
+    obterGraficoSexoEstado
 }

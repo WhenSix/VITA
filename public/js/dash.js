@@ -15,6 +15,7 @@ function toggleMenu() {
     coletarPercentualObesidade()
     coletarPercentualSobrepeso()
     coletarObesidadePorSexo()
+
   }
 
   function coletarObesidadePorSexo() {
@@ -45,7 +46,7 @@ function toggleMenu() {
         console.log(erro);
     })
 }
-
+var chart2
 function plotarGraficoObesidadePorSexo(resultado){
 const ctxSexo = document.getElementById('grafico-sexo').getContext('2d');
 
@@ -63,7 +64,7 @@ console.log('total recebidos:', resultado.map(dado => dado.genero));
     return item ? parseFloat(item.obesos) : 0;
   });
 
-const graficoSexo = new Chart(ctxSexo, {
+chart2 = new Chart(ctxSexo, {
   type: 'bar',
   data: {
     labels: labels,
@@ -102,6 +103,68 @@ const graficoSexo = new Chart(ctxSexo, {
 
 }
 
+
+
+async function obterGraficoSexoEstado(){
+    var capital = select_estado.value
+    console.log(capital)
+    var numeroCapital 
+    switch (capital){
+      case 'AC': numeroCapital = 20; break;
+      case 'AL': numeroCapital = 13; break;
+      case 'AP': numeroCapital = 12; break;
+      case 'AM': numeroCapital = 14; break;
+      case 'BA': numeroCapital = 22; break;
+      case 'CE': numeroCapital = 9; break;
+      case 'DF': numeroCapital = 27; break;
+      case 'ES': numeroCapital = 26; break;
+      case 'GO': numeroCapital = 10; break;
+      case 'MA': numeroCapital = 23; break;
+      case 'MT': numeroCapital = 6; break;
+      case 'MS': numeroCapital = 5; break;
+      case 'MG': numeroCapital = 3; break;
+      case 'PA': numeroCapital = 2; break;
+      case 'PB': numeroCapital = 11; break;
+      case 'PR': numeroCapital = 7; break;
+      case 'PE': numeroCapital = 19; break;
+      case 'PI': numeroCapital = 25; break;
+      case 'RJ': numeroCapital = 21; break;
+      case 'RN': numeroCapital = 15; break;
+      case 'RS': numeroCapital = 17; break;
+      case 'RO': numeroCapital = 18; break;
+      case 'RR': numeroCapital = 4; break;
+      case 'SC': numeroCapital = 8; break;
+      case 'SP': numeroCapital = 24; break;
+      case 'SE': numeroCapital = 1; break;
+      case 'TO': numeroCapital = 16; break;
+    } console.log('numero', numeroCapital)
+  await fetch(`/dashboard/obterGraficoSexoEstado/${numeroCapital}`, {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO obterGraficoSexoEstado()!")
+        if (resposta.ok) {
+            resposta.json().then(async json => {
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+                   await chart2.destroy()
+                    plotarGraficoObesidadePorSexo(json.resultado)
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
 
   async function obterGraficoFatoresEstado(){
     var capital = select_estado.value
