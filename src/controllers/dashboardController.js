@@ -145,6 +145,66 @@ var capital = req.params.capital
     )
 }
 
+function obterGraficoIdadeEstado(req, res) {
+var capital = req.params.capital
+
+    dashboardModel.obterGraficoIdadeEstado(capital).then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+
+
+function coletarGraficoImc(req, res) {
+
+    dashboardModel.coletarGraficoImc().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+function coletarObesidadeIdade(req, res) {
+
+    dashboardModel.coletarObesidadeIdade().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+
+
+
 
 module.exports = {
   coletarMaiorIMC,
@@ -154,7 +214,8 @@ module.exports = {
   obterGraficoFatoresEstado,
   coletarPercentualObesidade,
   coletarObesidadePorSexo,
-  obterGraficoSexoEstado
-
-
+  obterGraficoSexoEstado,
+  coletarGraficoImc,
+  coletarObesidadeIdade,
+  obterGraficoIdadeEstado
 }

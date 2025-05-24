@@ -40,6 +40,15 @@ router.get("/obterGraficoSexoEstado/:capital", (req, res) => {
   dashboardController.obterGraficoSexoEstado(req, res);
 });
 
+router.get("/obterGraficoIdadeEstado/:capital", (req, res) => {
+  console.log("oi estou no router do fatores")
+
+  dashboardController.obterGraficoIdadeEstado(req, res);
+});
+
+
+
+
 router.get("/coletarPercentualObesidade", (req, res) => {
   console.log("oi estou no router")
 
@@ -51,6 +60,22 @@ router.get("/coletarObesidadePorSexo", (req, res) => {
 
   dashboardController.coletarObesidadePorSexo(req, res);
 });
+
+router.get("/coletarGraficoImc", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarGraficoImc(req, res);
+});
+
+router.get("/coletarObesidadeIdade", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarObesidadeIdade(req, res);
+});
+
+
+
+
 
 
 

@@ -15,8 +15,100 @@ function toggleMenu() {
     coletarPercentualObesidade()
     coletarPercentualSobrepeso()
     coletarObesidadePorSexo()
-
+    coletarObesidadeIdade()
   }
+
+  
+
+async function obterGraficoIdadeEstado(){
+    var capital = select_estado.value
+    console.log(capital)
+    var numeroCapital 
+    switch (capital){
+      case 'AC': numeroCapital = 20; break;
+      case 'AL': numeroCapital = 13; break;
+      case 'AP': numeroCapital = 12; break;
+      case 'AM': numeroCapital = 14; break;
+      case 'BA': numeroCapital = 22; break;
+      case 'CE': numeroCapital = 9; break;
+      case 'DF': numeroCapital = 27; break;
+      case 'ES': numeroCapital = 26; break;
+      case 'GO': numeroCapital = 10; break;
+      case 'MA': numeroCapital = 23; break;
+      case 'MT': numeroCapital = 6; break;
+      case 'MS': numeroCapital = 5; break;
+      case 'MG': numeroCapital = 3; break;
+      case 'PA': numeroCapital = 2; break;
+      case 'PB': numeroCapital = 11; break;
+      case 'PR': numeroCapital = 7; break;
+      case 'PE': numeroCapital = 19; break;
+      case 'PI': numeroCapital = 25; break;
+      case 'RJ': numeroCapital = 21; break;
+      case 'RN': numeroCapital = 15; break;
+      case 'RS': numeroCapital = 17; break;
+      case 'RO': numeroCapital = 18; break;
+      case 'RR': numeroCapital = 4; break;
+      case 'SC': numeroCapital = 8; break;
+      case 'SP': numeroCapital = 24; break;
+      case 'SE': numeroCapital = 1; break;
+      case 'TO': numeroCapital = 16; break;
+    } console.log('numero', numeroCapital)
+  await fetch(`/dashboard/obterGraficoIdadeEstado/${numeroCapital}`, {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO obterGraficoIdadeEstado()!")
+        if (resposta.ok) {
+            resposta.json().then(async json => {
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+                   await chart3.destroy()
+                    plotarGraficoIdade(json.resultado)
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
+
+   function coletarObesidadeIdade() {
+    fetch('/dashboard/coletarObesidadeIdade', {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO coletarObesidadeIdade()!")
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                
+                if (json.resultado) {
+                    console.log(json.resultado)
+
+                    plotarGraficoIdade(json.resultado)
+                } else {
+                    console.warn("Nenhum resultado encontrado no array 'resultado'.");
+                }
+
+            })
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar a coleta!");
+
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+}
 
   function coletarObesidadePorSexo() {
     fetch('/dashboard/coletarObesidadePorSexo', {
@@ -496,63 +588,61 @@ function coletarMediaIMC() {
         console.log(erro);
     })
 }
+var chart3
+function plotarGraficoIdade(resultado) {
+  const ctxIdade = document.getElementById('grafico-faixa-etaria').getContext('2d');
 
+  const labels = ['0-19 anos', '20-39 anos', '40-59 anos', '60+ anos'];
 
-   const ctxIdade = document.getElementById('grafico-faixa-etaria').getContext('2d');
-    const graficoIdade = new Chart(ctxIdade, {
+  const dadosObesidadePorIdade = labels.map(faixa => {
+    const item = resultado.find(dado => dado.faixa_etaria === faixa);
+    console.log('Faixas recebidas:', resultado.map(dado => dado.faixa_etaria));
+    return item ? parseFloat(item.percentual_obesos) : 0;
+  });
+
+  chart3 = new Chart(ctxIdade, {
     type: 'bar',
     data: {
-      labels: ['0-19', '20-39', '40-59', '60+'],
+      labels: labels,
       datasets: [{
         label: 'Obesidade (%)',
-        color: '#2e2e2e',
-                font: {
-                    size: 20
-                },
-        data: [10, 25, 40, 30],
+        data: dadosObesidadePorIdade,
         backgroundColor: ['#0000FF', '#00FF00', '#DA70D6', '#DC143C']
-    }]
-  },
+      }]
+    },
     options: {
       responsive: true,
       plugins: {
         title: {
           display: true,
-        text: 'Obesidade por Faixa Etária',
-        color: '#2e2e2e',
-                font: {
-                    size: 20
-                },
-      },
-      legend: {
-        display: false
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Porcentagem (%)'
+          text: 'Obesidade por Faixa Etária',
+          color: '#2e2e2e',
+          font: {
+            size: 20
+          }
+        },
+        legend: {
+          display: false
         }
       },
-      x: {
-        title: {
-          display: true,
-          text: 'Faixa Etária'
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Porcentagem (%)'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Faixa Etária'
+          }
         }
       }
     }
-  }
-});
-
-
-
-
-
-
-
-
+  });
+}
 
 
 

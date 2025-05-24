@@ -252,6 +252,65 @@ GROUP BY genero;
     return database.executar(instrucaoSql);
 }
 
+function obterGraficoIdadeEstado(capital){
+       console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n ");
+    var instrucaoSql = `
+SELECT
+  CASE
+    WHEN idade BETWEEN 0 AND 19 THEN '0-19 anos'
+    WHEN idade BETWEEN 20 AND 39 THEN '20-39 anos'
+    WHEN idade BETWEEN 40 AND 59 THEN '40-59 anos'
+    ELSE '60+ anos'
+  END AS faixa_etaria,
+  round(100.0 * SUM(CASE WHEN (peso / (altura * altura) * 10000.0) >= 30 THEN 1 ELSE 0 END) / COUNT(*)) AS percentual_obesos
+FROM tb_dado
+WHERE cdg_cidade = ${capital} 
+GROUP BY faixa_etaria
+ORDER BY faixa_etaria;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
+function coletarGraficoImc(){
+       console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n ");
+    var instrucaoSql = `
+SELECT
+  cdg_cidade,
+  ROUND(AVG(peso / (altura * altura) * 10000), 2) AS media_imc
+FROM tb_dado
+WHERE peso NOT IN (888, 777)
+  AND altura NOT IN (888, 777)
+GROUP BY cdg_cidade;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function coletarObesidadeIdade(){
+       console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n ");
+    var instrucaoSql = `
+SELECT
+  CASE
+    WHEN idade BETWEEN 0 AND 19 THEN '0-19 anos'
+    WHEN idade BETWEEN 20 AND 39 THEN '20-39 anos'
+    WHEN idade BETWEEN 40 AND 59 THEN '40-59 anos'
+    ELSE '60+ anos'
+  END AS faixa_etaria,
+  round(100.0 * SUM(CASE WHEN (peso / (altura * altura) * 10000.0) >= 30 THEN 1 ELSE 0 END) / COUNT(*)) AS percentual_obesos
+FROM tb_dado
+GROUP BY faixa_etaria
+ORDER BY faixa_etaria;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
+
 module.exports = {
     coletarMaiorIMC,
     coletarMaiorFator,
@@ -260,5 +319,8 @@ module.exports = {
     obterGraficoFatoresEstado,
     coletarPercentualObesidade,
     coletarObesidadePorSexo,
-    obterGraficoSexoEstado
+    obterGraficoSexoEstado,
+    coletarGraficoImc,
+    coletarObesidadeIdade,
+    obterGraficoIdadeEstado
 }
