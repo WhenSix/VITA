@@ -1,16 +1,16 @@
 package sptech.whensix.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import sptech.whensix.config.Banco;
 import sptech.whensix.model.Dado;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public class DadoRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public DadoRepository() {
-        this.jdbcTemplate = new JdbcTemplate(Banco.getDataSource());
+    public DadoRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public void salvar(Dado dado) throws SQLException {

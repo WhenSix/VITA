@@ -7,6 +7,9 @@ public class LogProcess extends LogBaseAbstract {
 
     @Override
     public String CreateLog() {
+        System.out.printf("[%s][%s][%s] - %s%n",
+                getDtHora(), getNivel(), getTipo(), tipo.getMensagem());
+
         return String.format("[%s][%s][%s] - %s",
                 getDtHora(), getNivel(), getTipo(), tipo.getMensagem());
     }
