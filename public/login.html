@@ -1,90 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Cadastro</title>
-    <link rel="shortcut icon" type="image/png" href="./logos/coracao-logo.png"> 
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/login.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Cadastro</title>
+  <link rel="shortcut icon" type="image/png" href="./logos/coracao-logo.png" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="container">
-        <button class="btn-back" onclick="window.location.href='index.html'">← Voltar</button>
-        <div class="form-box login">
-            <form action="">
-                <h1>Login</h1>
-                <div class="input-box">
-                    <input type="text" placeholder="Nome do usuário"
-                    required>
-                    <i class='bx bxs-user'></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Senha"
-                    required>
-                    <i class='bx bxs-lock-alt' ></i>
-                </div>
-                <div class="forgot-link">
-                    <a href="#">Esqueceu a senha?</a>
-                </div>
-                <button class="btn" onclick="window.location.href='index.html'">Login</button>
-            </form>
+  <div class="container">
+    <button class="btn-back" onclick="window.location.href='index.html'">← Voltar</button>
+    <div class="form-box login">
+      <form onsubmit="login(event)">
+        <h1>Login</h1>
+        <div class="input-box">
+          <input type="text" id="loginUser" placeholder="Nome do usuário" required />
+          <i class='bx bxs-user'></i>
         </div>
-        <div class="form-box register">
-            <form id="registerForm">
-              <div class="step step-1">
-                <h1>Cadastro</h1>
-                <div class="input-box">
-                  <input type="text" id="userName" placeholder="Nome do usuário" required />
-                  <i class='bx bxs-user'></i>
-                </div>
-                <div class="input-box">
-                  <input type="email" id="userEmail" placeholder="Email" required />
-                  <i class='bx bxs-envelope'></i>
-                </div>
-                <div class="input-box">
-                  <input type="password" id="userPassword" placeholder="Senha" required />
-                  <i class='bx bxs-lock-alt'></i>
-                </div>
-                <div class="input-box">
-                  <input type="password" id="confirmPassword" placeholder="Confirmar Senha" required />
-                  <i class='bx bxs-lock-alt'></i>
-                </div>
-                <button type="button" class="btn-register" onclick="goToStep2()">Próxima etapa</button>
-              </div>
-          
-              <div class="step step-2" style="display: none;">
-                <h1>Dados da Empresa</h1>
-                <div class="input-box">
-                  <input type="text" id="companyName" placeholder="Nome da empresa" required />
-                  <i class='bx bxs-business'></i>
-                </div>
-                <div class="input-box">
-                  <input type="text" id="companyCnpj" placeholder="CNPJ" required />
-                  <i class='bx bxs-id-card'></i>
-                </div>
-                <div class="input-box">
-                  <input type="text" id="companyAddress" placeholder="Endereço da empresa" required />
-                  <i class='bx bxs-map'></i>
-                </div>
-                <button type="submit" class="btn-register">Finalizar Cadastro</button>
-              </div>
-            </form>
-          </div>
-        
-        <div class="toggle-box">
-            <div class="toggle-panel toggle-left">
-                <h1>Bem vindo de volta!</h1>
-                <p>Ainda não tem uma conta?</p>
-                <button class="btn register-btn">Cadastre-se</button>
-            </div>
-            <div class="toggle-panel toggle-right">
-                <h1>Olá, Bem vindo!</h1>
-                <p>Já tem uma conta?</p>
-                <button class="btn login-btn">Login</button>
-            </div>
+        <div class="input-box">
+          <input type="password" id="loginPassword" placeholder="Senha" required />
+          <i class='bx bxs-lock-alt'></i>
         </div>
+        <div class="forgot-link">
+          <a href="#">Esqueceu a senha?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
     </div>
-    <script src="js/login.js"> </script>
+    <div class="form-box register">
+      <form id="registerForm">
+        <div class="step step-1">
+          <h1>Cadastro</h1>
+          <div class="input-box">
+            <input type="text" id="userName" placeholder="Nome do usuário" required />
+            <i class='bx bxs-user'></i>
+          </div>
+          <div class="input-box">
+            <input type="email" id="userEmail" placeholder="Email" required />
+            <i class='bx bxs-envelope'></i>
+          </div>
+          <div class="input-box">
+            <input type="password" id="userPassword" placeholder="Senha" required />
+            <i class='bx bxs-lock-alt'></i>
+          </div>
+          <div class="input-box">
+            <input type="password" id="confirmPassword" placeholder="Confirmar Senha" required />
+            <i class='bx bxs-lock-alt'></i>
+          </div>
+          <button type="button" class="btn-register" onclick="goToStep2()">Próxima etapa</button>
+        </div>
+
+        <div class="step step-2" style="display: none;">
+          <h1>Dados da Empresa</h1>
+          <div class="input-box">
+            <input type="text" id="companyName" placeholder="Nome da empresa" required />
+            <i class='bx bxs-business'></i>
+          </div>
+          <div class="input-box">
+            <input type="text" id="companyCnpj" placeholder="CNPJ" required />
+            <i class='bx bxs-id-card'></i>
+          </div>
+          <div class="input-box">
+            <input type="text" id="companyAddress" placeholder="Endereço da empresa" required />
+            <i class='bx bxs-map'></i>
+          </div>
+          <button type="button" class="btn-register" onclick="cadastrarEmpresa()">Finalizar Cadastro</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="toggle-box">
+      <div class="toggle-panel toggle-left">
+        <h1>Bem vindo de volta!</h1>
+        <p>Ainda não tem uma conta?</p>
+        <button class="btn register-btn">Cadastre-se</button>
+      </div>
+      <div class="toggle-panel toggle-right">
+        <h1>Olá, Bem vindo!</h1>
+        <p>Já tem uma conta?</p>
+        <button class="btn login-btn">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/login.js">
+    let dadosUsuario = {};
+    let idUsuario = null;
+
+    function goToStep2() {
+      const nome = document.getElementById("userName").value;
+      const email = document.getElementById("userEmail").value;
+      const senha = document.getElementById("userPassword").value;
+      const confirmarSenha = document.getElementById("confirmPassword").value;
+
+      if (senha !== confirmarSenha) {
+        alert("As senhas não coincidem!");
+        return;
+      }
+
+      dadosUsuario = { nome, email, senha };
+
+      document.querySelector(".step-1").style.display = "none";
+      document.querySelector(".step-2").style.display = "block";
+    }
+
+    async function cadastrarEmpresa() {
+      const nomeEmpresa = document.getElementById("companyName").value;
+      const cnpj = document.getElementById("companyCnpj").value;
+      const endereco = document.getElementById("companyAddress").value;
+
+      try {
+        const resUsuario = await fetch("/usuarios/cadastrar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nomeServer: dadosUsuario.nome,
+            emailServer: dadosUsuario.email,
+            senhaServer: dadosUsuario.senha
+          })
+        });
+
+        if (!resUsuario.ok) {
+          const erro = await resUsuario.text();
+          throw new Error("Erro ao cadastrar usuário: " + erro);
+        }
+
+        const dadosRes = await resUsuario.json();
+        idUsuario = dadosRes.idUsuario;
+
+        const resEmpresa = await fetch("/empresas/cadastrar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razaoSocial: nomeEmpresa,
+            cnpj: cnpj,
+            endereco: endereco,
+            fkUsuario: idUsuario
+          })
+        });
+
+        if (!resEmpresa.ok) {
+          const erro = await resEmpresa.text();
+          throw new Error("Erro ao cadastrar empresa: " + erro);
+        }
+
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "login.html";
+
+      } catch (err) {
+        alert(err.message);
+        console.error(err);
+      }
+    }
+
+    async function login(event) {
+      event.preventDefault();
+      const nome = document.getElementById("loginUser").value;
+      const senha = document.getElementById("loginPassword").value;
+
+      try {
+        const res = await fetch("/usuarios/autenticar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, senha })
+        });
+
+        if (!res.ok) {
+          const texto = await res.text();
+          alert("Erro no login: " + texto);
+          return;
+        }
+
+        const dados = await res.json();
+        alert("Login bem-sucedido! Bem-vindo, " + dados.nome_usuario);
+        window.location.href = "index.html";
+      } catch (err) {
+        alert("Erro ao fazer login: " + err.message);
+        console.error(err);
+      }
+    }
+  </script>
 </body>
 </html>
