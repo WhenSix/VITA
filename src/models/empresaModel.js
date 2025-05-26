@@ -24,19 +24,4 @@ function cadastrar(razaoSocial, cnpj) {
   return database.executar(instrucaoSql);
 }
 
-const db = require("../database/config");
-
-function cadastrarEmpresa(razaoSocial, cnpj, endereco, fkUsuario) {
-  const instrucaoSql = `
-    INSERT INTO empresa (razao_social, cnpj, endereco, fk_usuario)
-    VALUES (?, ?, ?, ?)
-  `;
-
-  return db.execute(instrucaoSql, [razaoSocial, cnpj, endereco, fkUsuario]);
-}
-
-module.exports = {
-  cadastrarEmpresa
-};
-
 module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };

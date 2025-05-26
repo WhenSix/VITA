@@ -1,27 +1,5 @@
 var empresaModel = require("../models/empresaModel");
 
-const empresaModel = require("../models/empresaModel");
-
-function cadastrarEmpresa(req, res) {
-  const { razaoSocial, cnpj, endereco, fkUsuario } = req.body;
-
-  if (!razaoSocial || !cnpj || !endereco || !fkUsuario) {
-    return res.status(400).json({ erro: "Campos obrigatórios ausentes." });
-  }
-
-  empresaModel.cadastrarEmpresa(razaoSocial, cnpj, endereco, fkUsuario)
-    .then(resultado => {
-      res.status(201).json({ mensagem: "Empresa cadastrada com sucesso", resultado });
-    })
-    .catch(erro => {
-      console.error("Erro ao cadastrar empresa:", erro.sqlMessage || erro);
-      res.status(500).json({ erro: "Erro no servidor ao cadastrar empresa." });
-    });
-}
-
-module.exports = {
-  cadastrarEmpresa
-};
 
 
 

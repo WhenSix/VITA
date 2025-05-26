@@ -31,10 +31,11 @@ async function autenticar(nome, senha) {
 }
 
 
-const database = require("../database/config");
-const bcrypt = require("bcryptjs");
+
 
 async function cadastrar(nome, email, senha) {
+  console.log("Cadastrando usuario:", nome, email);
+
   if (!nome || !email || !senha) {
     throw new Error("Todos os campos são obrigatórios.");
   }
@@ -42,18 +43,19 @@ async function cadastrar(nome, email, senha) {
   const hash = await bcrypt.hash(senha, 10);
 
   const instrucaoSql = `
-    INSERT INTO tb_usuario (nome_usuario, email_usuario, senha_usuario) 
-    VALUES (?, ?, ?)
-  `;
+  INSERT INTO tb_usuario (nome_usuario, email_usuario, senha_usuario) 
+  VALUES ('${nome}', '${email}', '${hash}');
+`;
 
   try {
-    const resultado = await database.execute(instrucaoSql, [nome, email, hash]);
-    return { insertId: resultado.insertId }; // <-- RETORNA O ID
+    const resultado = await database.executar(instrucaoSql, [nome, email, hash]);
+    return resultado;
   } catch (erro) {
     console.error("Erro ao cadastrar usuário:", erro);
     throw erro;
   }
 }
+
 
 module.exports = {
     autenticar,
