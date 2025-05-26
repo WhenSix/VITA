@@ -57,7 +57,9 @@ public class ExcelLeitor {
                     dado.setObesidade(getBooleanFromValue(linha, 17, 1));
                     dado.setDepressao(getBooleanFromValue(linha, 18, 1));
                     sucessos++;
+                    dados.add(dado);
                 } catch (Exception e) {
+                    logs.add(new LogLoad(TipoLog.LOAD_ERROR).CreateLog());
                     erros++;
                 }
             }
