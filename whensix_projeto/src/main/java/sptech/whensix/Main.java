@@ -39,34 +39,10 @@ public class Main {
             List<String> logs = new ArrayList<>();
             List<Dado> dados = ExcelLeitor.processar(arquivoStream, logs);
 
-            // --- 1) SALVAR INDIVIDUALMENTE (um por um) ---
-
-            // int sucesso = 0, erro = 0;
-            // for (Dado dado : dados) {
-            //     try {
-            //         dadoRepository.salvar(dado);
-            //         sucesso++;
-            //     } catch (Exception e) {
-            //         erro++;
-            //         System.err.println("Erro ao salvar dado: " + e.getMessage());
-            //     }
-            // }
-            // CreateLog.logCustom(NivelLog.INFO, TipoLog.LOAD_SUCESS, sucesso, erro);
-
-
-             //--- 2) SALVAR POR LOTE (tamanho lote definido, chama salvar individualmente dentro do lote) ---
-
             int tamanhoLote = 5000; // ajuste conforme desejado
             dadoRepository.salvarPorLote(dados, tamanhoLote);
             loadLogs.saveLogsUltraFast(logs);
             logLoadSucess.CreateLog();
-
-
-            // --- 3) SALVAR COM BATCH UPDATE (todos juntos em batch) ---
-
-            //dadoRepository.salvarComBatch(dados);
-            //CreateLog.log(NivelLog.INFO, TipoLog.LOAD_SUCESS);
-            //System.out.println("Dados importados com sucesso! Total: " + dados.size());
 
         } catch (Exception e) {
             logLoadError.CreateLog();
