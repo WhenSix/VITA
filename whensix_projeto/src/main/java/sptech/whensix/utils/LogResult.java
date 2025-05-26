@@ -12,6 +12,9 @@ public class LogResult extends LogBaseAbstract {
 
     @Override
     public String CreateLog() {
+        System.out.printf("[%s][%s][%s] - %s - %d sucessos | %d erros%n",
+                getDtHora(), getNivel(), getTipo(), tipo.getMensagem(),sucessos, erros);
+
         return String.format("[%s][%s][%s] - %s - %d sucessos | %d erros",
                 getDtHora(), getNivel(), getTipo(), tipo.getMensagem(),sucessos, erros);
     }

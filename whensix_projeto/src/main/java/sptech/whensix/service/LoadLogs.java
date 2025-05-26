@@ -1,46 +1,46 @@
 package sptech.whensix.service;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import sptech.whensix.utils.CreateLog;
-import sptech.whensix.utils.NivelLog;
-import sptech.whensix.utils.TipoLog;
-import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class LoadLogs {
     private final JdbcTemplate jdbcTemplate;
+    private static final int TAMANHO_SUB_LOTE = 1000;
 
-    public LoadLogs(DataSource conexao) {
-        this.jdbcTemplate = new JdbcTemplate(conexao);
+    public LoadLogs(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void saveLogsBatch(List<String> logs) {
-        String sql = """
-            INSERT INTO tb_log(msg_log, dt_log, nivel_log, categoria_log, linha_log, erros_na_linha)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """;
+    public void saveLogsUltraFast(List<String> logs) {
+        if (logs == null || logs.isEmpty()) return;
 
-        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps, int i) throws SQLException {
-                String log = logs.get(i);
-                ps.setString(1, log.getMensagem());
-                ps.setTimestamp(2, Timestamp.valueOf(log.getDtHora()));
-                ps.setString(3, log.getNivel().toString());
-                ps.setString(4, log.getTipo().toString());
-                ps.setInt(5, log.getLinha() != null ? log.getLinha() : 0);
-                ps.setInt(6, log.getErrosNaLinha() != null ? log.getErrosNaLinha() : 0);
-            }
+        for (int i = 0; i < logs.size(); i += TAMANHO_SUB_LOTE) {
+            int fim = Math.min(i + TAMANHO_SUB_LOTE, logs.size());
+            List<String> subLista = logs.subList(i, fim);
+            insertRaw(subLista);
+        }
+    }
 
-            @Override
-            public int getBatchSize() {
-                return logs.size();
+    private void insertRaw(List<String> logs) {
+        if (logs.isEmpty()) return;
+
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        StringBuilder sql = new StringBuilder("INSERT INTO logs (msg_log, dt_log) VALUES ");
+
+        for (int i = 0; i < logs.size(); i++) {
+            String log = logs.get(i).replace("'", "''");
+            sql.append("('")
+                    .append(log)
+                    .append("', '")
+                    .append(timestamp)
+                    .append("')");
+            if (i < logs.size() - 1) {
+                sql.append(", ");
             }
-        });
+        }
+
+        jdbcTemplate.update(sql.toString());
     }
 }
