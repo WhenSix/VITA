@@ -1,40 +1,5 @@
 USE whensix;
 
-CREATE TABLE tb_log (
-    id_log INT PRIMARY KEY AUTO_INCREMENT,
-    msg_log VARCHAR(45),
-    dt_log DATETIME DEFAULT CURRENT_TIMESTAMP,
-    modulo_log VARCHAR(100),
-    categoria_log VARCHAR(100)
-);
-
-CREATE TABLE tb_endereco (
-    id_endereco INT PRIMARY KEY AUTO_INCREMENT,
-    CEP CHAR(8) NOT NULL,
-    logradouro_endereco VARCHAR(100) NOT NULL,
-    bairro_endereco VARCHAR(45) NOT NULL,
-    numero_endereco VARCHAR(45),
-    complemento_endereco VARCHAR(100)
-);
-
-CREATE TABLE tb_tipo_empresa (
-    id_tipo INT PRIMARY KEY AUTO_INCREMENT,
-    nome_tipo VARCHAR(45) NOT NULL,
-    descricao_tipo VARCHAR(100)
-);
-
-CREATE TABLE tb_empresa (
-    id_empresa INT PRIMARY KEY AUTO_INCREMENT,
-    razao_social_empresa VARCHAR(45) NOT NULL,
-    cnpj_empresa VARCHAR(45) NOT NULL UNIQUE,
-    nome_fantasia_empresa VARCHAR(45),
-    dt_criacao_empresa DATE,
-    fk_tipo_empresa INT,
-    fk_endereco_empresa INT,
-    FOREIGN KEY (fk_tipo_empresa) REFERENCES tb_tipo_empresa(id_tipo),
-    FOREIGN KEY (fk_endereco_empresa) REFERENCES tb_endereco(id_endereco)
-);
-
 CREATE TABLE tb_usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nome_usuario VARCHAR(45) NOT NULL,
@@ -49,21 +14,57 @@ CREATE TABLE tb_usuario (
     FOREIGN KEY (fk_empresa) REFERENCES tb_empresa(id_empresa)
 );
 
+CREATE TABLE tb_enderecos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  rua VARCHAR(100) NOT NULL,
+  numero VARCHAR(10) NOT NULL,
+  bairro VARCHAR(100) NOT NULL,
+  cidade VARCHAR(100) NOT NULL,
+  estado VARCHAR(2) NOT NULL,
+  cep VARCHAR(9) NOT NULL
+);
 
-CREATE TABLE tb_dado(
-    id_dado INT PRIMARY KEY AUTO_INCREMENT,
-    cdg_cidade INT,
-    sexo CHAR(1),
-    peso FLOAT(5,2),
-    altura INT,
-    frequencia_refri CHAR(1),
-    tipo_refri CHAR(1),
-    qtd_refri CHAR(1),
-    alcoolismo BOOLEAN,
-    freq_alcool CHAR(1),
-    exercicio_fisico CHAR(1),
-    tipo_exercicio_fisico CHAR(1),
-    freq_exercicio_fisico CHAR(1),
-    fumante BOOLEAN,
-    qtd_cigarros_dia INT,
-)
+CREATE TABLE tb_empresas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  razao_social VARCHAR(255) NOT NULL,
+  cnpj VARCHAR(18) NOT NULL UNIQUE,
+  codigo_ativacao VARCHAR(64),
+  endereco_id INT,
+  FOREIGN KEY (endereco_id) REFERENCES tb_enderecos(id)
+);
+
+
+CREATE TABLE tb_log (
+    id_log INT PRIMARY KEY AUTO_INCREMENT,
+    msg_log VARCHAR(45),
+    dt_log DATETIME DEFAULT CURRENT_TIMESTAMP,
+    nivel_log VARCHAR(100),
+    categoria_log VARCHAR(100),
+    linha_log INT,
+    erros_na_linha INT
+);
+
+CREATE TABLE tb_dado (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cdg_cidade INT NOT NULL,
+    idade INT NOT NULL,
+    sexo INT NOT NULL,
+    peso FLOAT NOT NULL,
+    altura INT NOT NULL,
+    frequencia_refri INT NOT NULL,
+    qtd_refri INT NOT NULL,
+    tipo_refri INT NOT NULL, 
+    alcoolismo BOOLEAN NOT NULL,
+    freq_alcool INT NOT NULL,
+    exercicio_fisico BOOLEAN NOT NULL,
+    tipo_exercicio_fisico INT NOT NULL,
+    freq_exercicio_fisico INT NOT NULL,
+    fumante BOOLEAN NOT NULL,
+    pesorake DOUBLE NOT NULL,
+    imc FLOAT NOT NULL,
+    excpeso BOOLEAN NOT NULL,
+    obesidade BOOLEAN NOT NULL,
+    depressao BOOLEAN NOT NULL
+);
+
+

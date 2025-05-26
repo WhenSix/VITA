@@ -1,26 +1,30 @@
 var database = require("../database/config");
 
-function buscarPorId(id) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${id}'`;
-
-  return database.executar(instrucaoSql);
+async function buscarPorCnpj(cnpj) {
+  var instrucaoSql = `SELECT * FROM tb_empresas WHERE cnpj = ?`;
+  return database.executar(instrucaoSql, [cnpj]);
 }
 
-function listar() {
-  var instrucaoSql = `SELECT id, razao_social, cnpj, codigo_ativacao FROM empresa`;
-
-  return database.executar(instrucaoSql);
+async function cadastrar(razaoSocial, cnpj, enderecoId) {
+  var instrucaoSql = `
+    INSERT INTO tb_empresas (razao_social, cnpj, endereco_id)
+    VALUES (?, ?, ?)
+  `;
+  return database.executar(instrucaoSql, [razaoSocial, cnpj, enderecoId]);
 }
 
-function buscarPorCnpj(cnpj) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
-
-  return database.executar(instrucaoSql);
+async function buscarPorId(id) {
+  var instrucaoSql = `SELECT * FROM tb_empresas WHERE id = ?`;
+  return database.executar(instrucaoSql, [id]);
 }
 
-function cadastrar(razaoSocial, cnpj) {
-  var instrucaoSql = `INSERT INTO empresa (razao_social, cnpj) VALUES ('${razaoSocial}', '${cnpj}')`;
-
+async function listar() {
+  var instrucaoSql = `
+    SELECT e.id, e.razao_social, e.cnpj, e.codigo_ativacao, 
+           end.rua, end.numero, end.bairro, end.cidade, end.estado, end.cep
+    FROM tb_empresas e
+    JOIN tb_enderecos end ON e.endereco_id = end.id
+  `;
   return database.executar(instrucaoSql);
 }
 

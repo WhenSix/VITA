@@ -1,14 +1,10 @@
 var usuarioModel = require("../models/usuarioModel");
 
 async function autenticar(req, res) {
-    var nome = req.body.nomeServer;
-    var senha = req.body.senhaServer;
+    const { nome, senha } = req.body;
 
-    if (nome == undefined) {
-        return res.status(400).send("Seu email está undefined!");
-    } 
-    if (senha == undefined) {
-        return res.status(400).send("Sua senha está indefinida!");
+    if (!nome || !senha) {
+        return res.status(400).json({ mensagem: "nome e senha são obrigatórios." });
     }
 
     try {
@@ -16,29 +12,20 @@ async function autenticar(req, res) {
         if (resultadoAutenticar) {
             res.json(resultadoAutenticar);
         } else {
-            res.status(403).send("Nome e/ou senha inválido(s)");
+            res.status(403).json({ mensagem: "nome e/ou senha inválido(s)" });
         }
     } catch (erro) {
         console.error("Erro ao autenticar usuário: ", erro);
-        res.status(500).json(erro.message);
+        res.status(500).json({ erro: erro.message });
     }
 }
 
 async function cadastrar(req, res) {
-    var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+    const { nome, email, senha } = req.body;
 
-    if (nome == undefined) {
-        return res.status(400).send("Seu nome está undefined!");
-    } 
-    if (email == undefined) {
-        return res.status(400).send("Seu email está undefined!");
-    } 
-    if (senha == undefined) {
-        return res.status(400).send("Sua senha está undefined!");
-    } 
-    
+    if (!nome || !email || !senha) {
+        return res.status(400).json({ mensagem: "Nome, email e senha são obrigatórios." });
+    }
 
     try {
         const resultado = await usuarioModel.cadastrar(nome, email, senha);
@@ -46,7 +33,6 @@ async function cadastrar(req, res) {
     } catch (erro) {
         console.error("Erro ao cadastrar usuário: ", erro);
         res.status(500).json({ erro: erro.message });
-
     }
 }
 
