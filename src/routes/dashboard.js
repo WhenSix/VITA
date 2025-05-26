@@ -47,8 +47,6 @@ router.get("/obterGraficoIdadeEstado/:capital", (req, res) => {
 });
 
 
-
-
 router.get("/coletarPercentualObesidade", (req, res) => {
   console.log("oi estou no router")
 
@@ -73,10 +71,44 @@ router.get("/coletarObesidadeIdade", (req, res) => {
   dashboardController.coletarObesidadeIdade(req, res);
 });
 
+// Dash Sergipe
+
+router.get("/coletarObesidadeIdadeSergipe", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarObesidadeIdadeSergipe(req, res);
+});
+
+router.get("/coletarObesidadePorSexoSergipe", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarObesidadePorSexoSergipe(req, res);
+});
+
+router.get("/obterGraficoFatoresSergipe", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.obterGraficoFatoresSergipe(req, res);
+});
+
+router.get("/coletarMaiorIMCSergipe", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarMaiorIMCSergipe(req, res);
+});
 
 
+router.get("/coletarMaiorFatorSergipe", (req, res) => {
+  console.log("oi estou no router")
 
+  dashboardController.coletarMaiorFatorSergipe(req, res);
+});
 
+router.get("/coletarMediaIMCSergipe", (req, res) => {
+  console.log("oi estou no router")
+
+  dashboardController.coletarMediaIMCSergipe(req, res);
+});
 
 
 

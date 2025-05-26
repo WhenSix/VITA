@@ -1,5 +1,5 @@
 body{
-  background-color: #6a0572;
+  background-color: #6050608c;
 }
 
 .main {
@@ -48,10 +48,20 @@ body{
   font-weight: bold;
 }
 
+#sergipe{
+  background-color: #2f7487;
+}
+
 .chart-container {
     display: grid;
     grid-template-columns: 1fr 1fr; 
     gap: 30px;
+}
+
+.titulo{
+  text-align: center;
+  color: white;
+  padding: 20px;
 }
 
 .chart-box-line {

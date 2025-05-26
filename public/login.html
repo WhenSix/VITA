@@ -167,6 +167,7 @@
         });
 
         if (!res.ok) {
+          window.location = 'dashboard/dash.html'
           const texto = await res.text();
           alert("Erro no login: " + texto);
           return;

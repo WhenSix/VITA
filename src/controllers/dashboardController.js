@@ -202,6 +202,118 @@ function coletarObesidadeIdade(req, res) {
     )
 }
 
+// Dash Sergipe
+
+function coletarObesidadeIdadeSergipe(req, res) {
+
+    dashboardModel.coletarObesidadeIdadeSergipe().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+function coletarObesidadePorSexoSergipe(req, res) {
+
+    dashboardModel.coletarObesidadePorSexoSergipe().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+function obterGraficoFatoresSergipe(req, res) {
+
+    dashboardModel.obterGraficoFatoresSergipe().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+
+function coletarMaiorIMCSergipe(req, res) {
+
+    dashboardModel.coletarMaiorIMCSergipe().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+function coletarMaiorFatorSergipe(req, res) {
+
+    dashboardModel.coletarMaiorFatorSergipe().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+function coletarMediaIMCSergipe(req, res) {
+
+    dashboardModel.coletarMediaIMCSergipe().then (
+        function (resultado) {
+            console.log('Retornei o Model')
+            res.json({
+                resultado: resultado
+            });
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao enviar os dados da tentativa. Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
+
 
 
 
@@ -217,5 +329,11 @@ module.exports = {
   obterGraficoSexoEstado,
   coletarGraficoImc,
   coletarObesidadeIdade,
-  obterGraficoIdadeEstado
+  obterGraficoIdadeEstado,
+  coletarObesidadeIdadeSergipe,
+  coletarObesidadePorSexoSergipe,
+  obterGraficoFatoresSergipe,
+  coletarMaiorIMCSergipe,
+  coletarMaiorFatorSergipe,
+  coletarMediaIMCSergipe
 }

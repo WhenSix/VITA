@@ -22,6 +22,7 @@ body {
 	transition: all 3s ease-in-out;
 	display: flex;
 	flex-direction: row;
+	
 }
 
 .lateral {
@@ -36,7 +37,8 @@ body {
     position: fixed;
     z-index: 1;
   }
-  
+
+
   h3{
     color: #000;
   }
