@@ -51,7 +51,28 @@
           <button type="button" class="btn-register" onclick="goToStep2()">Próxima etapa</button>
         </div>
 
-        <div class="step step-2" style="display: none;">
+<div class="step step-2" style="display: none;">
+      <h1>Endereço</h1>
+       <div class="input-box">
+         <input type="text" id="streetName" placeholder="Nome da rua" required />
+            <i class='bx bxs-map'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" id="streetNumber" placeholder="Número" required />
+            <i class='bx bxs-home'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" id="cep" placeholder="CEP" required />
+           <i class='bx bxs-map-pin'></i>
+      </div>
+      <div class="input-box">
+       <input type="text" id="state" placeholder="Estado" required />
+          <i class='bx bxs-city'></i>
+        </div>
+        <button type="button" class="btn-register" onclick="goToStep3()">Próxima etapa</button>
+      </div>
+
+        <div class="step step-3" style="display: none;">
           <h1>Dados da Empresa</h1>
           <div class="input-box">
             <input type="text" id="companyName" placeholder="Nome da empresa" required />
@@ -83,27 +104,42 @@
       </div>
     </div>
   </div>
-
-  <script src="js/login.js">
+<script src="js/login.js"></script>
+  <script> 
     let dadosUsuario = {};
     let idUsuario = null;
 
-    function goToStep2() {
-      const nome = document.getElementById("userName").value;
-      const email = document.getElementById("userEmail").value;
-      const senha = document.getElementById("userPassword").value;
-      const confirmarSenha = document.getElementById("confirmPassword").value;
+function goToStep2() {
+  const nome = document.getElementById("userName").value;
+  const email = document.getElementById("userEmail").value;
+  const senha = document.getElementById("userPassword").value;
+  const confirmarSenha = document.getElementById("confirmPassword").value;
 
-      if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem!");
-        return;
-      }
+  if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem!");
+    return;
+  }
 
-      dadosUsuario = { nome, email, senha };
+  dadosUsuario = { nome, email, senha };
 
-      document.querySelector(".step-1").style.display = "none";
-      document.querySelector(".step-2").style.display = "block";
-    }
+  document.querySelector(".step-1").style.display = "none";
+  document.querySelector(".step-2").style.display = "block";
+}
+
+function goToStep3() {
+  const rua = document.getElementById("streetName").value;
+  const numero = document.getElementById("streetNumber").value;
+  const cep = document.getElementById("cep").value;
+  const estado = document.getElementById("state").value;
+
+  dadosUsuario.endereco = { rua, numero, cep, estado };
+
+  document.querySelector(".step-2").style.display = "none";
+  document.querySelector(".step-3").style.display = "block";
+}
+
+const enderecoCompleto = `${dadosUsuario.endereco.rua}, ${dadosUsuario.endereco.numero} - ${dadosUsuario.endereco.cep} - ${dadosUsuario.endereco.estado}`;
+
 
     async function cadastrarEmpresa() {
       const nomeEmpresa = document.getElementById("companyName").value;
@@ -115,10 +151,10 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            nomeServer: dadosUsuario.nome,
-            emailServer: dadosUsuario.email,
-            senhaServer: dadosUsuario.senha
-          })
+            nome: dadosUsuario.nome,
+            email: dadosUsuario.email,
+            senha: dadosUsuario.senha
+        })
         });
 
         if (!resUsuario.ok) {
@@ -175,7 +211,11 @@
 
         const dados = await res.json();
         alert("Login bem-sucedido! Bem-vindo, " + dados.nome_usuario);
-        window.location.href = "index.html";
+        if (nome === "Lucas Lara" && senha === "12345678") {
+         window.location.href = "./dashboard/dashSergipe.html";
+        } else {
+         window.location.href = "./dashboard/dash.html";
+        }
       } catch (err) {
         alert("Erro ao fazer login: " + err.message);
         console.error(err);
