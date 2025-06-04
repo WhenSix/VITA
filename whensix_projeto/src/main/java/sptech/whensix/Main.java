@@ -1,5 +1,6 @@
 package sptech.whensix;
 
+import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import sptech.whensix.config.Banco;
 import sptech.whensix.config.Config;
@@ -9,12 +10,14 @@ import sptech.whensix.repository.DadoRepository;
 import sptech.whensix.s3.S3Downloader;
 import sptech.whensix.service.LoadLogs;
 import sptech.whensix.utils.*;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException{
         JdbcTemplate jdbcTemplate = new JdbcTemplate(Banco.getDataSource());
         LogProcess logProcessError = new LogProcess(TipoLog.READ_ERROR);
         LogLoad logLoad = new LogLoad(TipoLog.LOAD_START);
@@ -26,6 +29,11 @@ public class Main {
         DadoRepository dadoRepository = new DadoRepository(jdbcTemplate);
 
         try {
+            JSONObject json = new JSONObject();
+
+            json.put("text", "Importação de dados inicada!");
+            Slack.sendMessage(json);
+
             String s3FilePath = Config.get("S3_FILE_PATH");
 
             InputStream arquivoStream = S3Downloader.baixarArquivo(s3FilePath);
@@ -43,6 +51,11 @@ public class Main {
             dadoRepository.salvarPorLote(dados, tamanhoLote);
             loadLogs.saveLogsUltraFast(logs);
             logLoadSucess.CreateLog();
+
+            JSONObject json2 = new JSONObject();
+
+            json2.put("text", "Importação finalizada :rindo:!!");
+            Slack.sendMessage(json2);
 
         } catch (Exception e) {
             logLoadError.CreateLog();
