@@ -181,7 +181,6 @@ const enderecoCompleto = `${dadosUsuario.endereco.rua}, ${dadosUsuario.endereco.
           throw new Error("Erro ao cadastrar empresa: " + erro);
         }
 
-        alert("Cadastro realizado com sucesso!");
         window.location.href = "login.html";
 
       } catch (err) {
@@ -210,14 +209,14 @@ const enderecoCompleto = `${dadosUsuario.endereco.rua}, ${dadosUsuario.endereco.
         }
 
         const dados = await res.json();
-        alert("Login bem-sucedido! Bem-vindo, " + dados.nome_usuario);
+        // alert("Login bem-sucedido! Bem-vindo, " + dados.nome_usuario);
         if (nome === "Lucas Lara" && senha === "12345678") {
          window.location.href = "./dashboard/dashSergipe.html";
         } else {
          window.location.href = "./dashboard/dash.html";
         }
       } catch (err) {
-        alert("Erro ao fazer login: " + err.message);
+        // alert("Erro ao fazer login: " + err.message);
         console.error(err);
       }
     }
